@@ -1,0 +1,148 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+@theme {
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Outfit', sans-serif;
+
+  --color-forest-50: #f0fdf4;
+  --color-forest-100: #dcfce7;
+  --color-forest-500: #22c55e;
+  --color-forest-600: #16a34a;
+  --color-forest-700: #15803d;
+  --color-forest-800: #166534;
+  --color-forest-900: #14532d;
+  --color-forest-950: #052e16;
+
+  --color-orange-500: #f97316;
+  --color-orange-600: #ea580c;
+  --color-orange-700: #c2410c;
+
+  --color-mountain-50: #f8fafc;
+  --color-mountain-100: #f1f5f9;
+  --color-mountain-400: #94a3b8;
+  --color-mountain-500: #64748b;
+  --color-mountain-600: #475569;
+  --color-mountain-700: #334155;
+  --color-mountain-800: #1e293b;
+  --color-mountain-900: #0f172a;
+  --color-mountain-950: #020617;
+}
+
+/* Custom global styles & animations */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+    background-color: var(--color-mountain-950);
+    color: var(--color-mountain-100);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+}
+
+/* Custom Utility Classes */
+@layer utilities {
+  .glass-card {
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-card-hover {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .glass-card-hover:hover {
+    background: rgba(21, 128, 61, 0.08);
+    border-color: rgba(249, 115, 22, 0.3);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 20px -5px rgba(249, 115, 22, 0.15);
+    transform: translateY(-6px);
+  }
+
+  .text-gradient-orange {
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-forest {
+    background: linear-gradient(135deg, #22c55e 0%, #15803d 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-mountain {
+    background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .glow-orange {
+    box-shadow: 0 0 30px rgba(249, 115, 22, 0.25);
+  }
+
+  .glow-forest {
+    box-shadow: 0 0 30px rgba(22, 163, 74, 0.25);
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #020617;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 4px;
+    border: 2px solid #020617;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #16a34a;
+  }
+}
+
+/* Mountain Parallax Line Effect */
+.mountain-parallax {
+  background-image: linear-gradient(180deg, transparent 60%, rgba(2, 6, 23, 0.9) 95%), 
+                    url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1920&q=80');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Light Mode Toggle support classes */
+.light-theme {
+  --color-mountain-950: #f8fafc;
+  --color-mountain-900: #e2e8f0;
+  --color-mountain-800: #cbd5e1;
+  --color-mountain-700: #94a3b8;
+  --color-mountain-600: #64748b;
+  --color-mountain-500: #475569;
+  --color-mountain-400: #334155;
+  --color-mountain-100: #0f172a;
+  --color-mountain-50: #020617;
+}
+
+.light-theme .glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.light-theme .glass-card-hover:hover {
+  background: rgba(21, 128, 61, 0.04);
+  border-color: rgba(249, 115, 22, 0.5);
+  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.1), 0 0 20px -5px rgba(249, 115, 22, 0.1);
+  transform: translateY(-6px);
+}
