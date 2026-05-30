@@ -389,3 +389,5 @@ async function seedDatabase() {
 app.listen(PORT, () => {
   console.log(`Express active. Server listening on http://localhost:${PORT}`);
 });
+
+export default app;

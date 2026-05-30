@@ -303,11 +303,7 @@ export default function AdminDashboard() {
               Enter Dashboard
             </button>
 
-            <div className="p-4 bg-mountain-900/60 rounded-2xl border border-white/5 space-y-1.5 text-center text-[10px] text-mountain-500">
-              <p className="font-bold uppercase tracking-wider text-forest-500">Local-First Sandbox Credentials</p>
-              <p>Username: <span className="text-white">admin</span></p>
-              <p>Password: <span className="text-white">kaggadu2026</span></p>
-            </div>
+
 
           </form>
 
