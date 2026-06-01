@@ -121,28 +121,8 @@
   background-size: cover;
 }
 
-/* Light Mode Toggle support classes */
-.light-theme {
-  --color-mountain-950: #f8fafc;
-  --color-mountain-900: #e2e8f0;
-  --color-mountain-800: #cbd5e1;
-  --color-mountain-700: #94a3b8;
-  --color-mountain-600: #64748b;
-  --color-mountain-500: #475569;
-  --color-mountain-400: #334155;
-  --color-mountain-100: #0f172a;
-  --color-mountain-50: #020617;
+/* Premium Dark Mode Google Map filter style */
+.dark-google-map {
+  filter: invert(90%) hue-rotate(180deg) brightness(95%) contrast(110%) grayscale(20%);
 }
 
-.light-theme .glass-card {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(15, 23, 42, 0.08);
-}
-
-.light-theme .glass-card-hover:hover {
-  background: rgba(21, 128, 61, 0.04);
-  border-color: rgba(249, 115, 22, 0.5);
-  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.1), 0 0 20px -5px rgba(249, 115, 22, 0.1);
-  transform: translateY(-6px);
-}

@@ -491,7 +491,7 @@ export default function Home() {
                 <iframe 
                   title="Kaggadu Camp Map"
                   src="https://maps.google.com/maps?q=Jayanagar%204th%20Block,%20Tumkur,%20Karnataka&z=15&output=embed" 
-                  className="w-full h-full border-0 grayscale invert contrast-125 opacity-75"
+                  className="w-full h-full border-0 dark-google-map"
                   allowFullScreen="" 
                   loading="lazy" 
                   referrerPolicy="no-referrer-when-downgrade"

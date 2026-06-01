@@ -121,52 +121,28 @@ export default function Navbar() {
 
           <div className="h-5 w-px bg-white/10"></div>
 
-          {/* Theme & User Controls */}
-          <div className="flex items-center gap-4">
-            <button 
-              onClick={toggleTheme}
-              className="p-2 rounded-full hover:bg-white/5 border border-transparent hover:border-white/10 transition-all duration-300 text-mountain-400 hover:text-white"
-              title="Toggle Light/Dark Theme"
-            >
-              {isDark ? <Sun className="w-5 h-5 text-orange-500" /> : <Moon className="w-5 h-5 text-forest-700" />}
-            </button>
-
-            {isAdmin ? (
-              <div className="flex items-center gap-3">
-                <Link 
-                  to="/admin" 
-                  className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-orange-500 border border-orange-500/30 rounded-full bg-orange-500/10 hover:bg-orange-500 hover:text-white transition-all duration-300"
-                >
-                  Admin Panel
-                </Link>
-                <button
-                  onClick={handleLogout}
-                  className="p-2 rounded-full border border-white/5 bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300"
-                  title="Logout"
-                >
-                  <LogOut className="w-4 h-4" />
-                </button>
-              </div>
-            ) : (
+          {/* User Controls (Admin Panel showing only if logged in) */}
+          {isAdmin && (
+            <div className="flex items-center gap-3">
               <Link 
                 to="/admin" 
-                className="px-5 py-2 text-xs font-bold uppercase tracking-wider text-white border border-white/10 rounded-full hover:border-forest-500 hover:bg-forest-700 transition-all duration-300"
+                className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-orange-500 border border-orange-500/30 rounded-full bg-orange-500/10 hover:bg-orange-500 hover:text-white transition-all duration-300"
               >
-                Admin Login
+                Admin Panel
               </Link>
-            )}
-          </div>
+              <button
+                onClick={handleLogout}
+                className="p-2 rounded-full border border-white/5 bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 cursor-pointer"
+                title="Logout"
+              >
+                <LogOut className="w-4 h-4" />
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Mobile Toggle */}
         <div className="flex items-center gap-3 lg:hidden">
-          <button 
-            onClick={toggleTheme}
-            className="p-2 rounded-full hover:bg-white/5 text-mountain-400"
-          >
-            {isDark ? <Sun className="w-5 h-5 text-orange-500" /> : <Moon className="w-5 h-5 text-forest-700" />}
-          </button>
-          
           <button 
             onClick={() => setIsOpen(!isOpen)}
             className="p-2 bg-mountain-900 border border-white/10 rounded-full text-mountain-100 focus:outline-none"
@@ -202,35 +178,28 @@ export default function Navbar() {
             </li>
           ))}
           
-          <div className="h-px bg-white/10 my-2"></div>
-
-          <li>
-            {isAdmin ? (
-              <div className="flex flex-col gap-3">
-                <Link 
-                  to="/admin" 
-                  onClick={() => setIsOpen(false)}
-                  className="py-3 text-center text-sm font-bold uppercase tracking-wider text-orange-500 border border-orange-500/30 rounded-lg bg-orange-500/10 hover:bg-orange-500 hover:text-white transition-all"
-                >
-                  Admin Panel
-                </Link>
-                <button
-                  onClick={handleLogout}
-                  className="py-3 text-center text-sm font-bold uppercase tracking-wider text-red-500 border border-red-500/20 rounded-lg bg-red-500/10 hover:bg-red-500 hover:text-white transition-all"
-                >
-                  Logout Admin
-                </button>
-              </div>
-            ) : (
-              <Link 
-                to="/admin" 
-                onClick={() => setIsOpen(false)}
-                className="block py-3 text-center text-sm font-bold uppercase tracking-wider text-white border border-white/10 rounded-lg hover:border-forest-500 hover:bg-forest-700 transition-all"
-              >
-                Admin Login
-              </Link>
-            )}
-          </li>
+          {isAdmin && (
+            <>
+              <div className="h-px bg-white/10 my-2"></div>
+              <li>
+                <div className="flex flex-col gap-3">
+                  <Link 
+                    to="/admin" 
+                    onClick={() => setIsOpen(false)}
+                    className="py-3 text-center text-sm font-bold uppercase tracking-wider text-orange-500 border border-orange-500/30 rounded-lg bg-orange-500/10 hover:bg-orange-500 hover:text-white transition-all"
+                  >
+                    Admin Panel
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="py-3 text-center text-sm font-bold uppercase tracking-wider text-red-500 border border-red-500/20 rounded-lg bg-red-500/10 hover:bg-red-500 hover:text-white transition-all cursor-pointer"
+                  >
+                    Logout Admin
+                  </button>
+                </div>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </nav>
