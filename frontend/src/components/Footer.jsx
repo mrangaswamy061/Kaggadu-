@@ -30,10 +30,10 @@ export default function Footer() {
               </div>
               <div>
                 <span className="font-display font-black text-xl tracking-wider text-white block">
-                  KAGGADU
+                  EXPLORE
                 </span>
                 <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-forest-500 block -mt-1.5">
-                  Adventures
+                  BEYOND LIMITS
                 </span>
               </div>
             </Link>
@@ -156,7 +156,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-xs text-mountain-500 text-center">
-          <p>© 2020 Kaggadu Adventures. All Rights Reserved.</p>
+          <p>© 2020 Explore Beyond Limits. All Rights Reserved.</p>
           <p className="flex items-center gap-1.5">
             Designed By&nbsp;
             <a 

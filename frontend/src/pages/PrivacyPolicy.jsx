@@ -34,7 +34,7 @@ export default function PrivacyPolicy() {
               <Trees className="w-5 h-5 text-forest-500" /> 1. Ecotourism & Environment Pledge
             </h3>
             <p>
-              Kaggadu Adventures operates strictly under the **Karnataka Forest Department green directives** and ecotourism guidelines. We mandate a zero-tolerance policy towards plastic littering, wildlife disturbance, and biological harvesting during any of our trekking expeditions.
+              Explore Beyond Limits operates strictly under the **Karnataka Forest Department green directives** and ecotourism guidelines. We mandate a zero-tolerance policy towards plastic littering, wildlife disturbance, and biological harvesting during any of our trekking expeditions.
             </p>
           </section>
 
@@ -52,7 +52,7 @@ export default function PrivacyPolicy() {
               <ShieldAlert className="w-5 h-5 text-red-500" /> 3. Medical Indemnity & Safety
             </h3>
             <p>
-              Trekking is an active physical outdoor sport. All participants must confirm they are physically fit and free of heart conditions or respiratory ailments. Kaggadu Adventures supplies basic first-aid, but participants are responsible for carrying custom prescriptions.
+              Trekking is an active physical outdoor sport. All participants must confirm they are physically fit and free of heart conditions or respiratory ailments. Explore Beyond Limits supplies basic first-aid, but participants are responsible for carrying custom prescriptions.
             </p>
           </section>
 

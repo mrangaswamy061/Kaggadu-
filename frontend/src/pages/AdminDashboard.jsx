@@ -232,7 +232,7 @@ export default function AdminDashboard() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `kaggadu_bookings_${new Date().toISOString().split('T')[0]}.csv`);
+    link.setAttribute("download", `explore_beyond_limits_bookings_${new Date().toISOString().split('T')[0]}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -329,7 +329,7 @@ export default function AdminDashboard() {
               Control Panel
             </span>
             <h1 className="font-display font-black text-3xl text-white uppercase flex items-center gap-2">
-              <ShieldCheck className="w-8 h-8 text-orange-500" /> Kaggadu Admin Command
+              <ShieldCheck className="w-8 h-8 text-orange-500" /> Explore Beyond Limits Admin Command
             </h1>
           </div>
           

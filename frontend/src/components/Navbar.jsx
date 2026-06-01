@@ -84,13 +84,13 @@ export default function Navbar() {
         
         {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <img src="/logo.jpg" alt="Kaggadu Logo" className="w-8 h-8 object-contain" />
+            <img src="/logo.jpg" alt="Explore Beyond Limits Logo" className="w-8 h-8 object-contain" />
             <div>
               <span className="font-display font-black text-xl tracking-wider text-gradient-mountain block">
-                KAGGADU
+                EXPLORE
               </span>
               <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-forest-500 block -mt-1.5">
-                Adventures
+                BEYOND LIMITS
               </span>
             </div>
           </Link>

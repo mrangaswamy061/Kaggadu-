@@ -23,7 +23,7 @@ export default function Home() {
 
   // Floating WhatsApp Link
   const whatsappNumber = "7760013106";
-  const whatsappUrl = `https://wa.me/7760013106?text=Hi%20Kaggadu%20Adventures!%20I'm%20interested%20in%20joining%20your%20upcoming%20treks.`;
+  const whatsappUrl = `https://wa.me/7760013106?text=Hi%20Explore%20Beyond%20Limits!%20I'm%20interested%20in%20joining%20your%20upcoming%20treks.`;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -99,7 +99,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-mountain-950/40 via-mountain-950/70 to-mountain-950 z-10"></div>
           <img 
             src="/background.jpg" 
-            alt="Kaggadu Hero Background" 
+            alt="Explore Beyond Limits Hero Background" 
             className="w-full h-full object-cover scale-105 animate-[pulse_10s_infinite]"
           />
         </div>
@@ -279,7 +279,7 @@ export default function Home() {
                 {/* Floating visual detail */}
                 <div className="absolute bottom-6 left-6 right-6 p-5 glass-card rounded-2xl border border-white/10 z-10">
                   <h4 className="font-display font-black text-lg text-white mb-1 uppercase tracking-wide">
-                    Kaggadu Pledge
+                    Explore Beyond Limits Pledge
                   </h4>
                   <p className="font-sans text-xs text-mountain-300 leading-relaxed">
                     "Leave nothing but footprints. Take nothing but photos. Kill nothing but time."
@@ -295,7 +295,7 @@ export default function Home() {
                   Our Community
                 </span>
                 <h2 className="font-display font-black text-4xl sm:text-5xl text-white uppercase leading-none mb-6">
-                  ABOUT <span className="text-gradient-forest">KAGGADU</span> ADVENTURES
+                  ABOUT <span className="text-gradient-forest">EXPLORE BEYOND</span> LIMITS
                 </h2>
                 <p className="font-sans text-base text-mountain-300 leading-relaxed mb-6 font-medium">
                   We are a crazy team of adventure leads, mountaineers, and travelers from Karnataka. Our community was built with a single vision: **making extreme nature and mountain therapy accessible, highly affordable, and extremely safe** for students, young professionals, and eco-tourists.
@@ -493,7 +493,7 @@ export default function Home() {
               <div className="rounded-3xl overflow-hidden border border-white/10 w-full h-80 bg-mountain-900 relative shadow-2xl">
                 {/* Realistic Google Maps Embed */}
                 <iframe 
-                  title="Kaggadu Camp Map"
+                  title="Explore Beyond Limits Camp Map"
                   src="https://maps.google.com/maps?q=Jayanagar%204th%20Block,%20Tumkur,%20Karnataka&z=15&output=embed" 
                   className="w-full h-full border-0 dark-google-map"
                   allowFullScreen="" 
@@ -558,7 +558,7 @@ export default function Home() {
               Share Your <span className="text-gradient-orange">Trail Vibe</span>
             </h3>
             <p className="font-sans text-xs text-mountain-400 mb-6">
-              Let the community know about your awesome Kaggadu Adventures experience!
+              Let the community know about your awesome Explore Beyond Limits experience!
             </p>
 
             <form onSubmit={handleReviewSubmit} className="space-y-4 font-sans text-sm">

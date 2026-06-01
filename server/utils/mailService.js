@@ -32,7 +32,7 @@ export async function sendBookingStatusEmail(booking, trekName) {
   }
 
   const mailOptions = {
-    from: `"Kaggadu Adventures" <${user}>`,
+    from: `"Explore Beyond Limits" <${user}>`,
     to: booking.email,
     subject: isApproved 
       ? `🎉 Booking CONFIRMED! Get Ready for ${trekName}!`
@@ -42,11 +42,8 @@ export async function sendBookingStatusEmail(booking, trekName) {
         <!-- Header -->
         <div style="margin-bottom: 30px;">
           <h2 style="color: #f97316; font-size: 28px; font-weight: 800; margin: 0; letter-spacing: 2px; text-transform: uppercase;">
-            KAGGADU <span style="color: #22c55e;">ADVENTURES</span>
+            EXPLORE <span style="color: #22c55e;">BEYOND LIMITS</span>
           </h2>
-          <p style="color: #94a3b8; font-size: 12px; text-transform: uppercase; letter-spacing: 4px; margin-top: 5px;">
-            Explore Beyond Limits
-          </p>
         </div>
 
         <!-- Banner / Hero -->
@@ -56,8 +53,8 @@ export async function sendBookingStatusEmail(booking, trekName) {
           </h3>
           <p style="color: #cbd5e1; font-size: 15px; line-height: 1.6; margin-bottom: 20px;">
             ${isApproved 
-              ? `Your trek booking has been officially verified and **approved** by our leads! Get ready to scale the peaks, make amazing memories, and vibe with the youthful Kaggadu community.` 
-              : `Thank you for your interest in Kaggadu Adventures. Unfortunately, we were unable to verify your payment or your booking details, and your request has been declined.`}
+              ? `Your trek booking has been officially verified and **approved** by our leads! Get ready to scale the peaks, make amazing memories, and vibe with the youthful Explore Beyond Limits community.` 
+              : `Thank you for your interest in Explore Beyond Limits. Unfortunately, we were unable to verify your payment or your booking details, and your request has been declined.`}
           </p>
 
           <!-- Status badge -->
@@ -119,7 +116,7 @@ export async function sendBookingStatusEmail(booking, trekName) {
             ✉️ Email: kaggadu@gmail.com
           </p>
           <p style="margin: 20px 0 0 0; font-size: 11px;">
-            © 2020 Kaggadu Adventures. All rights reserved. Jayanagar 4th Block, Tumkur, Karnataka.
+            © 2020 Explore Beyond Limits. All rights reserved. Jayanagar 4th Block, Tumkur, Karnataka.
           </p>
         </div>
       </div>

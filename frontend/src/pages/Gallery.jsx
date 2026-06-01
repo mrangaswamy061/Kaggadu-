@@ -86,7 +86,7 @@ export default function Gallery() {
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-xs uppercase font-black tracking-widest text-orange-500 block mb-2">Wilderness Captures</span>
           <h1 className="font-display font-black text-4xl sm:text-5xl text-white uppercase">THE MEDIA <span className="text-gradient-orange">CAMPFIRE</span></h1>
-          <p className="text-sm text-mountain-400 mt-3 font-medium">Stunning snippets of summits, sunrises, coastline hikes and forest paths captured by Kaggadu Trekkers.</p>
+          <p className="text-sm text-mountain-400 mt-3 font-medium">Stunning snippets of summits, sunrises, coastline hikes and forest paths captured by Explore Beyond Limits Trekkers.</p>
         </div>
 
         {/* Filter controls and Admin actions */}

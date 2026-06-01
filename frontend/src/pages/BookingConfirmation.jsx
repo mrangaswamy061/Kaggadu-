@@ -7,7 +7,7 @@ export default function BookingConfirmation() {
   const booking = location.state?.booking;
 
   const whatsappNumber = "+919876543210";
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Hi%20Kaggadu%20Adventures!%20I%20just%2520registered%20for%20a%20trek.%20Here%20is%20my%20details!`;
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Hi%20Explore%20Beyond%20Limits!%20I%20just%2520registered%20for%20a%20trek.%20Here%20is%20my%20details!`;
 
   return (
     <div className="bg-mountain-950 min-h-screen pt-28 pb-24 relative overflow-hidden font-sans flex items-center justify-center">

@@ -105,7 +105,7 @@ export default function Booking() {
   // Find price of selected trek
   const selectedTrekData = treks.find(t => t.name === formData.selectedTrek);
   const cost = selectedTrekData ? selectedTrekData.price : 0;
-  const upiLink = `upi://pay?pa=8310668859@axl&pn=Kaggadu%20Adventures&am=${cost}&cu=INR`;
+  const upiLink = `upi://pay?pa=8310668859@axl&pn=Explore%20Beyond%20Limits&am=${cost}&cu=INR`;
 
   return (
     <div className="bg-mountain-950 min-h-screen pt-28 pb-24 relative overflow-hidden font-sans">
