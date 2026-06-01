@@ -127,15 +127,15 @@ export default function TrekDetails() {
               <span className="text-[10px] uppercase font-bold tracking-widest text-mountain-500 block">Duration</span>
               <span className="text-sm font-black text-white mt-1 block">{duration}</span>
             </div>
-            <div className="text-center sm:text-left border-l border-white/5 pl-0 sm:pl-4">
+            <div className="text-center sm:text-left border-l border-white/5 pl-4 sm:pl-4">
               <span className="text-[10px] uppercase font-bold tracking-widest text-mountain-500 block">Departure</span>
               <span className="text-sm font-black text-white mt-1 block">{date}</span>
             </div>
-            <div className="text-center sm:text-left border-l border-white/5 pl-0 sm:pl-4">
+            <div className="text-center sm:text-left border-t sm:border-t-0 sm:border-l border-white/5 pt-4 sm:pt-0 pl-0 sm:pl-4 col-span-1">
               <span className="text-[10px] uppercase font-bold tracking-widest text-mountain-500 block">Start Point</span>
               <span className="text-sm font-black text-white mt-1 block">Bengaluru</span>
             </div>
-            <div className="text-center sm:text-left border-l border-white/5 pl-0 sm:pl-4">
+            <div className="text-center sm:text-left border-t sm:border-t-0 border-l sm:border-l border-white/5 pt-4 sm:pt-0 pl-4 sm:pl-4 col-span-1">
               <span className="text-[10px] uppercase font-bold tracking-widest text-mountain-500 block">Max Altitude</span>
               <span className="text-sm font-black text-white mt-1 block">1894 Mtr</span>
             </div>
@@ -223,7 +223,7 @@ export default function TrekDetails() {
             <h3 className="font-display font-bold text-2xl text-white uppercase flex items-center gap-2">
               <span className="w-1.5 h-4 bg-orange-500 rounded-full"></span> Trail Memories
             </h3>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
               {gallery && gallery.map((pic, idx) => (
                 <div key={idx} className="rounded-2xl overflow-hidden border border-white/5 aspect-[4/3] group relative shadow-lg">
                   <img 

@@ -106,8 +106,6 @@ export default function Home() {
             className="w-full h-full object-cover scale-105 animate-[pulse_10s_infinite]"
           />
         </div>
-        {/* Logo overlay */}
-        <img src="/logo.jpg" alt="Kaggadu Logo" className="absolute top-6 left-6 w-12 h-12 object-contain" />
 
         {/* Animated Mountain Parallax Overlay Lines */}
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-mountain-950 to-transparent z-20 pointer-events-none"></div>
@@ -181,15 +179,15 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, idx) => (
-              <div key={idx} className="flex items-center gap-4 justify-center lg:justify-start">
-                <div className="bg-mountain-900/60 p-3.5 rounded-2xl border border-white/5">
+              <div key={idx} className="flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 text-center sm:text-left justify-center lg:justify-start">
+                <div className="bg-mountain-900/60 p-3.5 rounded-2xl border border-white/5 shrink-0">
                   <stat.icon className={`w-6 h-6 ${stat.color}`} />
                 </div>
                 <div>
-                  <h4 className="font-display font-black text-2xl sm:text-3xl text-white">
+                  <h4 className="font-display font-black text-xl sm:text-2xl lg:text-3xl text-white leading-tight">
                     {stat.value}
                   </h4>
-                  <p className="font-sans text-xs uppercase tracking-wider text-mountain-500 font-bold">
+                  <p className="font-sans text-[10px] sm:text-xs uppercase tracking-wider text-mountain-500 font-bold mt-0.5">
                     {stat.label}
                   </p>
                 </div>

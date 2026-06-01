@@ -177,7 +177,7 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`fixed inset-x-0 top-[76px] lg:hidden bg-mountain-950/95 backdrop-blur-lg border-b border-white/5 transition-all duration-300 ease-in-out ${
+      <div className={`fixed inset-x-0 top-full lg:hidden bg-mountain-950/95 backdrop-blur-lg border-b border-white/5 transition-all duration-300 ease-in-out ${
         isOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-4 pointer-events-none'
       }`}>
         <ul className="flex flex-col px-6 py-6 gap-5">
