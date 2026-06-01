@@ -375,7 +375,7 @@ export const apiService = {
       localStorage.setItem('kaggadu_admin_token', 'mock-jwt-token-kaggadu-2026');
       return { success: true, token: 'mock-jwt-token-kaggadu-2026' };
     }
-    throw new Error('Invalid Admin credentials! (Use admin / kaggadu2026)');
+    throw new Error('Invalid Admin credentials!');
   },
 
   adminLogout: async () => {
