@@ -18,7 +18,7 @@ export default function Home() {
   });
   const [reviews, setReviews] = useState([]);
   const [showReviewModal, setShowReviewModal] = useState(false);
-  const [reviewForm, setReviewForm] = useState({ name: '', role: '', rating: 5, text: '' });
+  const [reviewForm, setReviewForm] = useState({ name: '', email: '', role: '', rating: 5, text: '' });
   const [submittingReview, setSubmittingReview] = useState(false);
 
   // Floating WhatsApp Link
@@ -53,19 +53,16 @@ export default function Home() {
 
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
-    if (!reviewForm.name || !reviewForm.text || !reviewForm.role) {
+    if (!reviewForm.name || !reviewForm.email || !reviewForm.text || !reviewForm.role) {
       alert("Please fill in all the review fields!");
       return;
     }
     try {
       setSubmittingReview(true);
-      const savedReview = await apiService.createReview({
-        ...reviewForm,
-        image: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80"
-      });
+      const savedReview = await apiService.createReview(reviewForm);
       setReviews(prev => [savedReview, ...prev]);
       setShowReviewModal(false);
-      setReviewForm({ name: '', role: '', rating: 5, text: '' });
+      setReviewForm({ name: '', email: '', role: '', rating: 5, text: '' });
     } catch (err) {
       console.error("Failed submitting review", err);
       alert("Something went wrong while submitting your review!");
@@ -383,23 +380,20 @@ export default function Home() {
                       <Star key={i} className="w-4 h-4 fill-orange-500 text-orange-500" />
                     ))}
                   </div>
-
                   <p className="font-sans text-sm text-mountain-300 leading-relaxed mb-6 flex-grow italic">
                     "{t.text}"
                   </p>
 
                   {/* Profiler */}
                   <div className="flex items-center gap-4 mt-auto border-t border-white/5 pt-5">
-                    <img 
-                      src={t.image} 
-                      alt={t.name} 
-                      className="w-12 h-12 rounded-full object-cover border border-white/10"
-                    />
+                    <div className="w-10 h-10 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-500 font-display font-black text-sm flex items-center justify-center shrink-0 uppercase">
+                      {t.name.charAt(0)}
+                    </div>
                     <div>
                       <h4 className="font-display font-bold text-sm text-white">
                         {t.name}
                       </h4>
-                      <p className="font-sans text-[11px] font-bold text-forest-500 uppercase tracking-wider">
+                      <p className="font-sans text-[11px] font-bold text-forest-500 uppercase tracking-wider mt-0.5">
                         {t.role}
                       </p>
                     </div>
@@ -588,6 +582,20 @@ export default function Home() {
                   placeholder="e.g. Student / Nature Enthusiast"
                   value={reviewForm.role}
                   onChange={(e) => setReviewForm({ ...reviewForm, role: e.target.value })}
+                  className="w-full px-4 py-3 bg-mountain-900/60 border border-white/5 rounded-xl focus:border-orange-500 focus:outline-none text-white font-medium"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs uppercase font-bold tracking-wider text-mountain-400 mb-1.5">
+                  Your Email Address
+                </label>
+                <input
+                  type="email"
+                  required
+                  placeholder="e.g. name@example.com"
+                  value={reviewForm.email}
+                  onChange={(e) => setReviewForm({ ...reviewForm, email: e.target.value })}
                   className="w-full px-4 py-3 bg-mountain-900/60 border border-white/5 rounded-xl focus:border-orange-500 focus:outline-none text-white font-medium"
                 />
               </div>
