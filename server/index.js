@@ -355,31 +355,11 @@ async function seedDatabase() {
     // 4. Seed Default Reviews
     const reviewsCount = await Review.countDocuments();
     if (reviewsCount === 0) {
-      const initialReviews = [
-        {
-          name: "Akash Gowda",
-          role: "Engineering Student",
-          rating: 5,
-          text: "Absolutely the best weekend of my college life! The Kudremukh trek was so well organized. Excellent guides, super friendly crowd, and very budget-friendly. Recommend 100%!",
-          image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=150&q=80"
-        },
-        {
-          name: "Dr. Anjali Rao",
-          role: "Nature Lover",
-          rating: 5,
-          text: "Kaggadu Adventures knows how to curate trails. The Skandagiri Night Trek was magical. Walking above the sea of clouds at sunrise was pure therapy. Very safe for solo female trekkers.",
-          image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80"
-        },
-        {
-          name: "Pranav M",
-          role: "IT Professional",
-          rating: 5,
-          text: "Highly energetic leads! Gokarna Beach trek was an absolute blast. Campfire under the stars with live music made it unforgettable. Group vibes are so youthful and amazing.",
-          image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80"
-        }
-      ];
-      await Review.insertMany(initialReviews);
-      console.log('Seeded initial reviews data.');
+      const initialReviews = [];
+      if (initialReviews.length > 0) {
+        await Review.insertMany(initialReviews);
+        console.log('Seeded initial reviews data.');
+      }
     }
   } catch (err) {
     console.error('Database seeding failed', err);

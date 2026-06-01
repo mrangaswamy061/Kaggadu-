@@ -367,46 +367,54 @@ export default function Home() {
           </div>
 
           {/* Testimonial Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {reviews.map((t) => (
-              <div key={t.id || t._id} className="glass-card glass-card-hover p-8 rounded-2xl flex flex-col h-full border border-white/5 relative">
-                
-                {/* Visual Quote mark */}
-                <span className="absolute top-6 right-8 text-6xl font-display font-black text-forest-700/20 pointer-events-none">
-                  “
-                </span>
+          {reviews.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {reviews.map((t) => (
+                <div key={t.id || t._id} className="glass-card glass-card-hover p-8 rounded-2xl flex flex-col h-full border border-white/5 relative">
+                  
+                  {/* Visual Quote mark */}
+                  <span className="absolute top-6 right-8 text-6xl font-display font-black text-forest-700/20 pointer-events-none">
+                    “
+                  </span>
 
-                {/* Rating stars */}
-                <div className="flex items-center gap-1 mb-5">
-                  {[...Array(t.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-orange-500 text-orange-500" />
-                  ))}
-                </div>
-
-                <p className="font-sans text-sm text-mountain-300 leading-relaxed mb-6 flex-grow italic">
-                  "{t.text}"
-                </p>
-
-                {/* Profiler */}
-                <div className="flex items-center gap-4 mt-auto border-t border-white/5 pt-5">
-                  <img 
-                    src={t.image} 
-                    alt={t.name} 
-                    className="w-12 h-12 rounded-full object-cover border border-white/10"
-                  />
-                  <div>
-                    <h4 className="font-display font-bold text-sm text-white">
-                      {t.name}
-                    </h4>
-                    <p className="font-sans text-[11px] font-bold text-forest-500 uppercase tracking-wider">
-                      {t.role}
-                    </p>
+                  {/* Rating stars */}
+                  <div className="flex items-center gap-1 mb-5">
+                    {[...Array(t.rating)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-orange-500 text-orange-500" />
+                    ))}
                   </div>
-                </div>
 
-              </div>
-            ))}
-          </div>
+                  <p className="font-sans text-sm text-mountain-300 leading-relaxed mb-6 flex-grow italic">
+                    "{t.text}"
+                  </p>
+
+                  {/* Profiler */}
+                  <div className="flex items-center gap-4 mt-auto border-t border-white/5 pt-5">
+                    <img 
+                      src={t.image} 
+                      alt={t.name} 
+                      className="w-12 h-12 rounded-full object-cover border border-white/10"
+                    />
+                    <div>
+                      <h4 className="font-display font-bold text-sm text-white">
+                        {t.name}
+                      </h4>
+                      <p className="font-sans text-[11px] font-bold text-forest-500 uppercase tracking-wider">
+                        {t.role}
+                      </p>
+                    </div>
+                  </div>
+
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-16 border border-white/5 rounded-2xl glass-card max-w-4xl mx-auto">
+              <MessageSquare className="w-12 h-12 text-orange-500 mx-auto mb-4" />
+              <h3 className="font-display font-bold text-white text-lg">No trail reviews yet</h3>
+              <p className="font-sans text-xs text-mountain-400 mt-1">Be the first to share your epic trekking experience with the community!</p>
+            </div>
+          )}
 
         </div>
       </section>
