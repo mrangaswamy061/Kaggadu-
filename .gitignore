@@ -1,0 +1,11 @@
+node_modules
+dist/
+assets/
+index.html
+favicon.svg
+background.jpg
+logo.jpg
+group_trekkers.png
+icons.svg
+_redirects
+.env
