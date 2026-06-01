@@ -162,12 +162,16 @@ export default function Home() {
           </motion.div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 hidden md:block">
-          <div className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center p-1.5">
+        {/* Scroll indicator (Secret Admin Portal Link) */}
+        <Link 
+          to="/admin" 
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 block hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
+          title="Scroll Down / Admin Gate"
+        >
+          <div className="w-6 h-10 border-2 border-white/20 hover:border-orange-500/50 rounded-full flex justify-center p-1.5 transition-colors">
             <div className="w-1 h-2 bg-orange-500 rounded-full animate-bounce"></div>
           </div>
-        </div>
+        </Link>
 
       </section>
 
