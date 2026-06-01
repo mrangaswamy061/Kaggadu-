@@ -105,6 +105,7 @@ export default function Booking() {
   // Find price of selected trek
   const selectedTrekData = treks.find(t => t.name === formData.selectedTrek);
   const cost = selectedTrekData ? selectedTrekData.price : 0;
+  const upiLink = `upi://pay?pa=8310668859@axl&pn=Kaggadu%20Adventures&am=${cost}&cu=INR`;
 
   return (
     <div className="bg-mountain-950 min-h-screen pt-28 pb-24 relative overflow-hidden font-sans">
@@ -283,10 +284,20 @@ export default function Booking() {
               </div>
 
               {/* UPI address and Gpay details */}
-              <div className="bg-mountain-900/80 p-4 rounded-2xl border border-white/5 text-center space-y-2">
-                <span className="text-[10px] uppercase font-black text-mountain-500 block">Scan UPI QR / Gpay Phone number</span>
-                <span className="font-display font-black text-base text-white tracking-wider block">kaggadu@upi</span>
-                <span className="text-xs font-semibold text-forest-400 block">+91 98765 43210</span>
+              <div className="bg-mountain-900/80 p-5 rounded-2xl border border-white/5 text-center space-y-3">
+                <span className="text-[10px] uppercase font-black text-mountain-500 block">Scan UPI QR / VPA Address</span>
+                <span className="font-display font-black text-base text-white tracking-wider block">8310668859@axl</span>
+                
+                <a 
+                  href={upiLink} 
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 w-full bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xs uppercase tracking-widest rounded-xl transition duration-300 shadow-md hover:translate-y-[-1px] cursor-pointer"
+                >
+                  <IndianRupee className="w-3.5 h-3.5 shrink-0" /> Pay via UPI App (₹{cost})
+                </a>
+                
+                <p className="text-[10px] text-mountain-500 font-semibold leading-relaxed">
+                  *UPI deep-linking opens PhonePe, GPay, or Paytm instantly on mobile with pre-filled details!
+                </p>
               </div>
 
               {/* Upload screenshot box */}
