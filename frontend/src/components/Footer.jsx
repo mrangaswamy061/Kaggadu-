@@ -30,15 +30,15 @@ export default function Footer() {
               </div>
               <div>
                 <span className="font-display font-black text-xl tracking-wider text-white block">
-                  EXPLORE
+                  KAGGADU
                 </span>
                 <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-forest-500 block -mt-1.5">
-                  BEYOND LIMITS
+                  LIVE WITH NATURE
                 </span>
               </div>
             </Link>
             <p className="font-sans text-sm text-mountain-400 leading-relaxed">
-              Karnataka's most passionate and energetic adventure community. Organizing safe, highly affordable, and memory-loaded trekking expeditions for students and young nature lovers. Let's explore beyond limits!
+              Karnataka's most passionate and energetic adventure community. Organizing safe, highly affordable, and memory-loaded trekking expeditions for students and young nature lovers. Let's live with nature!
             </p>
             <div className="flex items-center gap-3">
               <a href="https://www.instagram.com/kaggadu_adventures?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noreferrer" className="p-2.5 rounded-full bg-mountain-900 border border-white/5 hover:border-orange-500 hover:text-orange-500 transition-all duration-300 text-mountain-400">
@@ -156,7 +156,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-xs text-mountain-500 text-center">
-          <p>© 2020 Explore Beyond Limits. All Rights Reserved.</p>
+          <p>© 2020 Kaggadu Adventures. All Rights Reserved.</p>
           <p className="flex items-center gap-1.5">
             Designed By&nbsp;
             <a 

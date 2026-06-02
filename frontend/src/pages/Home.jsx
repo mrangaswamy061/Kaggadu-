@@ -184,7 +184,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-mountain-950/70 via-mountain-950/80 to-mountain-950 z-10"></div>
           <img 
             src={getCompressedImgUrl("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b", 1200)} 
-            alt="Explore Beyond Limits Hero Background" 
+            alt="Kaggadu Adventures Hero Background" 
             className="w-full h-full object-cover scale-105 animate-[pulse_12s_infinite]"
           />
         </div>
@@ -193,7 +193,7 @@ export default function Home() {
         <div className="absolute top-8 left-0 right-0 z-20 flex justify-center lg:hidden">
           <div className="flex items-center gap-2 px-4 py-2 bg-mountain-950/40 backdrop-blur-md border border-white/5 rounded-full">
             <img src="/logo.jpg" alt="Logo" className="w-6 h-6 object-contain rounded-full" />
-            <span className="font-display font-black text-sm tracking-wider text-gradient-mountain">EXPLORE BEYOND LIMITS</span>
+            <span className="font-display font-black text-sm tracking-wider text-gradient-mountain">KAGGADU LIVE WITH NATURE</span>
           </div>
         </div>
 
@@ -364,7 +364,7 @@ export default function Home() {
                 />
                 <div className="absolute bottom-6 left-6 right-6 p-4 glass-card rounded-2xl border border-white/10 z-10">
                   <h4 className="font-display font-black text-sm text-white mb-1 uppercase tracking-wide">
-                    Explore Beyond Limits Pledge
+                    Kaggadu Adventures Pledge
                   </h4>
                   <p className="font-sans text-[11px] text-mountain-300 leading-relaxed">
                     "Leave nothing but footprints. Take nothing but photos. Kill nothing but time."
@@ -380,7 +380,7 @@ export default function Home() {
                   Youth Trekking Network
                 </span>
                 <h2 className="font-display font-black text-3xl sm:text-4xl text-white uppercase leading-none mb-4">
-                  ABOUT <span className="text-gradient-forest">EXPLORE BEYOND</span> LIMITS
+                  ABOUT <span className="text-gradient-forest">KAGGADU</span> ADVENTURES
                 </h2>
                 <p className="font-sans text-xs sm:text-sm text-mountain-300 leading-relaxed font-semibold">
                   We are a wild team of adventure leads, mountaineers, and travelers from Karnataka. Our community was built with a single vision: **making high-altitude nature and mountain therapy accessible, highly affordable, and extremely safe** for students and young travelers.
@@ -549,7 +549,7 @@ export default function Home() {
             <div className="lg:col-span-7 space-y-4">
               <div className="rounded-2xl overflow-hidden border border-white/10 w-full h-64 bg-mountain-900 relative shadow-lg">
                 <iframe 
-                  title="Explore Beyond Limits Map"
+                  title="Kaggadu Adventures Map"
                   src="https://maps.google.com/maps?q=Jayanagar%204th%20Block,%20Tumkur,%20Karnataka&z=14&output=embed" 
                   className="w-full h-full border-0 dark-google-map"
                   allowFullScreen="" 
