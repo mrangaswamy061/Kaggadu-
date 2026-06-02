@@ -141,66 +141,10 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Mobile Toggle */}
-        <div className="flex items-center gap-3 lg:hidden">
-          <button 
-            onClick={() => setIsOpen(!isOpen)}
-            className="p-2 bg-mountain-900 border border-white/10 rounded-full text-mountain-100 focus:outline-none"
-          >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+        {/* Mobile Toggle - Removed since we use sticky Bottom Navigation */}
+        <div className="lg:hidden">
+          {/* Keep top header clean on mobile */}
         </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <div className={`fixed inset-x-0 top-full lg:hidden bg-mountain-950/95 backdrop-blur-lg border-b border-white/5 transition-all duration-300 ease-in-out ${
-        isOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-4 pointer-events-none'
-      }`}>
-        <ul className="flex flex-col px-6 py-6 gap-5">
-          {navLinks.map((link) => (
-            <li key={link.label}>
-              {link.type === 'scroll' ? (
-                <button 
-                  onClick={() => handleScrollTo(link.target)}
-                  className="font-sans text-lg font-semibold tracking-wide text-mountain-400 hover:text-orange-500 transition-colors w-full text-left"
-                >
-                  {link.label}
-                </button>
-              ) : (
-                <Link 
-                  to={link.path}
-                  onClick={() => setIsOpen(false)}
-                  className="font-sans text-lg font-semibold tracking-wide text-mountain-400 hover:text-orange-500 transition-colors block"
-                >
-                  {link.label}
-                </Link>
-              )}
-            </li>
-          ))}
-          
-          {isAdmin && (
-            <>
-              <div className="h-px bg-white/10 my-2"></div>
-              <li>
-                <div className="flex flex-col gap-3">
-                  <Link 
-                    to="/admin" 
-                    onClick={() => setIsOpen(false)}
-                    className="py-3 text-center text-sm font-bold uppercase tracking-wider text-orange-500 border border-orange-500/30 rounded-lg bg-orange-500/10 hover:bg-orange-500 hover:text-white transition-all"
-                  >
-                    Admin Panel
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="py-3 text-center text-sm font-bold uppercase tracking-wider text-red-500 border border-red-500/20 rounded-lg bg-red-500/10 hover:bg-red-500 hover:text-white transition-all cursor-pointer"
-                  >
-                    Logout Admin
-                  </button>
-                </div>
-              </li>
-            </>
-          )}
-        </ul>
       </div>
     </nav>
   );

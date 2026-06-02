@@ -7,8 +7,9 @@ export const defaultTreks = [
     difficultyLevel: 60, // 0-100 scale
     price: 1499,
     duration: "2 Days / 1 Night",
+    distance: "8 km",
     date: "Every Sat-Sun",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80", // Sunrise style placeholder or mountain
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=70&fm=webp",
     highlights: [
       "Breathtaking views of the sunrise above a sea of clouds",
       "Night trekking experience with torchlights",
@@ -37,9 +38,9 @@ export const defaultTreks = [
       { day: "Day 2", title: "Ascent & Sunrise View", desc: "Reach the base village around 3:00 AM. Start the night trek through forest and rocky trails. Reach peak by 5:30 AM, witness the incredible sunrise, explore the ruins. Descend, have breakfast, and return to Bangalore by evening." }
     ],
     gallery: [
-      "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=600&q=80"
+      "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=600&q=70&fm=webp",
+      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=70&fm=webp",
+      "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=600&q=70&fm=webp"
     ]
   },
   {
@@ -50,8 +51,9 @@ export const defaultTreks = [
     difficultyLevel: 85,
     price: 3499,
     duration: "3 Days / 2 Nights",
+    distance: "18 km",
     date: "June 05, 2026",
-    image: "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=800&q=80", // Lush rolling green hills
+    image: "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=800&q=70&fm=webp",
     highlights: [
       "Climb the iconic horse-faced peak standing at 1894 meters",
       "Trek through lush green Shola forests and bubbling streams",
@@ -80,9 +82,9 @@ export const defaultTreks = [
       { day: "Day 3", title: "Somavati Falls & Return", desc: "Visit the cascading Somavati Waterfalls, take a dip, purchase fresh organic tea leaves, and head back to Bangalore by midnight." }
     ],
     gallery: [
-      "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=600&q=80"
+      "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=600&q=70&fm=webp",
+      "https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=600&q=70&fm=webp",
+      "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=600&q=70&fm=webp"
     ]
   },
   {
@@ -93,8 +95,9 @@ export const defaultTreks = [
     difficultyLevel: 80,
     price: 3899,
     duration: "3 Days / 2 Nights",
+    distance: "12 km",
     date: "June 19, 2026",
-    image: "https://images.unsplash.com/photo-1486873249359-2731bd6dafc7?auto=format&fit=crop&w=800&q=80", // High misty ridge
+    image: "https://images.unsplash.com/photo-1486873249359-2731bd6dafc7?auto=format&fit=crop&w=800&q=70&fm=webp",
     highlights: [
       "Stunning views of the massive Banasura Sagar Dam reservoir",
       "Challenging ridge walk above high drop-offs",
@@ -122,9 +125,9 @@ export const defaultTreks = [
       { day: "Day 3", title: "Banasura Dam & return", desc: "Visit Banasura Sagar Dam (largest earth dam in India). Optional ziplining or speedboating. Return to Bangalore by 11 PM." }
     ],
     gallery: [
-      "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=600&q=80"
+      "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=600&q=70&fm=webp",
+      "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=70&fm=webp",
+      "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=600&q=70&fm=webp"
     ]
   },
   {
@@ -135,8 +138,9 @@ export const defaultTreks = [
     difficultyLevel: 65,
     price: 3299,
     duration: "3 Days / 2 Nights",
+    distance: "14 km",
     date: "June 26, 2026",
-    image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80", // Misty mountain sunset
+    image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=70&fm=webp",
     highlights: [
       "Visit the majestic Hidlumane Waterfalls with 7 cascades",
       "Off-road 4x4 Jeep ride down the rugged mountain trail",
@@ -163,9 +167,9 @@ export const defaultTreks = [
       { day: "Day 3", title: "Nagabana & Return", desc: "Visit the historic Nagara Fort, explore ruins, take photos, and drive back to Bangalore, reaching around 10:00 PM." }
     ],
     gallery: [
-      "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?auto=format&fit=crop&w=600&q=80"
+      "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=600&q=70&fm=webp",
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=70&fm=webp",
+      "https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?auto=format&fit=crop&w=600&q=70&fm=webp"
     ]
   },
   {
@@ -176,8 +180,9 @@ export const defaultTreks = [
     difficultyLevel: 30,
     price: 2999,
     duration: "3 Days / 2 Nights",
+    distance: "10 km",
     date: "Every Friday",
-    image: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=800&q=80", // Gokarna beach cliff
+    image: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=800&q=70&fm=webp",
     highlights: [
       "Trek along five major pristine beaches of Gokarna",
       "Camp right under the starry sky on a secluded beach cliff",
@@ -204,20 +209,41 @@ export const defaultTreks = [
       { day: "Day 3", title: "Temple Visit & Return", desc: "Visit the ancient Mahabaleshwar temple (optional), try continental cafes at Om Beach, and head back to Bangalore." }
     ],
     gallery: [
-      "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1540206395-68808572332f?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=600&q=80"
+      "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=600&q=70&fm=webp",
+      "https://images.unsplash.com/photo-1540206395-68808572332f?auto=format&fit=crop&w=600&q=70&fm=webp",
+      "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=600&q=70&fm=webp"
     ]
   }
 ];
 
 export const defaultGallery = [
-  { id: 1, type: "image", category: "Sunrise", url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80", title: "Skandagiri Dawn" },
-  { id: 2, type: "image", category: "Forest", url: "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=600&q=80", title: "Kudremukh Grasslands" },
-  { id: 3, type: "image", category: "Forest", url: "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=600&q=80", title: "Into the Sholas" },
-  { id: 4, type: "image", category: "Beach", url: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=600&q=80", title: "Gokarna Cliffs" },
-  { id: 5, type: "image", category: "Sunrise", url: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80", title: "Misty Sunrise Ridge" },
-  { id: 6, type: "image", category: "Beach", url: "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=600&q=80", title: "Paradise Starlight" }
+  { id: 1, type: "image", category: "Sunrise", url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=70&fm=webp", title: "Skandagiri Dawn" },
+  { id: 2, type: "image", category: "Forest", url: "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=600&q=70&fm=webp", title: "Kudremukh Grasslands" },
+  { id: 3, type: "image", category: "Forest", url: "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=600&q=70&fm=webp", title: "Into the Sholas" },
+  { id: 4, type: "image", category: "Beach", url: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=600&q=70&fm=webp", title: "Gokarna Cliffs" },
+  { id: 5, type: "image", category: "Sunrise", url: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=70&fm=webp", title: "Misty Sunrise Ridge" },
+  { id: 6, type: "image", category: "Beach", url: "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=600&q=70&fm=webp", title: "Paradise Starlight" },
+  { id: 7, type: "video", category: "Sunrise", url: "https://assets.mixkit.co/videos/preview/mixkit-misty-mountain-landscape-at-sunrise-34305-large.mp4", title: "Misty Valley Dawn Reel" },
+  { id: 8, type: "video", category: "Beach", url: "https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-beach-cliffs-and-waves-42232-large.mp4", title: "Gokarna Shoreline Reel" }
 ];
 
-export const defaultTestimonials = [];
+export const defaultTestimonials = [
+  {
+    _id: "rev-1",
+    name: "Arjun Mehta",
+    email: "arjun@gmail.com",
+    role: "Student, PES University",
+    rating: 5,
+    text: "Absolutely mind-blowing skandagiri night trek! The crew was super friendly, kept us hyped up throughout, and the sunrise above the clouds was worth every drop of sweat.",
+    createdAt: new Date().toISOString()
+  },
+  {
+    _id: "rev-2",
+    name: "Pooja Hegde",
+    email: "pooja@yahoo.com",
+    role: "IT Professional",
+    rating: 5,
+    text: "Kudremukh was majestic. Clean home-stay, authentic local food, forest permissions were sorted beforehand, and guides knew every bend of the trail. Highly recommended!",
+    createdAt: new Date().toISOString()
+  }
+];

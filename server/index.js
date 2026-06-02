@@ -257,6 +257,7 @@ async function seedDatabase() {
           difficultyLevel: 60,
           price: 1499,
           duration: "2 Days / 1 Night",
+          distance: "8 km",
           date: "Every Sat-Sun",
           image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
           highlights: [
@@ -300,6 +301,7 @@ async function seedDatabase() {
           difficultyLevel: 85,
           price: 3499,
           duration: "3 Days / 2 Nights",
+          distance: "18 km",
           date: "June 05, 2026",
           image: "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=800&q=80",
           highlights: [

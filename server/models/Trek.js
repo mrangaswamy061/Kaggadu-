@@ -8,6 +8,7 @@ const TrekSchema = new mongoose.Schema({
   difficultyLevel: { type: Number, required: true, min: 0, max: 100 },
   price: { type: Number, required: true },
   duration: { type: String, required: true },
+  distance: { type: String, default: '12 km' },
   date: { type: String, required: true },
   image: { type: String, required: true },
   highlights: [{ type: String }],

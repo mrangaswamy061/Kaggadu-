@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import BottomNavigation from './components/BottomNavigation';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import TrekDetails from './pages/TrekDetails';
@@ -34,12 +35,23 @@ export default function App() {
           </Routes>
         </main>
 
+        {/* Mobile Sticky Bottom Navigation */}
+        <BottomNavWrapper />
+
         {/* Global Layout Footer */}
         <FooterWrapper />
 
       </div>
     </Router>
   );
+}
+
+function BottomNavWrapper() {
+  const location = useLocation();
+  if (location.pathname === '/admin') {
+    return null;
+  }
+  return <BottomNavigation />;
 }
 
 function FooterWrapper() {
