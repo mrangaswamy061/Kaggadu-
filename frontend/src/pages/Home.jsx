@@ -1197,6 +1197,16 @@ export default function Home() {
               transition={{ duration: 0.2 }}
               className="flex flex-col items-end gap-2.5 mb-2"
             >
+              {/* Event Calendar */}
+              <button
+                onClick={() => { setShowFloatingMenu(false); document.getElementById('upcoming-events').scrollIntoView({ behavior: 'smooth' }); }}
+                className="flex items-center gap-2 p-2.5 bg-orange-600 text-white rounded-full shadow-2xl border border-orange-500/20 active:scale-95 transition cursor-pointer"
+                title="Upcoming Events Calendar"
+              >
+                <span className="bg-mountain-950/80 px-2 py-0.5 text-[9px] font-black rounded text-orange-500 uppercase tracking-widest border border-white/5">Calendar</span>
+                <Calendar className="w-5 h-5 shrink-0" />
+              </button>
+
               {/* Quick Book */}
               <button
                 onClick={() => { setShowFloatingMenu(false); navigate('/booking'); }}

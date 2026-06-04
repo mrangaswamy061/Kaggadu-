@@ -68,6 +68,7 @@ export default function Navbar() {
   const navLinks = [
     { label: 'Home', type: 'scroll', target: 'hero' },
     { label: 'Upcoming Treks', type: 'scroll', target: 'treks' },
+    { label: 'Event Calendar', type: 'scroll', target: 'upcoming-events' },
     { label: 'Gallery', type: 'link', path: '/gallery' },
     { label: 'About Us', type: 'scroll', target: 'about' },
     { label: 'Testimonials', type: 'scroll', target: 'testimonials' },

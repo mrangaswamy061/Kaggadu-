@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Home, Compass, Image, Heart, Phone, Shield } from 'lucide-react';
+import { Home, Compass, Image, Calendar, Heart, Phone, Shield } from 'lucide-react';
 import { apiService } from '../utils/apiService';
 
 export default function BottomNavigation() {
@@ -37,6 +37,7 @@ export default function BottomNavigation() {
 
       const heroSection = document.getElementById('hero');
       const treksSection = document.getElementById('treks');
+      const eventsSection = document.getElementById('upcoming-events');
       const testimonialsSection = document.getElementById('testimonials');
       const contactSection = document.getElementById('contact');
 
@@ -44,6 +45,8 @@ export default function BottomNavigation() {
         setActiveSection('contact');
       } else if (testimonialsSection && scrollPosition >= testimonialsSection.offsetTop) {
         setActiveSection('community');
+      } else if (eventsSection && scrollPosition >= eventsSection.offsetTop) {
+        setActiveSection('events');
       } else if (treksSection && scrollPosition >= treksSection.offsetTop) {
         setActiveSection('treks');
       } else {
@@ -112,15 +115,15 @@ export default function BottomNavigation() {
           <span className="text-[9px] font-sans font-black uppercase mt-1">Gallery</span>
         </Link>
 
-        {/* Community */}
+        {/* Events */}
         <button
-          onClick={(e) => handleNavClick('testimonials', e)}
+          onClick={(e) => handleNavClick('upcoming-events', e)}
           className={`flex flex-col items-center justify-center w-12 h-full text-center focus:outline-none transition-colors duration-200 cursor-pointer ${
-            activeSection === 'community' ? 'text-orange-500 scale-105' : 'text-mountain-450 hover:text-mountain-200'
+            activeSection === 'events' ? 'text-orange-500 scale-105' : 'text-mountain-450 hover:text-mountain-200'
           }`}
         >
-          <Heart className="w-5 h-5 shrink-0" />
-          <span className="text-[9px] font-sans font-black uppercase mt-1">Vibe</span>
+          <Calendar className="w-5 h-5 shrink-0" />
+          <span className="text-[9px] font-sans font-black uppercase mt-1">Events</span>
         </button>
 
         {/* Contact */}
