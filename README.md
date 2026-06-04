@@ -57,7 +57,7 @@ Vite will start your dev server (usually at `http://localhost:5173`). Open this 
 - **Make a Booking**: Register your details, transfer to the test UPI ID, upload a screenshot, and submit!
 - **Admin Panel**: Click **Admin Login** in the navbar. Use the credentials below to enter the control room:
   - **Username**: `admin`
-  - **Password**: `kaggadu2026`
+  - **Password**: `kaggadu2020`
 - Inside the Admin Panel, you can view the bookings table, preview uploaded screenshots in a modal popup, approve bookings, add new trek destinations, and export all trekker data to a standard CSV sheet!
 
 ---
@@ -78,7 +78,7 @@ To run the backend, ensure you have a running MongoDB instance, then configure a
    ```
 
 3. The Express backend will start listening on `http://localhost:5000`.
-4. On startup, the server **automatically seeds** default treks, default gallery items, and generates the master hashed admin credentials (`admin` / `kaggadu2026`) in your MongoDB database if it is empty!
+4. On startup, the server **automatically seeds** default treks, default gallery items, and generates the master hashed admin credentials (`admin` / `kaggadu2020`) in your MongoDB database if it is empty!
 5. The frontend will immediately detect that the backend server is online and dynamically switch from `localStorage` fallback to your MongoDB server API endpoints!
 
 ---
