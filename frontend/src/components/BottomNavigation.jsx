@@ -22,9 +22,7 @@ export default function BottomNavigation() {
   // Update active state based on scroll position if on home page
   useEffect(() => {
     if (location.pathname !== '/') {
-      if (location.pathname === '/gallery') {
-        setActiveSection('gallery');
-      } else if (location.pathname === '/admin') {
+      if (location.pathname === '/admin') {
         setActiveSection('admin');
       } else {
         setActiveSection('');
@@ -104,17 +102,6 @@ export default function BottomNavigation() {
           <span className="text-[9px] font-sans font-black uppercase mt-1">Treks</span>
         </button>
 
-        {/* Gallery */}
-        <Link
-          to="/gallery"
-          className={`flex flex-col items-center justify-center w-12 h-full text-center focus:outline-none transition-colors duration-200 ${
-            activeSection === 'gallery' ? 'text-orange-500 scale-105' : 'text-mountain-450 hover:text-mountain-200'
-          }`}
-        >
-          <Image className="w-5 h-5 shrink-0" />
-          <span className="text-[9px] font-sans font-black uppercase mt-1">Gallery</span>
-        </Link>
-
         {/* Events */}
         <button
           onClick={(e) => handleNavClick('upcoming-events', e)}
@@ -124,6 +111,17 @@ export default function BottomNavigation() {
         >
           <Calendar className="w-5 h-5 shrink-0" />
           <span className="text-[9px] font-sans font-black uppercase mt-1">Events</span>
+        </button>
+
+        {/* Community */}
+        <button
+          onClick={(e) => handleNavClick('testimonials', e)}
+          className={`flex flex-col items-center justify-center w-12 h-full text-center focus:outline-none transition-colors duration-200 cursor-pointer ${
+            activeSection === 'community' ? 'text-orange-500 scale-105' : 'text-mountain-450 hover:text-mountain-200'
+          }`}
+        >
+          <Heart className="w-5 h-5 shrink-0" />
+          <span className="text-[9px] font-sans font-black uppercase mt-1">Vibe</span>
         </button>
 
         {/* Contact */}
@@ -136,20 +134,6 @@ export default function BottomNavigation() {
           <Phone className="w-5 h-5 shrink-0" />
           <span className="text-[9px] font-sans font-black uppercase mt-1">Contact</span>
         </button>
-
-        {/* Admin Dashboard (Shortcut visible only if logged in or clicked) */}
-        {isAdmin && (
-          <Link
-            to="/admin"
-            className={`flex flex-col items-center justify-center w-12 h-full text-center focus:outline-none transition-colors duration-200 ${
-              activeSection === 'admin' ? 'text-orange-500 scale-105' : 'text-mountain-450 hover:text-mountain-200'
-            }`}
-            title="Admin Console"
-          >
-            <Shield className="w-5 h-5 shrink-0 text-orange-500 animate-pulse" />
-            <span className="text-[9px] font-sans font-black uppercase mt-1">Admin</span>
-          </Link>
-        )}
 
       </div>
     </nav>

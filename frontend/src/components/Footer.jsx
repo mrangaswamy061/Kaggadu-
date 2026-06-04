@@ -87,9 +87,9 @@ export default function Footer() {
                 </button>
               </li>
               <li>
-                <Link to="/gallery" className="text-mountain-400 hover:text-orange-500 transition-colors block">
-                  Media Gallery
-                </Link>
+                <button onClick={() => handleScrollTo('upcoming-events')} className="text-mountain-400 hover:text-orange-500 transition-colors cursor-pointer text-left">
+                  Upcoming Events
+                </button>
               </li>
               <li>
                 <button onClick={() => handleScrollTo('about')} className="text-mountain-400 hover:text-orange-500 transition-colors cursor-pointer">

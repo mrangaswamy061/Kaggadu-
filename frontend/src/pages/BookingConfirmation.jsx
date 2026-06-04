@@ -91,10 +91,10 @@ export default function BookingConfirmation() {
               Back to Home
             </Link>
             <Link 
-              to="/gallery" 
+              to="/" 
               className="flex-1 py-3 text-center text-xs font-black uppercase tracking-wider text-white bg-mountain-900 border border-white/5 rounded-xl hover:bg-mountain-850 transition duration-300"
             >
-              Explore Gallery
+              Browse More Treks
             </Link>
           </div>
 

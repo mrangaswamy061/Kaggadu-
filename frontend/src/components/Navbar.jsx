@@ -69,7 +69,6 @@ export default function Navbar() {
     { label: 'Home', type: 'scroll', target: 'hero' },
     { label: 'Upcoming Treks', type: 'scroll', target: 'treks' },
     { label: 'Event Calendar', type: 'scroll', target: 'upcoming-events' },
-    { label: 'Gallery', type: 'link', path: '/gallery' },
     { label: 'About Us', type: 'scroll', target: 'about' },
     { label: 'Testimonials', type: 'scroll', target: 'testimonials' },
     { label: 'Contact', type: 'scroll', target: 'contact' },
@@ -119,27 +118,6 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
-
-          <div className="h-5 w-px bg-white/10"></div>
-
-          {/* User Controls (Admin Panel showing only if logged in) */}
-          {isAdmin && (
-            <div className="flex items-center gap-3">
-              <Link 
-                to="/admin" 
-                className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-orange-500 border border-orange-500/30 rounded-full bg-orange-500/10 hover:bg-orange-500 hover:text-white transition-all duration-300"
-              >
-                Admin Panel
-              </Link>
-              <button
-                onClick={handleLogout}
-                className="p-2 rounded-full border border-white/5 bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 cursor-pointer"
-                title="Logout"
-              >
-                <LogOut className="w-4 h-4" />
-              </button>
-            </div>
-          )}
         </div>
 
         {/* Mobile Toggle - Removed since we use sticky Bottom Navigation */}
