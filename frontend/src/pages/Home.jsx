@@ -83,7 +83,16 @@ export default function Home() {
   const [showFloatingMenu, setShowFloatingMenu] = useState(false);
 
   const whatsappNumber = "7760013106";
-  const whatsappUrl = `https://wa.me/7760013106?text=HI%2C%20KAGGADU%20ADVENTURE%0AI'm%20interested%20in%20joining%20your%20upcoming%20treks.`;
+  const whatsappMessage = `👋 Hello Kaggadu Adventure Team,
+
+I'm interested in your trek events 🏔️
+
+📍 Trek Name:
+👥 Number of People:
+📅 Preferred Date:
+
+Please share itinerary, cost, pickup points, and availability. Thank you!`;
+  const whatsappUrl = `https://wa.me/7760013106?text=${encodeURIComponent(whatsappMessage)}`;
 
   const fetchData = async () => {
     try {
