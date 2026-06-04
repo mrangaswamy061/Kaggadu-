@@ -96,6 +96,11 @@ export default function Footer() {
                   About Community
                 </button>
               </li>
+              <li>
+                <button onClick={() => handleScrollTo('testimonials')} className="text-mountain-400 hover:text-orange-500 transition-colors cursor-pointer">
+                  Trekkers Reviews
+                </button>
+              </li>
             </ul>
           </div>
 

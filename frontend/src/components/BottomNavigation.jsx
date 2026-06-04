@@ -36,10 +36,13 @@ export default function BottomNavigation() {
       const heroSection = document.getElementById('hero');
       const treksSection = document.getElementById('treks');
       const eventsSection = document.getElementById('upcoming-events');
+      const testimonialsSection = document.getElementById('testimonials');
       const contactSection = document.getElementById('contact');
 
       if (contactSection && scrollPosition >= contactSection.offsetTop) {
         setActiveSection('contact');
+      } else if (testimonialsSection && scrollPosition >= testimonialsSection.offsetTop) {
+        setActiveSection('community');
       } else if (eventsSection && scrollPosition >= eventsSection.offsetTop) {
         setActiveSection('events');
       } else if (treksSection && scrollPosition >= treksSection.offsetTop) {
@@ -110,6 +113,16 @@ export default function BottomNavigation() {
           <span className="text-[9px] font-sans font-black uppercase mt-1">Events</span>
         </button>
 
+        {/* Community */}
+        <button
+          onClick={(e) => handleNavClick('testimonials', e)}
+          className={`flex flex-col items-center justify-center w-12 h-full text-center focus:outline-none transition-colors duration-200 cursor-pointer ${
+            activeSection === 'community' ? 'text-orange-500 scale-105' : 'text-mountain-450 hover:text-mountain-200'
+          }`}
+        >
+          <Heart className="w-5 h-5 shrink-0" />
+          <span className="text-[9px] font-sans font-black uppercase mt-1">Vibe</span>
+        </button>
 
         {/* Contact */}
         <button
