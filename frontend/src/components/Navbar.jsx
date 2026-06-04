@@ -70,7 +70,6 @@ export default function Navbar() {
     { label: 'Upcoming Treks', type: 'scroll', target: 'treks' },
     { label: 'Event Calendar', type: 'scroll', target: 'upcoming-events' },
     { label: 'About Us', type: 'scroll', target: 'about' },
-    { label: 'Testimonials', type: 'scroll', target: 'testimonials' },
     { label: 'Contact', type: 'scroll', target: 'contact' },
   ];
 

@@ -54,10 +54,7 @@ export default function Home() {
     trailsExplored: "25+",
     safetyRating: "4.9/5"
   });
-  const [reviews, setReviews] = useState([]);
-  const [showReviewModal, setShowReviewModal] = useState(false);
-  const [reviewForm, setReviewForm] = useState({ name: '', email: '', role: '', rating: 5, text: '' });
-  const [submittingReview, setSubmittingReview] = useState(false);
+
 
   // Scheduled Events states
   const [events, setEvents] = useState([]);
@@ -101,8 +98,7 @@ export default function Home() {
       const statsData = await apiService.getShowcaseStats();
       if (statsData) setShowcaseStats(statsData);
 
-      const reviewsData = await apiService.getReviews();
-      setReviews(reviewsData);
+
 
       const eventsData = await apiService.getEvents();
       setEvents(eventsData);
@@ -291,25 +287,7 @@ export default function Home() {
 
   const uniqueLocations = Array.from(new Set(events.filter(e => e.status === 'published').map(e => e.location))).filter(Boolean);
 
-  const handleReviewSubmit = async (e) => {
-    e.preventDefault();
-    if (!reviewForm.name || !reviewForm.email || !reviewForm.text || !reviewForm.role) {
-      alert("Please fill in all the review fields!");
-      return;
-    }
-    try {
-      setSubmittingReview(true);
-      const savedReview = await apiService.createReview(reviewForm);
-      setReviews(prev => [savedReview, ...prev]);
-      setShowReviewModal(false);
-      setReviewForm({ name: '', email: '', role: '', rating: 5, text: '' });
-    } catch (err) {
-      console.error("Failed submitting review", err);
-      alert("Something went wrong while submitting your review!");
-    } finally {
-      setSubmittingReview(false);
-    }
-  };
+
 
   const handleFilter = (filter) => {
     setActiveFilter(filter);
@@ -1011,84 +989,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. TESTIMONIALS SECTION */}
-      <section id="testimonials" className="py-16 relative z-20">
-        <div className="max-w-7xl mx-auto px-6">
-          
-          {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
-            <div className="text-left">
-              <span className="text-[10px] uppercase font-black tracking-widest text-orange-500 block mb-1">
-                Trekker Reviews
-              </span>
-              <h2 className="font-display font-black text-3xl sm:text-4xl text-white uppercase">
-                VIBES FROM THE <span className="text-gradient-orange">TRAIL</span>
-              </h2>
-            </div>
-            
-            <div className="flex gap-2 items-center flex-wrap shrink-0">
-              <a
-                href="https://share.google/xz6mx5xymRqaM1FnV"
-                target="_blank"
-                rel="noreferrer"
-                className="px-4 py-2 border border-white/10 bg-white/5 hover:bg-white/10 text-white font-black text-[10px] uppercase tracking-wider rounded-xl transition flex items-center gap-1.5 whitespace-nowrap min-h-[40px]"
-              >
-                Google Maps <ExternalLink className="w-3 h-3 text-orange-500" />
-              </a>
-              <button
-                onClick={() => setShowReviewModal(true)}
-                className="px-4 py-2 bg-gradient-to-r from-orange-600 to-orange-500 text-white font-black text-[10px] uppercase tracking-wider rounded-xl shadow-md transition cursor-pointer whitespace-nowrap min-h-[40px]"
-              >
-                Write Review
-              </button>
-            </div>
-          </div>
 
-          {/* Testimonial Cards Grid (Swipeable or Grid) */}
-          {reviews.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {reviews.slice(0, 3).map((t) => (
-                <div key={t.id || t._id} className="glass-card p-5 rounded-2xl flex flex-col h-full border border-white/5 relative bg-mountain-900/20">
-                  <span className="absolute top-4 right-5 text-4xl font-display font-black text-forest-750/15 pointer-events-none">
-                    “
-                  </span>
-
-                  <div className="flex items-center gap-1 mb-3">
-                    {[...Array(t.rating)].map((_, i) => (
-                      <Star key={i} className="w-3.5 h-3.5 fill-orange-500 text-orange-500" />
-                    ))}
-                  </div>
-                  
-                  <p className="font-sans text-xs text-mountain-300 leading-relaxed mb-4 flex-grow italic">
-                    "{t.text}"
-                  </p>
-
-                  <div className="flex items-center gap-3 mt-auto border-t border-white/5 pt-4">
-                    <div className="w-8 h-8 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-500 font-display font-black text-xs flex items-center justify-center shrink-0 uppercase">
-                      {t.name.charAt(0)}
-                    </div>
-                    <div>
-                      <h4 className="font-display font-bold text-xs text-white leading-none">
-                        {t.name}
-                      </h4>
-                      <p className="font-sans text-[9px] font-black text-forest-550 uppercase tracking-wider mt-1">
-                        {t.role}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12 border border-white/5 rounded-2xl glass-card">
-              <MessageSquare className="w-10 h-10 text-orange-500 mx-auto mb-3" />
-              <h3 className="font-display font-bold text-white text-sm">No reviews yet</h3>
-              <p className="font-sans text-xs text-mountain-400 mt-1">Be the first to share your trekking experience!</p>
-            </div>
-          )}
-
-        </div>
-      </section>
 
       {/* 6. CONTACT SECTION */}
       <section id="contact" className="py-16 bg-[#020617] border-t border-white/5 relative z-20">
@@ -1256,115 +1157,7 @@ export default function Home() {
         </button>
       </div>
 
-      {/* 8. REVIEW SUBMISSION MODAL */}
-      {showReviewModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-mountain-950/80 backdrop-blur-md">
-          <div className="relative w-full max-w-md overflow-hidden border border-white/10 rounded-2xl bg-[#020617] p-6 shadow-2xl animate-[zoomIn_0.25s_ease-out]">
-            <button
-              onClick={() => setShowReviewModal(false)}
-              className="absolute top-5 right-5 p-1.5 rounded-full border border-white/5 bg-mountain-900/60 text-mountain-400 hover:text-white transition focus:outline-none"
-            >
-              <X className="w-4 h-4" />
-            </button>
 
-            <h3 className="font-display font-black text-xl text-white uppercase mb-1">
-              Share Your <span className="text-gradient-orange">Trail Vibe</span>
-            </h3>
-            <p className="font-sans text-[10px] text-mountain-450 mb-4">
-              Inspire other students to explore Karnataka by posting your genuine feedback.
-            </p>
-
-            <form onSubmit={handleReviewSubmit} className="space-y-3 font-sans text-xs">
-              <div className="space-y-1">
-                <label className="block text-[9px] uppercase font-black text-mountain-400">Your Full Name</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. Darshan Gowda"
-                  value={reviewForm.name}
-                  onChange={(e) => setReviewForm({ ...reviewForm, name: e.target.value })}
-                  className="w-full px-3 py-2.5 bg-mountain-900 border border-white/10 rounded-xl focus:border-orange-500 focus:outline-none text-white text-xs font-semibold"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="block text-[9px] uppercase font-black text-mountain-400">Designation / Bio</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. Student / Nature Enthusiast"
-                  value={reviewForm.role}
-                  onChange={(e) => setReviewForm({ ...reviewForm, role: e.target.value })}
-                  className="w-full px-3 py-2.5 bg-mountain-900 border border-white/10 rounded-xl focus:border-orange-500 focus:outline-none text-white text-xs font-semibold"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="block text-[9px] uppercase font-black text-mountain-400">Email Address</label>
-                <input
-                  type="email"
-                  required
-                  placeholder="e.g. name@example.com"
-                  value={reviewForm.email}
-                  onChange={(e) => setReviewForm({ ...reviewForm, email: e.target.value })}
-                  className="w-full px-3 py-2.5 bg-mountain-900 border border-white/10 rounded-xl focus:border-orange-500 focus:outline-none text-white text-xs font-semibold"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="block text-[9px] uppercase font-black text-mountain-400">Star Rating (1-5)</label>
-                <div className="flex items-center gap-1.5">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <button
-                      key={star}
-                      type="button"
-                      onClick={() => setReviewForm({ ...reviewForm, rating: star })}
-                      className="p-0.5 hover:scale-120 transition"
-                    >
-                      <Star
-                        className={`w-6 h-6 ${
-                          reviewForm.rating >= star 
-                            ? 'fill-orange-500 text-orange-500' 
-                            : 'text-mountain-700'
-                        }`}
-                      />
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="space-y-1">
-                <label className="block text-[9px] uppercase font-black text-mountain-400">Experience / Review</label>
-                <textarea
-                  required
-                  rows="3"
-                  placeholder="How was the trail, homestay, food, and coordinator vibe?"
-                  value={reviewForm.text}
-                  onChange={(e) => setReviewForm({ ...reviewForm, text: e.target.value })}
-                  className="w-full px-3 py-2.5 bg-mountain-900 border border-white/10 rounded-xl focus:border-orange-500 focus:outline-none text-white text-xs font-semibold resize-none"
-                ></textarea>
-              </div>
-
-              <div className="pt-2 flex items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => setShowReviewModal(false)}
-                  className="w-1/2 py-3 border border-white/10 text-white font-bold rounded-xl active:scale-95 transition"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={submittingReview}
-                  className="w-1/2 py-3 bg-orange-600 text-white font-black rounded-xl shadow-md transition disabled:opacity-50 active:scale-95 cursor-pointer"
-                >
-                  {submittingReview ? 'Posting...' : 'Post Review'}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
 
     </div>
   );
