@@ -61,7 +61,6 @@ export default function Home() {
 
   // Scheduled Events states
   const [events, setEvents] = useState([]);
-  const [eventViewMode, setEventViewMode] = useState('cards'); // 'cards' or 'calendar'
   const [selectedEventDate, setSelectedEventDate] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterDate, setFilterDate] = useState('all'); // 'all', 'weekend', '30days'
@@ -599,32 +598,6 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
                 Upcoming <span className="text-gradient-orange">Events</span>
               </h2>
             </div>
-            
-            {/* View switch toggler (Calendar vs Cards) */}
-            <div className="flex gap-2 bg-mountain-900/40 p-1.5 rounded-2xl border border-white/5">
-              <button
-                type="button"
-                onClick={() => { setEventViewMode('cards'); setSelectedEventDate(null); }}
-                className={`px-4 py-2 text-[10px] font-black uppercase tracking-wider rounded-xl transition ${
-                  eventViewMode === 'cards' 
-                    ? 'bg-orange-650 text-white shadow-md' 
-                    : 'text-mountain-450 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                Card View
-              </button>
-              <button
-                type="button"
-                onClick={() => { setEventViewMode('calendar'); }}
-                className={`px-4 py-2 text-[10px] font-black uppercase tracking-wider rounded-xl transition ${
-                  eventViewMode === 'calendar' 
-                    ? 'bg-orange-650 text-white shadow-md' 
-                    : 'text-mountain-450 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                Calendar View
-              </button>
-            </div>
           </div>
 
           {/* Weekend Highlights slider if any */}
@@ -774,8 +747,7 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
           </div>
 
           {/* Main events container */}
-          {eventViewMode === 'calendar' ? (
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               
               {/* Calendar Grid left (5 cols) */}
               <div className="lg:col-span-5 bg-mountain-900/40 border border-white/5 rounded-3xl p-5 shadow-xl">
@@ -848,112 +820,6 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
 
               </div>
             </div>
-          ) : (
-            <>
-              {/* Event Cards Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {getFilteredEvents().map(event => {
-                  const available = event.slots - event.bookedSlots;
-                  const isSoldOut = available <= 0 || !event.registrationsEnabled;
-                  const isFewSlotsLeft = !isSoldOut && available <= 5;
-                  
-                  return (
-                    <div key={event.eventId} className="group glass-card rounded-3xl overflow-hidden flex flex-col h-full border border-white/5 bg-mountain-900/30 hover:border-orange-500/30 transition-all duration-300">
-                      
-                      {/* Event Thumbnail */}
-                      <div className="relative h-52 overflow-hidden shrink-0">
-                        <div className="absolute inset-0 bg-gradient-to-t from-mountain-950/80 via-transparent to-transparent z-10"></div>
-                        <img 
-                          src={getCompressedImgUrl(event.image, 500)} 
-                          alt={event.title} 
-                          className="w-full h-full object-cover transition-transform duration-750 ease-out group-hover:scale-105"
-                          loading="lazy"
-                        />
-                        
-                        {/* Difficulty Badge */}
-                        <span className={`absolute top-4 left-4 z-20 px-3 py-0.5 text-[10px] font-black uppercase tracking-wider rounded-full border ${
-                          event.difficulty.toLowerCase() === 'easy' 
-                            ? 'bg-green-500/10 text-green-400 border-green-500/20' 
-                            : event.difficulty.toLowerCase() === 'moderate' 
-                            ? 'bg-orange-500/10 text-orange-400 border-orange-500/20' 
-                            : 'bg-red-500/10 text-red-400 border-red-500/20'
-                        }`}>
-                          {event.difficulty}
-                        </span>
-
-                        {/* Badges Overlay */}
-                        <div className="absolute top-4 right-4 z-20 flex flex-col gap-1.5 items-end">
-                          {isSoldOut ? (
-                            <span className="bg-red-650 text-white text-[9px] font-black px-2.5 py-0.5 rounded shadow-lg uppercase tracking-wider">Sold Out</span>
-                          ) : isFewSlotsLeft ? (
-                            <span className="bg-yellow-650 text-white text-[9px] font-black px-2.5 py-0.5 rounded shadow-lg uppercase tracking-wider animate-pulse">Few Slots Left</span>
-                          ) : (
-                            <span className="bg-forest-650 text-white text-[9px] font-black px-2.5 py-0.5 rounded shadow-lg uppercase tracking-wider">{available} Slots Available</span>
-                          )}
-                          {event.isFeatured && (
-                            <span className="bg-indigo-650 text-white text-[9px] font-black px-2.5 py-0.5 rounded shadow-lg uppercase tracking-wider">★ Featured</span>
-                          )}
-                        </div>
-
-                        {/* Pricing Badge */}
-                        <span className="absolute bottom-4 right-4 z-20 px-3.5 py-1 text-sm font-black rounded-lg bg-orange-600 text-white shadow-lg flex items-center gap-0.5 glow-orange">
-                          ₹{event.price}
-                        </span>
-                      </div>
-
-                      {/* Event Content */}
-                      <div className="p-5 flex flex-col flex-grow">
-                        
-                        {/* Event Name */}
-                        <h3 className="font-display font-black text-lg text-white group-hover:text-orange-500 transition-colors duration-300 line-clamp-1 mb-1">
-                          {event.title}
-                        </h3>
-                        
-                        {/* Location */}
-                        <p className="font-sans text-xs text-mountain-450 mb-4 flex items-center gap-1 font-semibold">
-                          <MapPin className="w-3.5 h-3.5 text-orange-500 shrink-0" /> {event.location}
-                        </p>
-
-                        {/* Detail bar */}
-                        <div className="flex items-center justify-between border-t border-white/5 pt-3.5 mb-5 mt-auto text-[11px] font-sans font-bold text-mountain-400">
-                          <div className="flex items-center gap-1.5">
-                            <Calendar className="w-3.5 h-3.5 text-forest-500" />
-                            <span>{new Date(event.date).toLocaleDateString('en-IN', { weekday: 'short', day: '2-digit', month: 'short' })}</span>
-                          </div>
-                          
-                          <EventCountdown eventDate={event.date} />
-                        </div>
-
-                        {/* Action buttons */}
-                        <div className="grid grid-cols-1 gap-2.5">
-                          <Link 
-                            to={isSoldOut ? '#' : `/booking?trek=${encodeURIComponent(event.title)}`}
-                            onClick={e => isSoldOut && e.preventDefault()}
-                            className={`py-3.5 text-center text-xs font-black uppercase tracking-wider rounded-xl active:scale-95 transition-all duration-200 min-h-[44px] flex items-center justify-center gap-1.5 ${
-                              isSoldOut 
-                                ? 'bg-mountain-850 border border-white/5 text-mountain-500 cursor-not-allowed' 
-                                : 'bg-forest-700 hover:bg-forest-600 text-white glow-forest'
-                            }`}
-                          >
-                            {isSoldOut ? 'Closed / Sold Out' : 'Register / Book Now'}
-                          </Link>
-                        </div>
-                      </div>
-
-                    </div>
-                  );
-                })}
-              </div>
-
-              {getFilteredEvents().length === 0 && (
-                <div className="text-center py-16 border border-white/5 rounded-2xl glass-card">
-                  <Compass className="w-10 h-10 text-mountain-600 mx-auto mb-3 animate-spin" />
-                  <h3 className="font-display font-bold text-sm text-white mb-1">No scheduled events match your criteria</h3>
-                  <p className="font-sans text-xs text-mountain-400">Try modifying search tags or clearing dates</p>
-                </div>
-              )}
-            </>
-          )}
 
         </div>
       </section>
