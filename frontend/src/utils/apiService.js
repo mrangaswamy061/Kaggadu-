@@ -1,4 +1,4 @@
-import { defaultTreks, defaultGallery, defaultTestimonials } from './mockData';
+import { defaultTreks, defaultGallery, defaultTestimonials, defaultEvents } from './mockData';
 
 const BASE_URL = import.meta.env.VITE_API_URL || (window.location.origin.includes('localhost') 
   ? 'http://localhost:5000/api' 
@@ -59,6 +59,9 @@ const initLocalStorage = () => {
   }
   if (!localStorage.getItem('kaggadu_admin_logged_in')) {
     localStorage.setItem('kaggadu_admin_logged_in', 'false');
+  }
+  if (!localStorage.getItem('kaggadu_events')) {
+    localStorage.setItem('kaggadu_events', JSON.stringify(defaultEvents));
   }
 };
 
@@ -395,5 +398,126 @@ export const apiService = {
   updateShowcaseStats: async (newStats) => {
     localStorage.setItem('kaggadu_showcase_stats', JSON.stringify(newStats));
     return newStats;
+  },
+
+  // --- EVENTS ---
+  getEvents: async () => {
+    const isOnline = await checkBackendStatus();
+    if (isOnline) {
+      try {
+        const token = localStorage.getItem('kaggadu_admin_token');
+        const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
+        const response = await fetch(`${BASE_URL}/events`, { headers });
+        return await response.json();
+      } catch (err) {
+        console.warn("Backend failed, falling back to Local Storage", err);
+      }
+    }
+    // Fallback
+    const events = JSON.parse(localStorage.getItem('kaggadu_events')) || [];
+    const isAdmin = localStorage.getItem('kaggadu_admin_logged_in') === 'true';
+    if (isAdmin) {
+      return events;
+    }
+    return events.filter(e => e.status === 'published');
+  },
+
+  getEventById: async (id) => {
+    const isOnline = await checkBackendStatus();
+    if (isOnline) {
+      try {
+        const response = await fetch(`${BASE_URL}/events/${id}`);
+        if (response.ok) return await response.json();
+      } catch (err) {
+        console.warn("Backend failed, falling back to Local Storage", err);
+      }
+    }
+    const events = JSON.parse(localStorage.getItem('kaggadu_events')) || [];
+    return events.find(e => e.eventId === id || e._id === id);
+  },
+
+  createEvent: async (eventData) => {
+    const isOnline = await checkBackendStatus();
+    if (isOnline) {
+      try {
+        const token = localStorage.getItem('kaggadu_admin_token');
+        const response = await fetch(`${BASE_URL}/events`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(eventData)
+        });
+        if (response.ok) return await response.json();
+      } catch (err) {
+        console.warn("Backend event creation failed, using local storage", err);
+      }
+    }
+    
+    // Fallback
+    const events = JSON.parse(localStorage.getItem('kaggadu_events')) || [];
+    const newEvent = { 
+      ...eventData, 
+      eventId: eventData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + Math.floor(1000 + Math.random() * 9000),
+      _id: Math.random().toString(36).substr(2, 9),
+      bookedSlots: eventData.bookedSlots || 0,
+      createdAt: new Date().toISOString()
+    };
+    events.push(newEvent);
+    localStorage.setItem('kaggadu_events', JSON.stringify(events));
+    return newEvent;
+  },
+
+  updateEvent: async (id, eventData) => {
+    const isOnline = await checkBackendStatus();
+    if (isOnline) {
+      try {
+        const token = localStorage.getItem('kaggadu_admin_token');
+        const response = await fetch(`${BASE_URL}/events/${id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(eventData)
+        });
+        if (response.ok) return await response.json();
+      } catch (err) {
+        console.warn("Backend update failed, using local storage", err);
+      }
+    }
+    
+    // Fallback
+    const events = JSON.parse(localStorage.getItem('kaggadu_events')) || [];
+    const index = events.findIndex(e => e.eventId === id || e._id === id);
+    if (index !== -1) {
+      events[index] = { ...events[index], ...eventData };
+      localStorage.setItem('kaggadu_events', JSON.stringify(events));
+      return events[index];
+    }
+    throw new Error('Event not found');
+  },
+
+  deleteEvent: async (id) => {
+    const isOnline = await checkBackendStatus();
+    if (isOnline) {
+      try {
+        const token = localStorage.getItem('kaggadu_admin_token');
+        const response = await fetch(`${BASE_URL}/events/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (response.ok) return await response.json();
+      } catch (err) {
+        console.warn("Backend delete failed, using local storage", err);
+      }
+    }
+    
+    // Fallback
+    let events = JSON.parse(localStorage.getItem('kaggadu_events')) || [];
+    events = events.filter(e => e.eventId !== id && e._id !== id);
+    localStorage.setItem('kaggadu_events', JSON.stringify(events));
+    return { success: true };
   }
 };

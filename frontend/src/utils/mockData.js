@@ -247,3 +247,75 @@ export const defaultTestimonials = [
     createdAt: new Date().toISOString()
   }
 ];
+
+export const defaultEvents = [
+  {
+    _id: "evt-1",
+    eventId: "skandagiri-sunrise-event",
+    title: "Skandagiri Sunrise Trek",
+    date: new Date(Date.now() + 3600000 * 24 * 2).toISOString(),
+    location: "Chikkaballapur, Karnataka",
+    difficulty: "Moderate",
+    price: 1499,
+    slots: 30,
+    bookedSlots: 10,
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+    status: "published",
+    isFeatured: true,
+    registrationsEnabled: true,
+    createdBy: "admin",
+    createdAt: new Date().toISOString()
+  },
+  {
+    _id: "evt-2",
+    eventId: "kudremukh-peak-event",
+    title: "Kudremukh Peak Trek",
+    date: new Date(Date.now() + 3600000 * 24 * 16).toISOString(),
+    location: "Chikmagalur, Karnataka",
+    difficulty: "Challenging",
+    price: 3499,
+    slots: 20,
+    bookedSlots: 20,
+    image: "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=800&q=80",
+    status: "published",
+    isFeatured: true,
+    registrationsEnabled: true,
+    createdBy: "admin",
+    createdAt: new Date().toISOString()
+  },
+  {
+    _id: "evt-3",
+    eventId: "gokarna-beach-event",
+    title: "Gokarna Beach Trail & Camping",
+    date: new Date(Date.now() + 3600000 * 24 * 8).toISOString(),
+    location: "Gokarna, Karnataka",
+    difficulty: "Easy",
+    price: 2999,
+    slots: 15,
+    bookedSlots: 12,
+    image: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=800&q=80",
+    status: "published",
+    isFeatured: false,
+    registrationsEnabled: true,
+    createdBy: "admin",
+    createdAt: new Date().toISOString()
+  },
+  {
+    _id: "evt-4",
+    eventId: "kodachadri-hills-event",
+    title: "Kodachadri Hills Trek",
+    date: new Date(Date.now() + 3600000 * 24 * 23).toISOString(),
+    location: "Shimoga, Karnataka",
+    difficulty: "Moderate",
+    price: 3299,
+    slots: 25,
+    bookedSlots: 8,
+    image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80",
+    status: "published",
+    isFeatured: false,
+    registrationsEnabled: true,
+    createdBy: "admin",
+    createdAt: new Date().toISOString()
+  }
+];
+

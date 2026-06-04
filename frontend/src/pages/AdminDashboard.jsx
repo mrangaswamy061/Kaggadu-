@@ -16,7 +16,16 @@ export default function AdminDashboard() {
   // Dashboard Data states
   const [bookings, setBookings] = useState([]);
   const [treks, setTreks] = useState([]);
-  const [stats, setStats] = useState({ totalBookings: 0, pendingBookings: 0, approvedBookings: 0, activeTreks: 0 });
+  const [events, setEvents] = useState([]);
+  const [stats, setStats] = useState({ totalBookings: 0, pendingBookings: 0, approvedBookings: 0, activeTreks: 0, activeEvents: 0 });
+
+  // Event Creator/Editor states
+  const [showEventForm, setShowEventForm] = useState(false);
+  const [editingEvent, setEditingEvent] = useState(null);
+  const [eventFormData, setEventFormData] = useState({
+    title: '', date: '', location: '', difficulty: 'Moderate', price: '',
+    slots: '', image: '', status: 'draft', isFeatured: false, registrationsEnabled: true
+  });
 
   // Showcase Stats Settings state
   const [showcaseStatsForm, setShowcaseStatsForm] = useState({
@@ -54,8 +63,10 @@ export default function AdminDashboard() {
     try {
       const bData = await apiService.getBookings();
       const tData = await apiService.getTreks();
+      const eData = await apiService.getEvents();
       setBookings([...bData].reverse());
       setTreks(tData);
+      setEvents(eData);
 
       // Compute statistics
       const pending = bData.filter(b => b.status === 'Pending').length;
@@ -64,7 +75,8 @@ export default function AdminDashboard() {
         totalBookings: bData.length,
         pendingBookings: pending,
         approvedBookings: approved,
-        activeTreks: tData.length
+        activeTreks: tData.length,
+        activeEvents: eData.length
       });
 
       // Load showcase stats
@@ -195,6 +207,78 @@ export default function AdminDashboard() {
       const reader = new FileReader();
       reader.onloadend = () => {
         setTrekFormData(prev => ({ ...prev, image: reader.result }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleEventFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const formattedEvent = {
+        ...eventFormData,
+        price: Number(eventFormData.price),
+        slots: Number(eventFormData.slots),
+        bookedSlots: editingEvent ? Number(editingEvent.bookedSlots) : 0,
+        date: new Date(eventFormData.date).toISOString()
+      };
+
+      if (editingEvent) {
+        await apiService.updateEvent(editingEvent.eventId || editingEvent._id, formattedEvent);
+      } else {
+        await apiService.createEvent(formattedEvent);
+      }
+
+      setShowEventForm(false);
+      setEditingEvent(null);
+      resetEventFormData();
+      await loadDashboardData();
+    } catch (err) {
+      alert("Failed storing event info.");
+    }
+  };
+
+  const handleEditEvent = (event) => {
+    setEditingEvent(event);
+    setEventFormData({
+      title: event.title,
+      date: new Date(event.date).toISOString().split('T')[0],
+      location: event.location,
+      difficulty: event.difficulty,
+      price: event.price,
+      slots: event.slots,
+      image: event.image,
+      status: event.status || 'draft',
+      isFeatured: !!event.isFeatured,
+      registrationsEnabled: event.registrationsEnabled !== false
+    });
+    setShowEventForm(true);
+  };
+
+  const handleDeleteEvent = async (id) => {
+    if (window.confirm("Are you sure you want to delete this event?")) {
+      try {
+        await apiService.deleteEvent(id);
+        await loadDashboardData();
+      } catch (err) {
+        alert("Failed deleting event.");
+      }
+    }
+  };
+
+  const resetEventFormData = () => {
+    setEventFormData({
+      title: '', date: '', location: '', difficulty: 'Moderate', price: '',
+      slots: '', image: '', status: 'draft', isFeatured: false, registrationsEnabled: true
+    });
+  };
+
+  const handleEventFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setEventFormData(prev => ({ ...prev, image: reader.result }));
       };
       reader.readAsDataURL(file);
     }
@@ -335,12 +419,13 @@ export default function AdminDashboard() {
         </div>
 
         {/* Stats Grid widgets */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 mb-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5 mb-6">
           {[
             { label: 'Total Bookings', value: stats.totalBookings, color: 'text-white' },
             { label: 'Pending Receipts', value: stats.pendingBookings, color: 'text-orange-500 animate-pulse' },
             { label: 'Approved seats', value: stats.approvedBookings, color: 'text-forest-450' },
-            { label: 'Active Trails', value: stats.activeTreks, color: 'text-orange-500' }
+            { label: 'Active Trails', value: stats.activeTreks, color: 'text-orange-500' },
+            { label: 'Scheduled Events', value: stats.activeEvents || 0, color: 'text-orange-500' }
           ].map((stat, idx) => (
             <div key={idx} className="glass-card p-4 rounded-xl border border-white/5 flex flex-col justify-between min-h-[85px] bg-mountain-900/40">
               <span className="text-[9px] uppercase font-black tracking-wider text-mountain-500">{stat.label}</span>
@@ -376,7 +461,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Tab Selection Switch */}
-        <div className="flex gap-2.5 border-b border-white/5 pb-3 mb-6 bg-mountain-900/10 rounded-xl p-1 max-w-sm">
+        <div className="flex gap-2.5 border-b border-white/5 pb-3 mb-6 bg-mountain-900/10 rounded-xl p-1 max-w-md">
           <button 
             onClick={() => setActiveTab('bookings')}
             className={`flex-1 py-2 text-[10px] font-black uppercase tracking-wider rounded-lg transition cursor-pointer ${
@@ -385,7 +470,7 @@ export default function AdminDashboard() {
                 : 'text-mountain-450 hover:text-white'
             }`}
           >
-            Manage Bookings
+            Bookings
           </button>
           <button 
             onClick={() => setActiveTab('treks')}
@@ -395,7 +480,17 @@ export default function AdminDashboard() {
                 : 'text-mountain-450 hover:text-white'
             }`}
           >
-            Configure Treks
+            Treks
+          </button>
+          <button 
+            onClick={() => setActiveTab('events')}
+            className={`flex-1 py-2 text-[10px] font-black uppercase tracking-wider rounded-lg transition cursor-pointer ${
+              activeTab === 'events' 
+                ? 'bg-orange-600 text-white shadow-md' 
+                : 'text-mountain-450 hover:text-white'
+            }`}
+          >
+            Events
           </button>
         </div>
 
@@ -831,6 +926,254 @@ export default function AdminDashboard() {
                 </div>
               ))}
             </div>
+
+          </div>
+        )}
+
+        {/* TAB 3: CONFIGURE EVENTS */}
+        {activeTab === 'events' && (
+          <div className="space-y-6">
+            
+            {/* Header and Creator trigger */}
+            <div className="flex justify-between items-center">
+              <h3 className="font-display font-black text-base text-white uppercase tracking-wide">
+                Upcoming Scheduled Events
+              </h3>
+              <button 
+                onClick={() => { resetEventFormData(); setEditingEvent(null); setShowEventForm(!showEventForm); }}
+                className="px-3.5 py-2 bg-orange-600 hover:bg-orange-500 text-white text-[10px] font-black uppercase tracking-wider rounded-xl transition duration-300 flex items-center gap-1.5 cursor-pointer min-h-[38px]"
+              >
+                <Plus className="w-4 h-4 shrink-0" /> Create Event
+              </button>
+            </div>
+
+            {/* Event Creator Form (Optimized for Mobile viewports) */}
+            {showEventForm && (
+              <form onSubmit={handleEventFormSubmit} className="p-5 glass-card border border-orange-500/20 rounded-2xl space-y-4 text-xs font-black uppercase tracking-wider text-mountain-400">
+                <h4 className="font-display font-bold text-sm text-white uppercase tracking-wider border-b border-white/5 pb-2">
+                  {editingEvent ? 'Edit Event Details' : 'Schedule New Event'}
+                </h4>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <label>Event Title</label>
+                    <input 
+                      type="text" 
+                      value={eventFormData.title}
+                      onChange={e => setEventFormData(prev => ({ ...prev, title: e.target.value }))}
+                      placeholder="e.g. Skandagiri Sunrise Trek"
+                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label>Event Date</label>
+                    <input 
+                      type="date" 
+                      value={eventFormData.date}
+                      onChange={e => setEventFormData(prev => ({ ...prev, date: e.target.value }))}
+                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white font-bold"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="space-y-1">
+                    <label>Location</label>
+                    <input 
+                      type="text" 
+                      value={eventFormData.location}
+                      onChange={e => setEventFormData(prev => ({ ...prev, location: e.target.value }))}
+                      placeholder="e.g. Chikkaballapur, Karnataka"
+                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label>Difficulty</label>
+                    <select 
+                      value={eventFormData.difficulty}
+                      onChange={e => setEventFormData(prev => ({ ...prev, difficulty: e.target.value }))}
+                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white cursor-pointer font-bold"
+                    >
+                      <option value="Easy">Easy</option>
+                      <option value="Moderate">Moderate</option>
+                      <option value="Challenging">Challenging</option>
+                    </select>
+                  </div>
+                  <div className="space-y-1">
+                    <label>Price (₹)</label>
+                    <input 
+                      type="number" 
+                      value={eventFormData.price}
+                      onChange={e => setEventFormData(prev => ({ ...prev, price: e.target.value }))}
+                      placeholder="e.g. 1499"
+                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="space-y-1">
+                    <label>Total Slots Limit</label>
+                    <input 
+                      type="number" 
+                      value={eventFormData.slots}
+                      onChange={e => setEventFormData(prev => ({ ...prev, slots: e.target.value }))}
+                      placeholder="e.g. 30"
+                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label>Publish Status</label>
+                    <select 
+                      value={eventFormData.status}
+                      onChange={e => setEventFormData(prev => ({ ...prev, status: e.target.value }))}
+                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white cursor-pointer font-bold"
+                    >
+                      <option value="draft">Draft (Hidden from users)</option>
+                      <option value="published">Published (Visible to users)</option>
+                    </select>
+                  </div>
+                  <div className="space-y-1">
+                    <label>Visual Banner URL / File</label>
+                    <div className="flex gap-2">
+                      <input 
+                        type="text" 
+                        value={eventFormData.image}
+                        onChange={e => setEventFormData(prev => ({ ...prev, image: e.target.value }))}
+                        placeholder="Paste image link..."
+                        className="flex-grow bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white"
+                        required
+                      />
+                      <label className="px-3 bg-mountain-900 border border-white/10 rounded-xl cursor-pointer text-[10px] text-mountain-400 font-bold flex items-center justify-center gap-1 whitespace-nowrap hover:border-orange-500/30">
+                        <Upload className="w-3.5 h-3.5 text-orange-500" />
+                        <input 
+                          type="file" 
+                          accept="image/*" 
+                          onChange={handleEventFileChange} 
+                          className="hidden" 
+                        />
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                {eventFormData.image && (
+                  <div className="relative h-20 w-40 rounded-xl overflow-hidden border border-white/10 bg-mountain-900">
+                    <img 
+                      src={eventFormData.image} 
+                      alt="Banner Preview" 
+                      className="w-full h-full object-cover" 
+                    />
+                    <button 
+                      type="button"
+                      onClick={() => setEventFormData(prev => ({ ...prev, image: '' }))}
+                      className="absolute top-1 right-1 p-1 bg-red-650 rounded-full text-white text-[8px] font-bold leading-none cursor-pointer"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                )}
+
+                <div className="grid grid-cols-2 gap-4 border-t border-white/5 pt-3">
+                  <label className="flex items-center gap-2 text-white font-bold cursor-pointer">
+                    <input 
+                      type="checkbox" 
+                      checked={eventFormData.isFeatured}
+                      onChange={e => setEventFormData(prev => ({ ...prev, isFeatured: e.target.checked }))}
+                      className="w-4 h-4 rounded border-white/10 bg-mountain-900 text-orange-500 focus:ring-0 focus:outline-none cursor-pointer"
+                    />
+                    Mark as Featured Event
+                  </label>
+                  
+                  <label className="flex items-center gap-2 text-white font-bold cursor-pointer">
+                    <input 
+                      type="checkbox" 
+                      checked={eventFormData.registrationsEnabled}
+                      onChange={e => setEventFormData(prev => ({ ...prev, registrationsEnabled: e.target.checked }))}
+                      className="w-4 h-4 rounded border-white/10 bg-mountain-900 text-orange-500 focus:ring-0 focus:outline-none cursor-pointer"
+                    />
+                    Enable Booking registrations
+                  </label>
+                </div>
+
+                <div className="flex gap-3 pt-2">
+                  <button 
+                    type="button" 
+                    onClick={() => { setShowEventForm(false); setEditingEvent(null); }}
+                    className="flex-1 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-mountain-450 hover:text-white text-xs font-black rounded-xl cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    type="submit"
+                    className="flex-1 py-3 bg-forest-700 hover:bg-forest-600 text-white text-xs font-black rounded-xl shadow-lg glow-forest cursor-pointer"
+                  >
+                    {editingEvent ? 'Update Event' : 'Schedule Event'}
+                  </button>
+                </div>
+              </form>
+            )}
+
+            {/* Event Listing layout */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {events.map((event) => (
+                <div key={event.eventId || event._id} className="glass-card p-4 rounded-2xl border border-white/5 flex flex-col justify-between min-h-[160px] group bg-mountain-900/30">
+                  <div>
+                    <div className="flex justify-between items-start">
+                      <span className="text-[8px] uppercase font-black text-orange-500 tracking-widest">{event.difficulty}</span>
+                      <span className={`px-2 py-0.5 rounded text-[7px] font-black uppercase tracking-wider border ${
+                        event.status === 'published' 
+                          ? 'bg-green-500/10 text-green-400 border-green-500/20' 
+                          : 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20'
+                      }`}>
+                        {event.status}
+                      </span>
+                    </div>
+                    <h4 className="font-display font-bold text-sm text-white group-hover:text-orange-500 transition line-clamp-1 mt-1">{event.title}</h4>
+                    <p className="text-[10px] text-mountain-500 font-sans mt-0.5">
+                      ₹{event.price} | {new Date(event.date).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}
+                    </p>
+                    <p className="text-[10px] text-mountain-400 font-semibold mt-1">
+                      Slots: {event.bookedSlots} / {event.slots} ({event.slots - event.bookedSlots} left)
+                    </p>
+                    <div className="flex gap-1.5 mt-2 flex-wrap">
+                      {event.isFeatured && (
+                        <span className="bg-orange-500/10 text-orange-400 border border-orange-500/20 px-2 py-0.5 rounded text-[8px] font-black uppercase">Featured</span>
+                      )}
+                      {!event.registrationsEnabled && (
+                        <span className="bg-red-500/10 text-red-400 border border-red-500/20 px-2 py-0.5 rounded text-[8px] font-black uppercase">Bookings Closed</span>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex justify-end gap-2 border-t border-white/5 pt-3 mt-4">
+                    <button 
+                      onClick={() => handleEditEvent(event)}
+                      className="px-3 py-1.5 bg-mountain-900 hover:bg-mountain-850 border border-white/10 rounded-lg text-[10px] font-black text-mountain-300 cursor-pointer"
+                    >
+                      Edit Info
+                    </button>
+                    <button 
+                      onClick={() => handleDeleteEvent(event.eventId || event._id)}
+                      className="p-1.5 bg-red-500/10 hover:bg-red-500 border border-red-550/20 text-red-500 hover:text-white rounded-lg cursor-pointer transition"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {events.length === 0 && (
+              <div className="text-center py-10 border border-white/5 rounded-2xl glass-card text-mountain-500 font-black text-xs uppercase">
+                No events listed. Click "Create Event" to get started.
+              </div>
+            )}
 
           </div>
         )}

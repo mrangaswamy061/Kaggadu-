@@ -20,6 +20,7 @@ import Booking from './models/Booking.js';
 import User from './models/User.js';
 import Gallery from './models/Gallery.js';
 import Review from './models/Review.js';
+import Event from './models/Event.js';
 
 // Mail Service
 import { sendBookingStatusEmail } from './utils/mailService.js';
@@ -208,6 +209,74 @@ app.post('/api/reviews', async (req, res) => {
   }
 });
 
+// --- EVENTS API ROUTER ---
+app.get('/api/events', async (req, res) => {
+  try {
+    let query = { status: 'published' };
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      const token = authHeader.split(' ')[1];
+      try {
+        jwt.verify(token, JWT_SECRET);
+        query = {}; // Return all draft + published events for admin
+      } catch (err) {
+        // Invalid token, treat as public user
+      }
+    }
+    const events = await Event.find(query).sort({ date: 1 });
+    res.status(200).json(events);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/events/:id', async (req, res) => {
+  try {
+    const event = await Event.findOne({ $or: [{ eventId: req.params.id }, { _id: mongoose.Types.ObjectId.isValid(req.params.id) ? req.params.id : null }] });
+    if (!event) return res.status(404).json({ error: 'Event not found.' });
+    res.status(200).json(event);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/events', authenticateAdmin, async (req, res) => {
+  try {
+    const eventId = req.body.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + Math.floor(1000 + Math.random() * 9000);
+    const newEvent = new Event({
+      ...req.body,
+      eventId,
+      createdBy: req.admin.username || 'admin'
+    });
+    await newEvent.save();
+    res.status(201).json(newEvent);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.put('/api/events/:id', authenticateAdmin, async (req, res) => {
+  try {
+    const updated = await Event.findOneAndUpdate(
+      { $or: [{ eventId: req.params.id }, { _id: mongoose.Types.ObjectId.isValid(req.params.id) ? req.params.id : null }] },
+      { $set: req.body },
+      { new: true }
+    );
+    res.status(200).json(updated);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.delete('/api/events/:id', authenticateAdmin, async (req, res) => {
+  try {
+    await Event.findOneAndDelete({ $or: [{ eventId: req.params.id }, { _id: mongoose.Types.ObjectId.isValid(req.params.id) ? req.params.id : null }] });
+    res.status(200).json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // --- GALLERY API ROUTER ---
 app.get('/api/gallery', async (req, res) => {
   try {
@@ -362,6 +431,75 @@ async function seedDatabase() {
         await Review.insertMany(initialReviews);
         console.log('Seeded initial reviews data.');
       }
+    }
+
+    // 5. Seed Default Events
+    const eventsCount = await Event.countDocuments();
+    if (eventsCount === 0) {
+      const initialEvents = [
+        {
+          eventId: "skandagiri-sunrise-event",
+          title: "Skandagiri Sunrise Trek",
+          date: new Date(Date.now() + 3600000 * 24 * 2), // 2 days from now (this weekend)
+          location: "Chikkaballapur, Karnataka",
+          difficulty: "Moderate",
+          price: 1499,
+          slots: 30,
+          bookedSlots: 10,
+          image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+          status: "published",
+          isFeatured: true,
+          registrationsEnabled: true,
+          createdBy: "admin"
+        },
+        {
+          eventId: "kudremukh-peak-event",
+          title: "Kudremukh Peak Trek",
+          date: new Date(Date.now() + 3600000 * 24 * 16), // 16 days from now
+          location: "Chikmagalur, Karnataka",
+          difficulty: "Challenging",
+          price: 3499,
+          slots: 20,
+          bookedSlots: 20, // Sold Out!
+          image: "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=800&q=80",
+          status: "published",
+          isFeatured: true,
+          registrationsEnabled: true,
+          createdBy: "admin"
+        },
+        {
+          eventId: "gokarna-beach-event",
+          title: "Gokarna Beach Trail & Camping",
+          date: new Date(Date.now() + 3600000 * 24 * 8), // 8 days from now (Next Weekend)
+          location: "Gokarna, Karnataka",
+          difficulty: "Easy",
+          price: 2999,
+          slots: 15,
+          bookedSlots: 12, // Few Slots Left (3 left)!
+          image: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=800&q=80",
+          status: "published",
+          isFeatured: false,
+          registrationsEnabled: true,
+          createdBy: "admin"
+        },
+        {
+          eventId: "kodachadri-hills-event",
+          title: "Kodachadri Hills Trek",
+          date: new Date(Date.now() + 3600000 * 24 * 23), // 23 days from now
+          location: "Shimoga, Karnataka",
+          difficulty: "Moderate",
+          price: 3299,
+          slots: 25,
+          bookedSlots: 8,
+          image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80",
+          status: "published",
+          isFeatured: false,
+          registrationsEnabled: true,
+          createdBy: "admin"
+        }
+      ];
+      await Event.insertMany(initialEvents);
+      console.log('Seeded initial events data.');
     }
   } catch (err) {
     console.error('Database seeding failed', err);

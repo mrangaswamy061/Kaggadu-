@@ -33,8 +33,37 @@ export default function Booking() {
     
     const fetchTreks = async () => {
       try {
-        const data = await apiService.getTreks();
-        setTreks(data);
+        const [treksData, eventsData] = await Promise.all([
+          apiService.getTreks(),
+          apiService.getEvents()
+        ]);
+        
+        // Format treks to fit bookable option
+        const formattedTreks = treksData.map(t => ({
+          ...t,
+          isEvent: false,
+          name: t.name,
+          price: t.price,
+          date: t.date || 'Every Sat-Sun',
+          distance: t.distance || '12 km',
+          duration: t.duration || '2 Days / 1 Night'
+        }));
+
+        // Format published events to fit bookable option
+        const formattedEvents = eventsData
+          .filter(e => e.status === 'published')
+          .map(e => ({
+            ...e,
+            isEvent: true,
+            name: e.title, // Map title to name so it matches selectedTrek
+            price: e.price,
+            date: new Date(e.date).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }),
+            distance: e.location, // Show location as the distance field
+            duration: e.duration || 'Weekend Trip'
+          }));
+
+        const combined = [...formattedTreks, ...formattedEvents];
+        setTreks(combined);
         
         // Load temp inputs from localStorage if any
         const savedTempData = localStorage.getItem('kaggadu_booking_temp_inputs');
@@ -44,7 +73,7 @@ export default function Booking() {
             ...prev,
             ...parsed,
             // Keep URL query trek param if it is explicitly passed
-            selectedTrek: trekParam || parsed.selectedTrek || (data.length > 0 ? data[0].name : '')
+            selectedTrek: trekParam || parsed.selectedTrek || (combined.length > 0 ? combined[0].name : '')
           }));
           if (parsed.paymentScreenshot) {
             setFilePreview(parsed.paymentScreenshot);
@@ -52,12 +81,12 @@ export default function Booking() {
         } else {
           if (trekParam) {
             setFormData(prev => ({ ...prev, selectedTrek: trekParam }));
-          } else if (data.length > 0) {
-            setFormData(prev => ({ ...prev, selectedTrek: data[0].name }));
+          } else if (combined.length > 0) {
+            setFormData(prev => ({ ...prev, selectedTrek: combined[0].name }));
           }
         }
       } catch (err) {
-        console.error("Failed fetching treks", err);
+        console.error("Failed fetching treks and events", err);
       }
     };
     fetchTreks();
@@ -257,12 +286,12 @@ export default function Booking() {
                     <span>Batch Date:</span>
                     <span className="text-white font-black uppercase tracking-wider">{trekDateStr}</span>
                   </div>
-                  <div className="flex justify-between text-mountain-400">
-                    <span>Trail Length:</span>
+                   <div className="flex justify-between text-mountain-400">
+                    <span>{selectedTrekData.isEvent ? 'Location:' : 'Trail Length:'}</span>
                     <span className="text-white font-black">{trekDistanceStr}</span>
                   </div>
                   <div className="flex justify-between text-mountain-400">
-                    <span>Duration:</span>
+                    <span>{selectedTrekData.isEvent ? 'Trip Type:' : 'Duration:'}</span>
                     <span className="text-white font-black">{selectedTrekData.duration}</span>
                   </div>
                   <div className="flex justify-between text-mountain-400 border-b border-white/5 pb-2">

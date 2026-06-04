@@ -6,6 +6,42 @@ import { apiService } from '../utils/apiService';
 import TrekCard from '../components/TrekCard';
 import SkeletonTrekCard from '../components/SkeletonTrekCard';
 
+function EventCountdown({ eventDate }) {
+  const [timeLeft, setTimeLeft] = useState('');
+
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      const difference = new Date(eventDate) - new Date();
+      if (difference <= 0) {
+        setTimeLeft('Happening Today');
+        return;
+      }
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((difference / 1000 / 60) % 60);
+      const seconds = Math.floor((difference / 1000) % 60);
+
+      let parts = [];
+      if (days > 0) parts.push(`${days}d`);
+      if (hours > 0 || days > 0) parts.push(`${hours}h`);
+      parts.push(`${minutes}m`);
+      parts.push(`${seconds}s`);
+
+      setTimeLeft(parts.join(' '));
+    };
+
+    calculateTimeLeft();
+    const interval = setInterval(calculateTimeLeft, 1000);
+    return () => clearInterval(interval);
+  }, [eventDate]);
+
+  return (
+    <span className="text-[10px] font-black uppercase text-orange-500 bg-orange-500/10 px-2 py-0.5 rounded border border-orange-500/20">
+      ⏳ {timeLeft}
+    </span>
+  );
+}
+
 export default function Home() {
   const navigate = useNavigate();
   const [treks, setTreks] = useState([]);
@@ -22,6 +58,19 @@ export default function Home() {
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [reviewForm, setReviewForm] = useState({ name: '', email: '', role: '', rating: 5, text: '' });
   const [submittingReview, setSubmittingReview] = useState(false);
+
+  // Scheduled Events states
+  const [events, setEvents] = useState([]);
+  const [eventViewMode, setEventViewMode] = useState('cards'); // 'cards' or 'calendar'
+  const [selectedEventDate, setSelectedEventDate] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterDate, setFilterDate] = useState('all'); // 'all', 'weekend', '30days'
+  const [filterDifficulty, setFilterDifficulty] = useState('all');
+  const [filterPrice, setFilterPrice] = useState('all');
+  const [filterLocation, setFilterLocation] = useState('all');
+
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
 
   // Pull to refresh states
   const [isPulling, setIsPulling] = useState(false);
@@ -54,8 +103,18 @@ export default function Home() {
 
       const reviewsData = await apiService.getReviews();
       setReviews(reviewsData);
+
+      const eventsData = await apiService.getEvents();
+      setEvents(eventsData);
+      if (eventsData && eventsData.length > 0) {
+        const upcoming = eventsData.find(e => new Date(e.date) >= new Date());
+        if (upcoming) {
+          setCurrentMonth(new Date(upcoming.date).getMonth());
+          setCurrentYear(new Date(upcoming.date).getFullYear());
+        }
+      }
     } catch (err) {
-      console.error("Failed fetching treks/reviews", err);
+      console.error("Failed fetching treks/reviews/events", err);
     } finally {
       setIsLoading(false);
     }
@@ -64,6 +123,173 @@ export default function Home() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const getFilteredEvents = () => {
+    return events.filter(event => {
+      if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        const matchesTitle = event.title.toLowerCase().includes(query);
+        const matchesLocation = event.location.toLowerCase().includes(query);
+        if (!matchesTitle && !matchesLocation) return false;
+      }
+
+      if (filterDifficulty !== 'all') {
+        if (event.difficulty.toLowerCase() !== filterDifficulty.toLowerCase()) return false;
+      }
+
+      if (filterPrice !== 'all') {
+        if (filterPrice === 'under2000' && event.price >= 2000) return false;
+        if (filterPrice === '2000to3500' && (event.price < 2000 || event.price > 3500)) return false;
+        if (filterPrice === 'over3500' && event.price <= 3500) return false;
+      }
+
+      if (filterLocation !== 'all') {
+        if (event.location !== filterLocation) return false;
+      }
+
+      const eventDate = new Date(event.date);
+      const today = new Date();
+      today.setHours(0,0,0,0);
+
+      if (eventDate < today && eventDate.toDateString() !== today.toDateString()) return false;
+
+      if (filterDate === 'weekend') {
+        const day = eventDate.getDay();
+        if (day !== 0 && day !== 6) return false;
+      } else if (filterDate === '30days') {
+        const maxDate = new Date();
+        maxDate.setDate(today.getDate() + 30);
+        if (eventDate > maxDate) return false;
+      }
+
+      if (selectedEventDate) {
+        if (eventDate.toDateString() !== selectedEventDate.toDateString()) return false;
+      }
+
+      return true;
+    });
+  };
+
+  const getWeekendHighlights = () => {
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const endOfWeek = new Date();
+    endOfWeek.setDate(today.getDate() + 7);
+
+    return events.filter(e => {
+      if (e.status !== 'published') return false;
+      const date = new Date(e.date);
+      if (date < today) return false;
+      if (date > endOfWeek) return false;
+      const day = date.getDay();
+      return day === 0 || day === 6;
+    });
+  };
+
+  const renderCalendar = () => {
+    const monthNames = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+
+    const firstDayIndex = new Date(currentYear, currentMonth, 1).getDay();
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+    const cells = [];
+    for (let i = 0; i < firstDayIndex; i++) {
+      cells.push(<div key={`empty-${i}`} className="w-10 h-10"></div>);
+    }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const date = new Date(currentYear, currentMonth, day);
+      const dayEvents = events.filter(e => {
+        if (e.status !== 'published') return false;
+        return new Date(e.date).toDateString() === date.toDateString();
+      });
+
+      const hasEvents = dayEvents.length > 0;
+      const isSelected = selectedEventDate && selectedEventDate.toDateString() === date.toDateString();
+      const isToday = new Date().toDateString() === date.toDateString();
+
+      cells.push(
+        <button
+          key={`day-${day}`}
+          type="button"
+          onClick={() => {
+            if (isSelected) {
+              setSelectedEventDate(null);
+            } else {
+              setSelectedEventDate(date);
+            }
+          }}
+          className={`w-10 h-10 rounded-full flex flex-col items-center justify-center text-[11px] font-black uppercase transition-all duration-200 relative ${
+            isSelected 
+              ? 'bg-orange-650 text-white scale-110 shadow-lg shadow-orange-500/20' 
+              : hasEvents
+              ? 'bg-forest-950/40 border border-forest-500/35 text-forest-400 hover:bg-forest-900/60'
+              : isToday
+              ? 'border border-white/20 text-white font-bold'
+              : 'text-mountain-450 hover:text-white hover:bg-white/5'
+          }`}
+        >
+          <span>{day}</span>
+          {hasEvents && !isSelected && (
+            <span className="w-1.5 h-1.5 bg-orange-500 rounded-full absolute bottom-1"></span>
+          )}
+        </button>
+      );
+    }
+
+    return (
+      <div className="space-y-4">
+        <div className="flex items-center justify-between border-b border-white/5 pb-3">
+          <button 
+            type="button"
+            onClick={() => {
+              if (currentMonth === 0) {
+                setCurrentMonth(11);
+                setCurrentYear(prev => prev - 1);
+              } else {
+                setCurrentMonth(prev => prev - 1);
+              }
+            }}
+            className="p-1 px-2.5 rounded-lg border border-white/10 hover:bg-white/5 text-xs font-black uppercase text-mountain-300"
+          >
+            ◀
+          </button>
+          <span className="font-display font-black text-sm uppercase text-white tracking-wider">
+            {monthNames[currentMonth]} {currentYear}
+          </span>
+          <button 
+            type="button"
+            onClick={() => {
+              if (currentMonth === 11) {
+                setCurrentMonth(0);
+                setCurrentYear(prev => prev + 1);
+              } else {
+                setCurrentMonth(prev => prev + 1);
+              }
+            }}
+            className="p-1 px-2.5 rounded-lg border border-white/10 hover:bg-white/5 text-xs font-black uppercase text-mountain-300"
+          >
+            ▶
+          </button>
+        </div>
+
+        <div className="grid grid-cols-7 gap-1 text-center text-[9px] uppercase font-black text-mountain-500 tracking-wider">
+          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(d => (
+            <div key={d} className="py-1">{d}</div>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-7 gap-1 justify-items-center">
+          {cells}
+        </div>
+      </div>
+    );
+  };
+
+  const uniqueLocations = Array.from(new Set(events.filter(e => e.status === 'published').map(e => e.location))).filter(Boolean);
 
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
@@ -343,6 +569,381 @@ export default function Home() {
               <h3 className="font-display font-bold text-sm text-white mb-1">No expeditions found</h3>
               <p className="font-sans text-xs text-mountain-400">Try matching another difficulty level filter</p>
             </div>
+          )}
+
+        </div>
+      </section>
+
+      {/* --- UPCOMING EVENTS CALENDAR SECTION --- */}
+      <section id="upcoming-events" className="py-16 relative border-t border-white/5 z-20">
+        <div className="absolute top-1/3 right-0 w-80 h-80 bg-orange-950/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div className="max-w-7xl mx-auto px-6">
+          
+          {/* Section Header */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+            <div>
+              <span className="text-[10px] uppercase font-black tracking-widest text-orange-500 block mb-1">
+                Calendar Timeline
+              </span>
+              <h2 className="font-display font-black text-3xl sm:text-4xl text-white uppercase">
+                Upcoming <span className="text-gradient-orange">Events</span>
+              </h2>
+            </div>
+            
+            {/* View switch toggler (Calendar vs Cards) */}
+            <div className="flex gap-2 bg-mountain-900/40 p-1.5 rounded-2xl border border-white/5">
+              <button
+                type="button"
+                onClick={() => { setEventViewMode('cards'); setSelectedEventDate(null); }}
+                className={`px-4 py-2 text-[10px] font-black uppercase tracking-wider rounded-xl transition ${
+                  eventViewMode === 'cards' 
+                    ? 'bg-orange-650 text-white shadow-md' 
+                    : 'text-mountain-450 hover:text-white hover:bg-white/5'
+                }`}
+              >
+                Card View
+              </button>
+              <button
+                type="button"
+                onClick={() => { setEventViewMode('calendar'); }}
+                className={`px-4 py-2 text-[10px] font-black uppercase tracking-wider rounded-xl transition ${
+                  eventViewMode === 'calendar' 
+                    ? 'bg-orange-650 text-white shadow-md' 
+                    : 'text-mountain-450 hover:text-white hover:bg-white/5'
+                }`}
+              >
+                Calendar View
+              </button>
+            </div>
+          </div>
+
+          {/* Weekend Highlights slider if any */}
+          {getWeekendHighlights().length > 0 && (
+            <div className="mb-10 p-4 bg-gradient-to-r from-orange-600/10 via-forest-900/5 to-transparent rounded-3xl border border-orange-500/20">
+              <div className="flex items-center gap-2 mb-3.5">
+                <span className="bg-orange-600 text-white text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded animate-pulse">
+                  Weekend Special
+                </span>
+                <h3 className="font-display font-bold text-xs uppercase text-white tracking-wider">This Upcoming Weekend Hits</h3>
+              </div>
+              
+              <div className="flex overflow-x-auto gap-4 pb-2 scrollbar-none">
+                {getWeekendHighlights().map(event => {
+                  const available = event.slots - event.bookedSlots;
+                  const isSoldOut = available <= 0 || !event.registrationsEnabled;
+                  const isFewSlotsLeft = !isSoldOut && available <= 5;
+                  
+                  return (
+                    <div key={event.eventId} className="shrink-0 w-[280px] bg-mountain-900/60 border border-white/5 rounded-2xl p-4 flex flex-col justify-between min-h-[150px]">
+                      <div>
+                        <div className="flex justify-between items-start gap-1">
+                          <span className="text-[9px] text-orange-500 font-bold uppercase">{event.location}</span>
+                          <span className="text-[8px] text-mountain-455 font-sans font-semibold">
+                            {new Date(event.date).toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })}
+                          </span>
+                        </div>
+                        <h4 className="font-display font-bold text-sm text-white line-clamp-1 mt-1">{event.title}</h4>
+                        <div className="flex items-center gap-2 mt-2">
+                          <span className="text-xs text-white font-bold">₹{event.price}</span>
+                          {isSoldOut ? (
+                            <span className="bg-red-500/10 text-red-400 border border-red-500/20 px-2 py-0.5 rounded text-[8px] font-black uppercase">Sold Out</span>
+                          ) : isFewSlotsLeft ? (
+                            <span className="bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 px-2 py-0.5 rounded text-[8px] font-black uppercase">Few Slots Left</span>
+                          ) : (
+                            <span className="bg-green-500/10 text-green-400 border border-green-500/20 px-2 py-0.5 rounded text-[8px] font-black uppercase">{available} left</span>
+                          )}
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center justify-between gap-2 mt-3.5 border-t border-white/5 pt-3">
+                        <EventCountdown eventDate={event.date} />
+                        <Link
+                          to={isSoldOut ? '#' : `/booking?trek=${encodeURIComponent(event.title)}`}
+                          onClick={e => isSoldOut && e.preventDefault()}
+                          className={`px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition ${
+                            isSoldOut 
+                              ? 'bg-mountain-800 text-mountain-500 cursor-not-allowed' 
+                              : 'bg-forest-700 hover:bg-forest-600 text-white'
+                          }`}
+                        >
+                          Book Seat
+                        </Link>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Sticky Filters bar */}
+          <div className="sticky top-[70px] z-30 bg-mountain-950/90 backdrop-blur-md py-4 border-y border-white/5 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-5 gap-3.5">
+              {/* Search title/location */}
+              <div className="relative">
+                <input 
+                  type="text" 
+                  value={searchQuery}
+                  onChange={e => setSearchQuery(e.target.value)}
+                  placeholder="Search events/location..."
+                  className="w-full bg-mountain-900 border border-white/10 rounded-xl p-2.5 px-3.5 text-xs text-white placeholder-mountain-500 focus:outline-none focus:border-orange-500"
+                />
+              </div>
+
+              {/* Date Filter */}
+              <div>
+                <select 
+                  value={filterDate}
+                  onChange={e => setFilterDate(e.target.value)}
+                  className="w-full bg-mountain-900 border border-white/10 rounded-xl p-2.5 text-xs text-white font-bold cursor-pointer focus:outline-none"
+                >
+                  <option value="all">Date: All Upcoming</option>
+                  <option value="weekend">Date: Weekends Only</option>
+                  <option value="30days">Date: Next 30 Days</option>
+                </select>
+              </div>
+
+              {/* Difficulty Filter */}
+              <div>
+                <select 
+                  value={filterDifficulty}
+                  onChange={e => setFilterDifficulty(e.target.value)}
+                  className="w-full bg-mountain-900 border border-white/10 rounded-xl p-2.5 text-xs text-white font-bold cursor-pointer focus:outline-none"
+                >
+                  <option value="all">Difficulty: All</option>
+                  <option value="easy">Easy</option>
+                  <option value="moderate">Moderate</option>
+                  <option value="challenging">Challenging</option>
+                </select>
+              </div>
+
+              {/* Price Filter */}
+              <div>
+                <select 
+                  value={filterPrice}
+                  onChange={e => setFilterPrice(e.target.value)}
+                  className="w-full bg-mountain-900 border border-white/10 rounded-xl p-2.5 text-xs text-white font-bold cursor-pointer focus:outline-none"
+                >
+                  <option value="all">Price: All</option>
+                  <option value="under2000">Under ₹2000</option>
+                  <option value="2000to3500">₹2000 - ₹3500</option>
+                  <option value="over3500">Over ₹3500</option>
+                </select>
+              </div>
+
+              {/* Location Filter */}
+              <div>
+                <select 
+                  value={filterLocation}
+                  onChange={e => setFilterLocation(e.target.value)}
+                  className="w-full bg-mountain-900 border border-white/10 rounded-xl p-2.5 text-xs text-white font-bold cursor-pointer focus:outline-none"
+                >
+                  <option value="all">Location: All</option>
+                  {uniqueLocations.map(loc => (
+                    <option key={loc} value={loc}>{loc}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            
+            {/* Show selected day tag from calendar filter */}
+            {selectedEventDate && (
+              <div className="flex items-center gap-2 mt-3 bg-orange-500/10 border border-orange-500/20 px-3 py-1 rounded-xl w-fit">
+                <span className="text-[10px] font-black uppercase text-orange-500">
+                  Filtering by date: {selectedEventDate.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}
+                </span>
+                <button 
+                  type="button"
+                  onClick={() => setSelectedEventDate(null)}
+                  className="text-orange-500 hover:text-white font-bold text-xs leading-none"
+                >
+                  ✕
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Main events container */}
+          {eventViewMode === 'calendar' ? (
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              
+              {/* Calendar Grid left (5 cols) */}
+              <div className="lg:col-span-5 bg-mountain-900/40 border border-white/5 rounded-3xl p-5 shadow-xl">
+                {renderCalendar()}
+              </div>
+
+              {/* Selected Events list right (7 cols) */}
+              <div className="lg:col-span-7 space-y-4">
+                <h3 className="font-display font-black text-sm uppercase text-white tracking-wider border-b border-white/5 pb-2">
+                  {selectedEventDate ? 'Events on Selected Date' : 'All Matches'} ({getFilteredEvents().length})
+                </h3>
+
+                <div className="flex flex-col gap-4 max-h-[500px] overflow-y-auto pr-1">
+                  {getFilteredEvents().map(event => {
+                    const available = event.slots - event.bookedSlots;
+                    const isSoldOut = available <= 0 || !event.registrationsEnabled;
+                    const isFewSlotsLeft = !isSoldOut && available <= 5;
+                    
+                    return (
+                      <div key={event.eventId} className="bg-mountain-900/30 border border-white/5 hover:border-orange-500/20 rounded-2xl p-4 flex gap-4 transition items-center relative overflow-hidden group">
+                        <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0 border border-white/10 bg-mountain-950">
+                          <img src={event.image} alt={event.title} className="w-full h-full object-cover group-hover:scale-105 transition" />
+                        </div>
+                        
+                        <div className="flex-grow space-y-1">
+                          <div className="flex justify-between items-start">
+                            <span className="text-[8px] uppercase font-black text-orange-500">{event.difficulty}</span>
+                            <span className="text-[9px] font-sans font-bold text-mountain-500">
+                              {new Date(event.date).toLocaleDateString('en-IN', { weekday: 'short', day: '2-digit', month: 'short' })}
+                            </span>
+                          </div>
+                          <h4 className="font-display font-bold text-sm text-white group-hover:text-orange-500 transition leading-snug line-clamp-1">{event.title}</h4>
+                          <p className="text-[10px] text-mountain-450 font-bold">{event.location}</p>
+                          <div className="flex gap-2 items-center pt-1.5 flex-wrap">
+                            <span className="text-xs text-white font-black">₹{event.price}</span>
+                            {isSoldOut ? (
+                              <span className="bg-red-500/10 text-red-400 border border-red-500/20 px-2 py-0.5 rounded text-[8px] font-black uppercase">Sold Out</span>
+                            ) : isFewSlotsLeft ? (
+                              <span className="bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 px-2 py-0.5 rounded text-[8px] font-black uppercase">Few Slots Left</span>
+                            ) : (
+                              <span className="bg-green-500/10 text-green-400 border border-green-500/20 px-2 py-0.5 rounded text-[8px] font-black uppercase">{available} left</span>
+                            )}
+                            <EventCountdown eventDate={event.date} />
+                          </div>
+                        </div>
+
+                        <div className="shrink-0 flex items-center">
+                          <Link
+                            to={isSoldOut ? '#' : `/booking?trek=${encodeURIComponent(event.title)}`}
+                            onClick={e => isSoldOut && e.preventDefault()}
+                            className={`px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition ${
+                              isSoldOut 
+                                ? 'bg-mountain-800 text-mountain-500 cursor-not-allowed' 
+                                : 'bg-forest-750 hover:bg-forest-650 text-white shadow-md active:scale-95'
+                            }`}
+                          >
+                            Book Seat
+                          </Link>
+                        </div>
+                      </div>
+                    );
+                  })}
+                  
+                  {getFilteredEvents().length === 0 && (
+                    <div className="text-center py-10 bg-mountain-900/10 border border-white/5 rounded-2xl text-mountain-500 font-bold text-xs uppercase">
+                      No matching events listed for this date.
+                    </div>
+                  )}
+                </div>
+
+              </div>
+            </div>
+          ) : (
+            <>
+              {/* Event Cards Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {getFilteredEvents().map(event => {
+                  const available = event.slots - event.bookedSlots;
+                  const isSoldOut = available <= 0 || !event.registrationsEnabled;
+                  const isFewSlotsLeft = !isSoldOut && available <= 5;
+                  
+                  return (
+                    <div key={event.eventId} className="group glass-card rounded-3xl overflow-hidden flex flex-col h-full border border-white/5 bg-mountain-900/30 hover:border-orange-500/30 transition-all duration-300">
+                      
+                      {/* Event Thumbnail */}
+                      <div className="relative h-52 overflow-hidden shrink-0">
+                        <div className="absolute inset-0 bg-gradient-to-t from-mountain-950/80 via-transparent to-transparent z-10"></div>
+                        <img 
+                          src={getCompressedImgUrl(event.image, 500)} 
+                          alt={event.title} 
+                          className="w-full h-full object-cover transition-transform duration-750 ease-out group-hover:scale-105"
+                          loading="lazy"
+                        />
+                        
+                        {/* Difficulty Badge */}
+                        <span className={`absolute top-4 left-4 z-20 px-3 py-0.5 text-[10px] font-black uppercase tracking-wider rounded-full border ${
+                          event.difficulty.toLowerCase() === 'easy' 
+                            ? 'bg-green-500/10 text-green-400 border-green-500/20' 
+                            : event.difficulty.toLowerCase() === 'moderate' 
+                            ? 'bg-orange-500/10 text-orange-400 border-orange-500/20' 
+                            : 'bg-red-500/10 text-red-400 border-red-500/20'
+                        }`}>
+                          {event.difficulty}
+                        </span>
+
+                        {/* Badges Overlay */}
+                        <div className="absolute top-4 right-4 z-20 flex flex-col gap-1.5 items-end">
+                          {isSoldOut ? (
+                            <span className="bg-red-650 text-white text-[9px] font-black px-2.5 py-0.5 rounded shadow-lg uppercase tracking-wider">Sold Out</span>
+                          ) : isFewSlotsLeft ? (
+                            <span className="bg-yellow-650 text-white text-[9px] font-black px-2.5 py-0.5 rounded shadow-lg uppercase tracking-wider animate-pulse">Few Slots Left</span>
+                          ) : (
+                            <span className="bg-forest-650 text-white text-[9px] font-black px-2.5 py-0.5 rounded shadow-lg uppercase tracking-wider">{available} Slots Available</span>
+                          )}
+                          {event.isFeatured && (
+                            <span className="bg-indigo-650 text-white text-[9px] font-black px-2.5 py-0.5 rounded shadow-lg uppercase tracking-wider">★ Featured</span>
+                          )}
+                        </div>
+
+                        {/* Pricing Badge */}
+                        <span className="absolute bottom-4 right-4 z-20 px-3.5 py-1 text-sm font-black rounded-lg bg-orange-600 text-white shadow-lg flex items-center gap-0.5 glow-orange">
+                          ₹{event.price}
+                        </span>
+                      </div>
+
+                      {/* Event Content */}
+                      <div className="p-5 flex flex-col flex-grow">
+                        
+                        {/* Event Name */}
+                        <h3 className="font-display font-black text-lg text-white group-hover:text-orange-500 transition-colors duration-300 line-clamp-1 mb-1">
+                          {event.title}
+                        </h3>
+                        
+                        {/* Location */}
+                        <p className="font-sans text-xs text-mountain-450 mb-4 flex items-center gap-1 font-semibold">
+                          <MapPin className="w-3.5 h-3.5 text-orange-500 shrink-0" /> {event.location}
+                        </p>
+
+                        {/* Detail bar */}
+                        <div className="flex items-center justify-between border-t border-white/5 pt-3.5 mb-5 mt-auto text-[11px] font-sans font-bold text-mountain-400">
+                          <div className="flex items-center gap-1.5">
+                            <Calendar className="w-3.5 h-3.5 text-forest-500" />
+                            <span>{new Date(event.date).toLocaleDateString('en-IN', { weekday: 'short', day: '2-digit', month: 'short' })}</span>
+                          </div>
+                          
+                          <EventCountdown eventDate={event.date} />
+                        </div>
+
+                        {/* Action buttons */}
+                        <div className="grid grid-cols-1 gap-2.5">
+                          <Link 
+                            to={isSoldOut ? '#' : `/booking?trek=${encodeURIComponent(event.title)}`}
+                            onClick={e => isSoldOut && e.preventDefault()}
+                            className={`py-3.5 text-center text-xs font-black uppercase tracking-wider rounded-xl active:scale-95 transition-all duration-200 min-h-[44px] flex items-center justify-center gap-1.5 ${
+                              isSoldOut 
+                                ? 'bg-mountain-850 border border-white/5 text-mountain-500 cursor-not-allowed' 
+                                : 'bg-forest-700 hover:bg-forest-600 text-white glow-forest'
+                            }`}
+                          >
+                            {isSoldOut ? 'Closed / Sold Out' : 'Register / Book Now'}
+                          </Link>
+                        </div>
+                      </div>
+
+                    </div>
+                  );
+                })}
+              </div>
+
+              {getFilteredEvents().length === 0 && (
+                <div className="text-center py-16 border border-white/5 rounded-2xl glass-card">
+                  <Compass className="w-10 h-10 text-mountain-600 mx-auto mb-3 animate-spin" />
+                  <h3 className="font-display font-bold text-sm text-white mb-1">No scheduled events match your criteria</h3>
+                  <p className="font-sans text-xs text-mountain-400">Try modifying search tags or clearing dates</p>
+                </div>
+              )}
+            </>
           )}
 
         </div>
