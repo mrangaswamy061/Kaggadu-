@@ -15,7 +15,17 @@
     <meta property="og:description" content="Join affordable and safe trekking expeditions in Karnataka's Western Ghats. Meet student and youth travelers on elite weekend camps." />
     <meta property="og:image" content="https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=1200&q=80" />
     <meta property="og:type" content="website" />
-    
+    <!-- Theme Initializer Script -->
+    <script>
+      (function() {
+        const savedTheme = localStorage.getItem('kaggadu_theme');
+        if (savedTheme === 'dark') {
+          document.documentElement.classList.remove('light-theme');
+        } else {
+          document.documentElement.classList.add('light-theme');
+        }
+      })();
+    </script>
   </head>
   <body class="bg-mountain-950 text-mountain-100 antialiased">
     <div id="root"></div>

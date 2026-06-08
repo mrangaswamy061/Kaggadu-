@@ -6,7 +6,10 @@ import { apiService } from '../utils/apiService';
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(() => {
+    const savedTheme = localStorage.getItem('kaggadu_theme');
+    return savedTheme === 'dark';
+  });
   const [isAdmin, setIsAdmin] = useState(false);
   
   const navigate = useNavigate();
@@ -37,13 +40,27 @@ export default function Navbar() {
   }, []);
 
   const toggleTheme = () => {
-    setIsDark(!isDark);
-    if (isDark) {
-      document.documentElement.classList.add('light-theme');
-    } else {
+    const newDark = !isDark;
+    setIsDark(newDark);
+    if (newDark) {
       document.documentElement.classList.remove('light-theme');
+      localStorage.setItem('kaggadu_theme', 'dark');
+    } else {
+      document.documentElement.classList.add('light-theme');
+      localStorage.setItem('kaggadu_theme', 'light');
     }
   };
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('kaggadu_theme');
+    if (savedTheme === 'dark') {
+      setIsDark(true);
+      document.documentElement.classList.remove('light-theme');
+    } else {
+      setIsDark(false);
+      document.documentElement.classList.add('light-theme');
+    }
+  }, []);
 
   const handleLogout = async () => {
     await apiService.adminLogout();
@@ -90,34 +107,46 @@ export default function Navbar() {
             </div>
           </Link>
 
-        {/* Desktop Navigation */}
-        <div className="hidden lg:flex items-center gap-8">
-          <ul className="flex items-center gap-6">
-            {navLinks.map((link) => (
-              <li key={link.label}>
-                {link.type === 'scroll' ? (
-                  <button 
-                    onClick={() => handleScrollTo(link.target)}
-                    className="font-sans text-sm font-semibold tracking-wide text-mountain-100 hover:text-forest-500 transition-colors duration-300 cursor-pointer"
-                  >
-                    {link.label}
-                  </button>
-                ) : (
-                  <Link 
-                    to={link.path}
-                    className="font-sans text-sm font-semibold tracking-wide text-mountain-100 hover:text-forest-500 transition-colors duration-300"
-                  >
-                    {link.label}
-                  </Link>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
+        {/* Navigation & Actions */}
+        <div className="flex items-center gap-4 md:gap-6">
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center gap-8">
+            <ul className="flex items-center gap-6">
+              {navLinks.map((link) => (
+                <li key={link.label}>
+                  {link.type === 'scroll' ? (
+                    <button 
+                      onClick={() => handleScrollTo(link.target)}
+                      className="font-sans text-sm font-semibold tracking-wide text-mountain-100 hover:text-forest-500 transition-colors duration-300 cursor-pointer"
+                    >
+                      {link.label}
+                    </button>
+                  ) : (
+                    <Link 
+                      to={link.path}
+                      className="font-sans text-sm font-semibold tracking-wide text-mountain-100 hover:text-forest-500 transition-colors duration-300"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        {/* Mobile Toggle - Removed since we use sticky Bottom Navigation */}
-        <div className="lg:hidden">
-          {/* Keep top header clean on mobile */}
+          {/* Theme Toggle Button (Mobile & Desktop) */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-xl bg-mountain-950 border border-mountain-800 text-mountain-100 hover:text-forest-500 hover:border-forest-500/30 transition-all duration-300 cursor-pointer shadow-sm flex items-center justify-center"
+            title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            aria-label="Toggle theme"
+          >
+            {isDark ? (
+              <Sun className="w-4.5 h-4.5 text-amber-500" />
+            ) : (
+              <Moon className="w-4.5 h-4.5 text-indigo-500" />
+            )}
+          </button>
         </div>
       </div>
     </nav>
