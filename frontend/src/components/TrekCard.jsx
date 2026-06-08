@@ -54,35 +54,35 @@ export default function TrekCard({ trek }) {
       <div className="p-5 flex flex-col flex-grow">
         
         {/* Trek Name */}
-        <h3 className="font-display font-black text-lg text-mountain-100 group-hover:text-forest-500 transition-colors duration-300 line-clamp-1 mb-1.5">
+        <h3 className="font-display font-black text-xl sm:text-2xl text-mountain-100 group-hover:text-forest-500 transition-colors duration-300 line-clamp-1 mb-1.5">
           {name}
         </h3>
         
         {/* Tagline */}
-        <p className="font-sans text-xs text-mountain-400 line-clamp-2 mb-4 min-h-[32px] leading-relaxed">
+        <p className="font-sans text-sm text-mountain-400 line-clamp-2 mb-4 min-h-[40px] leading-relaxed">
           {tagline}
         </p>
 
         {/* Quick Stats Grid */}
-        <div className="grid grid-cols-3 gap-2 border-t border-mountain-800 pt-3.5 mb-4 mt-auto text-[11px] font-sans font-semibold text-mountain-500">
+        <div className="grid grid-cols-3 gap-2 border-t border-mountain-800 pt-3.5 mb-4 mt-auto text-xs sm:text-sm font-sans font-semibold text-mountain-500">
           <div className="flex items-center gap-1.5">
-            <Clock className="w-3.5 h-3.5 text-forest-500 shrink-0" />
+            <Clock className="w-4 h-4 text-forest-500 shrink-0" />
             <span className="truncate">{duration}</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5 text-orange-500 shrink-0" />
+            <MapPin className="w-4 h-4 text-orange-500 shrink-0" />
             <span className="truncate">{distance || '12 km'}</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <Calendar className="w-3.5 h-3.5 text-forest-500 shrink-0" />
+            <Calendar className="w-4 h-4 text-forest-500 shrink-0" />
             <span className="truncate">{date}</span>
           </div>
         </div>
 
         {/* Pricing block */}
         <div className="flex justify-between items-center mb-4 pt-1">
-          <span className="text-[10px] uppercase font-bold tracking-wider text-mountain-500">Trek Cost:</span>
-          <span className="font-display font-black text-xl text-forest-500 flex items-center">
+          <span className="text-xs sm:text-sm uppercase font-bold tracking-wider text-mountain-500">Trek Cost:</span>
+          <span className="font-display font-black text-2xl sm:text-3xl text-forest-500 flex items-center">
             ₹{price}
           </span>
         </div>

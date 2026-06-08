@@ -98,9 +98,9 @@ export default function TrekDetails() {
             {/* Quick Pricing Box */}
             <div className="glass-card p-6 rounded-2xl border border-mountain-800 shrink-0 lg:w-80 flex items-center justify-between lg:flex-col lg:items-stretch gap-4 shadow-sm">
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-mountain-500 block">Trek Cost / Person</span>
-                <span className="font-display font-black text-3xl text-mountain-100 flex items-center gap-0.5 mt-1">
-                  <IndianRupee className="w-6 h-6 text-orange-500" /> {price}
+                <span className="text-sm font-bold uppercase tracking-wider text-mountain-500 block">Trek Cost / Person</span>
+                <span className="font-display font-black text-3xl sm:text-4xl text-mountain-100 flex items-center gap-0.5 mt-1">
+                  <IndianRupee className="w-7 h-7 text-orange-500" /> {price}
                 </span>
               </div>
               <Link 
@@ -124,20 +124,20 @@ export default function TrekDetails() {
           {/* Quick Metrics Strip */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 glass-card rounded-2xl border border-mountain-800 font-sans shadow-sm">
             <div className="text-center sm:text-left">
-              <span className="text-[10px] uppercase font-bold tracking-widest text-mountain-500 block">Duration</span>
-              <span className="text-sm font-black text-mountain-100 mt-1 block">{duration}</span>
+              <span className="text-xs uppercase font-extrabold tracking-widest text-mountain-500 block">Duration</span>
+              <span className="text-base sm:text-lg font-black text-mountain-100 mt-1 block">{duration}</span>
             </div>
             <div className="text-center sm:text-left border-l border-mountain-800 pl-4 sm:pl-4">
-              <span className="text-[10px] uppercase font-bold tracking-widest text-mountain-500 block">Departure</span>
-              <span className="text-sm font-black text-mountain-100 mt-1 block">{date}</span>
+              <span className="text-xs uppercase font-extrabold tracking-widest text-mountain-500 block">Departure</span>
+              <span className="text-base sm:text-lg font-black text-mountain-100 mt-1 block">{date}</span>
             </div>
             <div className="text-center sm:text-left border-t sm:border-t-0 sm:border-l border-mountain-800 pt-4 sm:pt-0 pl-0 sm:pl-4 col-span-1">
-              <span className="text-[10px] uppercase font-bold tracking-widest text-mountain-500 block">Start Point</span>
-              <span className="text-sm font-black text-mountain-100 mt-1 block">Bengaluru</span>
+              <span className="text-xs uppercase font-extrabold tracking-widest text-mountain-500 block">Start Point</span>
+              <span className="text-base sm:text-lg font-black text-mountain-100 mt-1 block">Bengaluru</span>
             </div>
             <div className="text-center sm:text-left border-t sm:border-t-0 border-l sm:border-l border-mountain-800 pt-4 sm:pt-0 pl-4 sm:pl-4 col-span-1">
-              <span className="text-[10px] uppercase font-bold tracking-widest text-mountain-500 block">Max Altitude</span>
-              <span className="text-sm font-black text-mountain-100 mt-1 block">1894 Mtr</span>
+              <span className="text-xs uppercase font-extrabold tracking-widest text-mountain-500 block">Max Altitude</span>
+              <span className="text-base sm:text-lg font-black text-mountain-100 mt-1 block">1894 Mtr</span>
             </div>
           </div>
 
