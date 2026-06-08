@@ -415,9 +415,9 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
         
         {/* Fullscreen Video / Image Background */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-mountain-950/70 via-mountain-950/80 to-mountain-950 z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-stone-900/40 via-stone-900/50 to-stone-900 z-10"></div>
           <img 
-            src={getCompressedImgUrl("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b", 1200)} 
+            src={getCompressedImgUrl("https://images.unsplash.com/photo-1501555088652-021faa106b9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80", 1200)} 
             alt="Kaggadu Adventures Hero Background" 
             className="w-full h-full object-cover scale-105 animate-[pulse_12s_infinite]"
           />
@@ -425,9 +425,9 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
 
         {/* Brand Header Logo (Top of Hero on Mobile) */}
         <div className="absolute top-8 left-0 right-0 z-20 flex justify-center lg:hidden">
-          <div className="flex items-center gap-2 px-4 py-2 bg-mountain-950/40 backdrop-blur-md border border-white/5 rounded-full">
+          <div className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-md border border-white/20 rounded-full">
             <img src="/logo.jpg" alt="Logo" className="w-6 h-6 object-contain rounded-full" />
-            <span className="font-display font-black text-sm tracking-wider text-gradient-mountain">KAGGADU LIVE WITH NATURE</span>
+            <span className="font-display font-black text-sm tracking-wider text-white">KAGGADU LIVE WITH NATURE</span>
           </div>
         </div>
 
@@ -489,16 +489,16 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
       </section>
 
       {/* 2. STATS OVERVIEW */}
-      <section className="relative py-8 bg-[#020617] border-y border-white/5 z-20">
+      <section className="relative py-8 bg-mountain-900 border-y border-mountain-800 z-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {stats.map((stat, idx) => (
               <div key={idx} className="flex items-center gap-3 text-left">
-                <div className="bg-mountain-900/60 p-2.5 rounded-xl border border-white/5 shrink-0">
+                <div className="bg-mountain-950 p-2.5 rounded-xl border border-mountain-800 shrink-0">
                   <stat.icon className={`w-5 h-5 ${stat.color}`} />
                 </div>
                 <div>
-                  <h4 className="font-display font-black text-base sm:text-lg text-white leading-tight">
+                  <h4 className="font-display font-black text-base sm:text-lg text-mountain-100 leading-tight">
                     {stat.value}
                   </h4>
                   <p className="font-sans text-[9px] uppercase tracking-wider text-mountain-500 font-black">
@@ -518,26 +518,27 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
         <div className="max-w-7xl mx-auto px-6">
           
           {/* Section Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-            <div>
-              <span className="text-[10px] uppercase font-black tracking-widest text-forest-500 block mb-1">
-                Epic Expeditions
-              </span>
-              <h2 className="font-display font-black text-3xl sm:text-4xl text-white uppercase">
-                Upcoming <span className="text-gradient-orange">Treks</span>
-              </h2>
-            </div>
-            
-            {/* Filter buttons */}
-            <div className="flex flex-wrap gap-1.5 scrollbar-none overflow-x-auto">
+          <div className="flex flex-col items-center mb-10 w-full">
+            <span className="text-[10px] uppercase font-black tracking-widest text-forest-600 block mb-1 text-center">
+              Epic Expeditions
+            </span>
+            <h2 className="font-display font-black text-3xl sm:text-4xl text-forest-500 uppercase text-center">
+              Upcoming <span className="text-orange-500">Treks</span>
+            </h2>
+            <div className="w-[60px] h-[4px] bg-orange-500 mx-auto mt-2"></div>
+          </div>
+          
+          {/* Filter buttons */}
+          <div className="flex justify-center mb-8 w-full">
+            <div className="flex flex-wrap gap-1.5 scrollbar-none overflow-x-auto justify-center">
               {['All', 'Easy', 'Moderate', 'Challenging'].map((filter) => (
                 <button
                   key={filter}
                   onClick={() => handleFilter(filter)}
                   className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-wider rounded-full border transition-all duration-300 cursor-pointer ${
                     activeFilter === filter 
-                      ? 'bg-orange-600 border-orange-600 text-white shadow-md' 
-                      : 'border-white/5 hover:border-white/20 text-mountain-400 hover:text-white bg-mountain-900/30'
+                      ? 'bg-orange-500 border-orange-500 text-white shadow-md' 
+                      : 'border-mountain-800 hover:border-mountain-700 text-mountain-400 hover:text-mountain-100 bg-mountain-900'
                   }`}
                 >
                   {filter}
@@ -589,15 +590,14 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
         <div className="max-w-7xl mx-auto px-6">
           
           {/* Section Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-            <div>
-              <span className="text-[10px] uppercase font-black tracking-widest text-orange-500 block mb-1">
-                Calendar Timeline
-              </span>
-              <h2 className="font-display font-black text-3xl sm:text-4xl text-white uppercase">
-                Upcoming <span className="text-gradient-orange">Events</span>
-              </h2>
-            </div>
+          <div className="flex flex-col items-center mb-10 w-full">
+            <span className="text-[10px] uppercase font-black tracking-widest text-forest-600 block mb-1 text-center">
+              Calendar Timeline
+            </span>
+            <h2 className="font-display font-black text-3xl sm:text-4xl text-forest-500 uppercase text-center">
+              Upcoming <span className="text-orange-500">Events</span>
+            </h2>
+            <div className="w-[60px] h-[4px] bg-orange-500 mx-auto mt-2"></div>
           </div>
 
           {/* Weekend Highlights slider if any */}
@@ -607,7 +607,7 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
                 <span className="bg-orange-600 text-white text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded animate-pulse">
                   Weekend Special
                 </span>
-                <h3 className="font-display font-bold text-xs uppercase text-white tracking-wider">This Upcoming Weekend Hits</h3>
+                <h3 className="font-display font-bold text-xs uppercase text-mountain-100 tracking-wider">This Upcoming Weekend Hits</h3>
               </div>
               
               <div className="flex overflow-x-auto gap-4 pb-2 scrollbar-none">
@@ -617,17 +617,17 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
                   const isFewSlotsLeft = !isSoldOut && available <= 5;
                   
                   return (
-                    <div key={event.eventId} className="shrink-0 w-[280px] bg-mountain-900/60 border border-white/5 rounded-2xl p-4 flex flex-col justify-between min-h-[150px]">
+                    <div key={event.eventId} className="shrink-0 w-[280px] bg-mountain-900 border border-mountain-850 rounded-2xl p-4 flex flex-col justify-between min-h-[150px] shadow-sm">
                       <div>
                         <div className="flex justify-between items-start gap-1">
                           <span className="text-[9px] text-orange-500 font-bold uppercase">{event.location}</span>
-                          <span className="text-[8px] text-mountain-455 font-sans font-semibold">
+                          <span className="text-[8px] text-mountain-500 font-sans font-semibold">
                             {new Date(event.date).toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })}
                           </span>
                         </div>
-                        <h4 className="font-display font-bold text-sm text-white line-clamp-1 mt-1">{event.title}</h4>
+                        <h4 className="font-display font-bold text-sm text-mountain-100 line-clamp-1 mt-1">{event.title}</h4>
                         <div className="flex items-center gap-2 mt-2">
-                          <span className="text-xs text-white font-bold">₹{event.price}</span>
+                          <span className="text-xs text-mountain-100 font-bold">₹{event.price}</span>
                           {isSoldOut ? (
                             <span className="bg-red-500/10 text-red-400 border border-red-500/20 px-2 py-0.5 rounded text-[8px] font-black uppercase">Sold Out</span>
                           ) : isFewSlotsLeft ? (
@@ -660,7 +660,7 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
           )}
 
           {/* Sticky Filters bar */}
-          <div className="sticky top-[70px] z-30 bg-mountain-950/90 backdrop-blur-md py-4 border-y border-white/5 mb-6">
+          <div className="sticky top-[70px] z-30 bg-mountain-950/90 backdrop-blur-md py-4 border-y border-mountain-800 mb-6">
             <div className="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-5 gap-3.5">
               {/* Search title/location */}
               <div className="relative">
@@ -669,7 +669,7 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
                   placeholder="Search events/location..."
-                  className="w-full bg-mountain-900 border border-white/10 rounded-xl p-2.5 px-3.5 text-xs text-white placeholder-mountain-500 focus:outline-none focus:border-orange-500"
+                  className="w-full bg-mountain-900 border border-mountain-800 rounded-xl p-2.5 px-3.5 text-xs text-mountain-100 placeholder-mountain-500 focus:outline-none focus:border-forest-500"
                 />
               </div>
 
@@ -678,7 +678,7 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
                 <select 
                   value={filterDate}
                   onChange={e => setFilterDate(e.target.value)}
-                  className="w-full bg-mountain-900 border border-white/10 rounded-xl p-2.5 text-xs text-white font-bold cursor-pointer focus:outline-none"
+                  className="w-full bg-mountain-900 border border-mountain-800 rounded-xl p-2.5 text-xs text-mountain-100 font-bold cursor-pointer focus:outline-none"
                 >
                   <option value="all">Date: All Upcoming</option>
                   <option value="weekend">Date: Weekends Only</option>
@@ -691,7 +691,7 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
                 <select 
                   value={filterDifficulty}
                   onChange={e => setFilterDifficulty(e.target.value)}
-                  className="w-full bg-mountain-900 border border-white/10 rounded-xl p-2.5 text-xs text-white font-bold cursor-pointer focus:outline-none"
+                  className="w-full bg-mountain-900 border border-mountain-800 rounded-xl p-2.5 text-xs text-mountain-100 font-bold cursor-pointer focus:outline-none"
                 >
                   <option value="all">Difficulty: All</option>
                   <option value="easy">Easy</option>
@@ -705,7 +705,7 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
                 <select 
                   value={filterPrice}
                   onChange={e => setFilterPrice(e.target.value)}
-                  className="w-full bg-mountain-900 border border-white/10 rounded-xl p-2.5 text-xs text-white font-bold cursor-pointer focus:outline-none"
+                  className="w-full bg-mountain-900 border border-mountain-800 rounded-xl p-2.5 text-xs text-mountain-100 font-bold cursor-pointer focus:outline-none"
                 >
                   <option value="all">Price: All</option>
                   <option value="under2000">Under ₹2000</option>
@@ -719,7 +719,7 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
                 <select 
                   value={filterLocation}
                   onChange={e => setFilterLocation(e.target.value)}
-                  className="w-full bg-mountain-900 border border-white/10 rounded-xl p-2.5 text-xs text-white font-bold cursor-pointer focus:outline-none"
+                  className="w-full bg-mountain-900 border border-mountain-800 rounded-xl p-2.5 text-xs text-mountain-100 font-bold cursor-pointer focus:outline-none"
                 >
                   <option value="all">Location: All</option>
                   {uniqueLocations.map(loc => (
@@ -750,13 +750,13 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               
               {/* Calendar Grid left (5 cols) */}
-              <div className="lg:col-span-5 bg-mountain-900/40 border border-white/5 rounded-3xl p-5 shadow-xl">
+              <div className="lg:col-span-5 bg-mountain-900 border border-mountain-800 rounded-3xl p-5 shadow-xl">
                 {renderCalendar()}
               </div>
 
               {/* Selected Events list right (7 cols) */}
               <div className="lg:col-span-7 space-y-4">
-                <h3 className="font-display font-black text-sm uppercase text-white tracking-wider border-b border-white/5 pb-2">
+                <h3 className="font-display font-black text-sm uppercase text-mountain-100 tracking-wider border-b border-mountain-800 pb-2">
                   {selectedEventDate ? 'Events on Selected Date' : 'All Matches'} ({getFilteredEvents().length})
                 </h3>
 
@@ -767,8 +767,8 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
                     const isFewSlotsLeft = !isSoldOut && available <= 5;
                     
                     return (
-                      <div key={event.eventId} className="bg-mountain-900/30 border border-white/5 hover:border-orange-500/20 rounded-2xl p-4 flex gap-4 transition items-center relative overflow-hidden group">
-                        <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0 border border-white/10 bg-mountain-950">
+                      <div key={event.eventId} className="bg-mountain-900 border border-mountain-800 hover:border-orange-500/40 rounded-2xl p-4 flex gap-4 transition items-center relative overflow-hidden group shadow-sm">
+                        <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0 border border-mountain-800 bg-mountain-950">
                           <img src={event.image} alt={event.title} className="w-full h-full object-cover group-hover:scale-105 transition" />
                         </div>
                         
@@ -779,10 +779,10 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
                               {new Date(event.date).toLocaleDateString('en-IN', { weekday: 'short', day: '2-digit', month: 'short' })}
                             </span>
                           </div>
-                          <h4 className="font-display font-bold text-sm text-white group-hover:text-orange-500 transition leading-snug line-clamp-1">{event.title}</h4>
-                          <p className="text-[10px] text-mountain-450 font-bold">{event.location}</p>
+                          <h4 className="font-display font-bold text-sm text-mountain-100 group-hover:text-forest-500 transition leading-snug line-clamp-1">{event.title}</h4>
+                          <p className="text-[10px] text-mountain-400 font-bold">{event.location}</p>
                           <div className="flex gap-2 items-center pt-1.5 flex-wrap">
-                            <span className="text-xs text-white font-black">₹{event.price}</span>
+                            <span className="text-xs text-mountain-100 font-black">₹{event.price}</span>
                             {isSoldOut ? (
                               <span className="bg-red-500/10 text-red-400 border border-red-500/20 px-2 py-0.5 rounded text-[8px] font-black uppercase">Sold Out</span>
                             ) : isFewSlotsLeft ? (
@@ -825,24 +825,24 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
       </section>
 
       {/* 4. ABOUT US SECTION */}
-      <section id="about" className="py-16 bg-[#020617]/50 relative border-t border-white/5 z-20">
+      <section id="about" className="py-16 bg-mountain-900/50 relative border-t border-mountain-800 z-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
             {/* Visuals column */}
             <div className="lg:col-span-5 relative hidden md:block">
               <div className="absolute -inset-2 bg-gradient-to-r from-forest-500 to-orange-500 rounded-3xl blur-2xl opacity-10 animate-pulse"></div>
-              <div className="relative rounded-3xl overflow-hidden border border-white/10 aspect-[4/5] shadow-2xl">
+              <div className="relative rounded-3xl overflow-hidden border border-mountain-800 aspect-[4/5] shadow-2xl">
                 <img 
                   src={getCompressedImgUrl("/group_trekkers.png", 600)} 
                   alt="Group of trekkers" 
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute bottom-6 left-6 right-6 p-4 glass-card rounded-2xl border border-white/10 z-10">
-                  <h4 className="font-display font-black text-sm text-white mb-1 uppercase tracking-wide">
+                <div className="absolute bottom-6 left-6 right-6 p-4 glass-card rounded-2xl border border-mountain-800 z-10">
+                  <h4 className="font-display font-black text-sm text-mountain-100 mb-1 uppercase tracking-wide">
                     Kaggadu Adventures Pledge
                   </h4>
-                  <p className="font-sans text-[11px] text-mountain-300 leading-relaxed">
+                  <p className="font-sans text-[11px] text-mountain-400 leading-relaxed">
                     "Leave nothing but footprints. Take nothing but photos. Kill nothing but time."
                   </p>
                 </div>
@@ -852,13 +852,13 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
             {/* Content Column */}
             <div className="lg:col-span-7 space-y-6">
               <div>
-                <span className="text-[10px] uppercase font-black tracking-widest text-forest-500 block mb-1">
+                <span className="text-[10px] uppercase font-black tracking-widest text-forest-600 block mb-1">
                   Youth Trekking Network
                 </span>
-                <h2 className="font-display font-black text-3xl sm:text-4xl text-white uppercase leading-none mb-4">
-                  ABOUT <span className="text-gradient-forest">KAGGADU</span> ADVENTURES
+                <h2 className="font-display font-black text-3xl sm:text-4xl text-mountain-100 uppercase leading-none mb-4">
+                  ABOUT <span className="text-forest-500">KAGGADU</span> ADVENTURES
                 </h2>
-                <p className="font-sans text-xs sm:text-sm text-mountain-300 leading-relaxed font-semibold">
+                <p className="font-sans text-xs sm:text-sm text-mountain-400 leading-relaxed font-semibold">
                   We are a wild team of adventure leads, mountaineers, and travelers from Karnataka. Our community was built with a single vision: **making high-altitude nature and mountain therapy accessible, highly affordable, and extremely safe** for students and young travelers.
                 </p>
               </div>
@@ -866,16 +866,16 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
               {/* USP Checklist Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {[
-                  { title: "Forest Dept Permits", desc: "100% legal routes and authorizations.", icon: ShieldCheck, color: "text-forest-400" },
-                  { title: "Student Friendly Deals", desc: "Highly affordable weekend packages.", icon: Heart, color: "text-red-400" },
-                  { title: "Certified Trek Leads", desc: "First-aid certified, experienced leads.", icon: Compass, color: "text-orange-400" },
-                  { title: "Elite Social Vibes", desc: "Safe, inclusive environment for girls & solo travelers.", icon: Users, color: "text-forest-400" }
+                  { title: "Forest Dept Permits", desc: "100% legal routes and authorizations.", icon: ShieldCheck, color: "text-forest-500" },
+                  { title: "Student Friendly Deals", desc: "Highly affordable weekend packages.", icon: Heart, color: "text-red-500" },
+                  { title: "Certified Trek Leads", desc: "First-aid certified, experienced leads.", icon: Compass, color: "text-orange-500" },
+                  { title: "Elite Social Vibes", desc: "Safe, inclusive environment for girls & solo travelers.", icon: Users, color: "text-forest-500" }
                 ].map((usp, idx) => (
-                  <div key={idx} className="p-3 bg-mountain-900/40 rounded-xl border border-white/5 flex gap-3 items-start">
+                  <div key={idx} className="p-3 bg-mountain-900 rounded-xl border border-mountain-800 flex gap-3 items-start shadow-sm">
                     <usp.icon className={`w-4.5 h-4.5 shrink-0 ${usp.color} mt-0.5`} />
                     <div>
-                      <h5 className="font-display font-bold text-xs text-white leading-tight">{usp.title}</h5>
-                      <p className="font-sans text-[10px] text-mountain-500 mt-0.5">{usp.desc}</p>
+                      <h5 className="font-display font-bold text-xs text-mountain-100 leading-tight">{usp.title}</h5>
+                      <p className="font-sans text-[10px] text-mountain-400 mt-0.5">{usp.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -889,19 +889,19 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
 
 
       {/* 6. CONTACT SECTION */}
-      <section id="contact" className="py-16 bg-[#020617] border-t border-white/5 relative z-20">
+      <section id="contact" className="py-16 bg-mountain-900/10 border-t border-mountain-800 relative z-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
             
             {/* Contact details */}
             <div className="lg:col-span-5 space-y-6">
               <div>
-                <span className="text-[10px] uppercase font-black tracking-widest text-forest-500 block mb-1">
+                <span className="text-[10px] uppercase font-black tracking-widest text-forest-600 block mb-1">
                   Stay Connected
                 </span>
-                <h2 className="font-display font-black text-3xl text-white uppercase leading-none">
+                <h2 className="font-display font-black text-3xl text-mountain-100 uppercase leading-none">
                   REACH THE <br/>
-                  <span className="text-gradient-orange">CAMP BASE</span>
+                  <span className="text-orange-500">CAMP BASE</span>
                 </h2>
                 <p className="font-sans text-xs text-mountain-400 mt-3 leading-relaxed">
                   Have questions about pickup spots, fitness criteria, or safety permits? Our leads are online 24/7 to clear your doubts.
@@ -911,33 +911,33 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
               {/* Contact info cards */}
               <div className="space-y-3 font-sans text-xs">
                 
-                <a href={whatsappUrl} target="_blank" rel="noreferrer" className="flex items-center gap-3 p-3 rounded-xl bg-forest-950/20 border border-forest-500/25 hover:border-forest-500/50 transition">
-                  <div className="p-2.5 rounded-lg bg-forest-900 text-forest-400 shrink-0">
+                <a href={whatsappUrl} target="_blank" rel="noreferrer" className="flex items-center gap-3 p-3 rounded-xl bg-forest-50 border border-forest-500/25 hover:border-forest-500/50 transition shadow-sm">
+                  <div className="p-2.5 rounded-lg bg-forest-100 text-forest-600 shrink-0">
                     <MessageSquare className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="font-display font-bold text-white uppercase tracking-wide text-[10px]">WhatsApp Desk</h4>
-                    <p className="text-forest-400 font-bold mt-0.5">+91 77600 13106 (Fast Replies)</p>
+                    <h4 className="font-display font-bold text-mountain-100 uppercase tracking-wide text-[10px]">WhatsApp Desk</h4>
+                    <p className="text-forest-600 font-bold mt-0.5">+91 77600 13106 (Fast Replies)</p>
                   </div>
                 </a>
 
-                <a href="tel:+919353772729" className="flex items-center gap-3 p-3 rounded-xl bg-mountain-900/40 border border-white/5 hover:border-forest-500/30 transition">
-                  <div className="p-2.5 rounded-lg bg-mountain-800 text-orange-500 shrink-0">
+                <a href="tel:+919353772729" className="flex items-center gap-3 p-3 rounded-xl bg-mountain-900 border border-mountain-800 hover:border-forest-500/30 transition shadow-sm">
+                  <div className="p-2.5 rounded-lg bg-mountain-950 text-orange-500 shrink-0">
                     <Phone className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="font-display font-bold text-white uppercase tracking-wide text-[10px]">Lead Direct</h4>
-                    <p className="text-mountain-300 font-bold mt-0.5">+91 93537 72729 (Call Direct)</p>
+                    <h4 className="font-display font-bold text-mountain-100 uppercase tracking-wide text-[10px]">Lead Direct</h4>
+                    <p className="text-mountain-400 font-bold mt-0.5">+91 93537 72729 (Call Direct)</p>
                   </div>
                 </a>
 
-                <div className="flex items-center gap-3 p-3 rounded-xl bg-mountain-900/40 border border-white/5">
-                  <div className="p-2.5 rounded-lg bg-mountain-800 text-orange-500 shrink-0">
+                <div className="flex items-center gap-3 p-3 rounded-xl bg-mountain-900 border border-mountain-800 shadow-sm">
+                  <div className="p-2.5 rounded-lg bg-mountain-950 text-orange-500 shrink-0">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="font-display font-bold text-white uppercase tracking-wide text-[10px]">Email Coordinator</h4>
-                    <p className="text-mountain-300 font-bold mt-0.5">kaggadu@gmail.com</p>
+                    <h4 className="font-display font-bold text-mountain-100 uppercase tracking-wide text-[10px]">Email Coordinator</h4>
+                    <p className="text-mountain-400 font-bold mt-0.5">kaggadu@gmail.com</p>
                   </div>
                 </div>
 
@@ -958,12 +958,12 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
               </div>
 
               {/* Instagram Card */}
-              <div className="p-4 bg-gradient-to-r from-orange-600/10 to-forest-650/10 rounded-2xl border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="p-4 bg-gradient-to-r from-orange-500/10 to-forest-500/10 rounded-2xl border border-mountain-800 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div>
-                  <h4 className="font-display font-bold text-sm text-white uppercase tracking-wide mb-0.5">
+                  <h4 className="font-display font-bold text-sm text-mountain-100 uppercase tracking-wide mb-0.5">
                     Follow The Trail Vibe
                   </h4>
-                  <p className="font-sans text-[10px] text-mountain-450">
+                  <p className="font-sans text-[10px] text-mountain-400">
                     Catch live drone clips, batch group photos, and community updates on Instagram.
                   </p>
                 </div>

@@ -33,15 +33,14 @@ export default function TrekCard({ trek }) {
   };
 
   return (
-    <div className="group glass-card rounded-3xl overflow-hidden flex flex-col h-full border border-white/5 bg-mountain-900/30 hover:border-orange-500/30 transition-all duration-300">
+    <div className="group rounded-2xl overflow-hidden flex flex-col h-full bg-mountain-900 border border-mountain-800 shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:-translate-y-1.5 transition-all duration-300">
       
       {/* Trek Thumbnail */}
       <div className="relative h-52 overflow-hidden shrink-0">
-        <div className="absolute inset-0 bg-gradient-to-t from-mountain-950/80 via-transparent to-transparent z-10"></div>
         <img 
           src={getCompressedImgUrl(image, 500)} 
           alt={name} 
-          className="w-full h-full object-cover transition-transform duration-750 ease-out group-hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           loading="lazy"
         />
         
@@ -49,19 +48,13 @@ export default function TrekCard({ trek }) {
         <span className={`absolute top-4 left-4 z-20 px-3 py-0.5 text-[10px] font-black uppercase tracking-wider rounded-full border ${getDifficultyStyles(difficulty)}`}>
           {difficulty}
         </span>
-
-        {/* Pricing Badge */}
-        <span className="absolute bottom-4 right-4 z-20 px-3.5 py-1 text-sm font-black rounded-lg bg-orange-600 text-white shadow-lg flex items-center gap-0.5 glow-orange">
-          <IndianRupee className="w-3.5 h-3.5" />
-          {price}
-        </span>
       </div>
 
       {/* Trek Content */}
       <div className="p-5 flex flex-col flex-grow">
         
         {/* Trek Name */}
-        <h3 className="font-display font-black text-lg text-white group-hover:text-orange-500 transition-colors duration-300 line-clamp-1 mb-1.5">
+        <h3 className="font-display font-black text-lg text-mountain-100 group-hover:text-forest-500 transition-colors duration-300 line-clamp-1 mb-1.5">
           {name}
         </h3>
         
@@ -71,32 +64,40 @@ export default function TrekCard({ trek }) {
         </p>
 
         {/* Quick Stats Grid */}
-        <div className="grid grid-cols-3 gap-2 border-t border-white/5 pt-3.5 mb-5 mt-auto text-[11px] font-sans font-semibold text-mountain-450">
-          <div className="flex items-center gap-1.5 text-mountain-400">
+        <div className="grid grid-cols-3 gap-2 border-t border-mountain-800 pt-3.5 mb-4 mt-auto text-[11px] font-sans font-semibold text-mountain-500">
+          <div className="flex items-center gap-1.5">
             <Clock className="w-3.5 h-3.5 text-forest-500 shrink-0" />
             <span className="truncate">{duration}</span>
           </div>
-          <div className="flex items-center gap-1.5 text-mountain-400">
+          <div className="flex items-center gap-1.5">
             <MapPin className="w-3.5 h-3.5 text-orange-500 shrink-0" />
             <span className="truncate">{distance || '12 km'}</span>
           </div>
-          <div className="flex items-center gap-1.5 text-mountain-400">
+          <div className="flex items-center gap-1.5">
             <Calendar className="w-3.5 h-3.5 text-forest-500 shrink-0" />
             <span className="truncate">{date}</span>
           </div>
         </div>
 
-        {/* Action Controls - Large targets for easy thumb tapping */}
+        {/* Pricing block */}
+        <div className="flex justify-between items-center mb-4 pt-1">
+          <span className="text-[10px] uppercase font-bold tracking-wider text-mountain-500">Trek Cost:</span>
+          <span className="font-display font-black text-xl text-forest-500 flex items-center">
+            ₹{price}
+          </span>
+        </div>
+
+        {/* Action Controls */}
         <div className="grid grid-cols-2 gap-2.5">
           <Link 
             to={`/trek/${trekId}`}
-            className="py-3 text-center text-xs font-black uppercase tracking-wider text-mountain-300 border border-white/10 rounded-xl hover:bg-white/5 hover:text-white active:scale-95 transition-all duration-200 min-h-[44px] flex items-center justify-center"
+            className="py-2.5 text-center text-xs font-black uppercase tracking-wider text-forest-500 border border-forest-500/30 hover:border-forest-500 hover:bg-forest-50 rounded-xl active:scale-95 transition-all duration-200 min-h-[42px] flex items-center justify-center"
           >
-            View Details
+            Details
           </Link>
           <Link 
             to={`/booking?trek=${encodeURIComponent(name)}`}
-            className="py-3 text-center text-xs font-black uppercase tracking-wider text-white bg-forest-700 hover:bg-forest-600 rounded-xl active:scale-95 transition-all duration-200 glow-forest min-h-[44px] flex items-center justify-center"
+            className="py-2.5 text-center text-xs font-black uppercase tracking-wider text-white bg-orange-500 hover:bg-orange-600 rounded-xl active:scale-95 transition-all duration-200 glow-orange min-h-[42px] flex items-center justify-center"
           >
             Book Now
           </Link>

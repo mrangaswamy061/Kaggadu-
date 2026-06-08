@@ -7,7 +7,7 @@ export default function PrivacyPolicy() {
   }, []);
 
   return (
-    <div className="bg-mountain-950 min-h-screen pt-28 pb-24 font-sans text-mountain-300 relative overflow-hidden">
+    <div className="bg-mountain-950 min-h-screen pt-28 pb-24 font-sans text-mountain-400 relative overflow-hidden">
       
       {/* Background Accent Glow */}
       <div className="absolute top-1/4 left-10 w-96 h-96 bg-forest-900/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -16,10 +16,10 @@ export default function PrivacyPolicy() {
         
         {/* Header */}
         <div className="text-center space-y-3 mb-10">
-          <div className="bg-mountain-900 border border-white/10 p-3 rounded-full inline-block text-orange-500">
+          <div className="bg-mountain-900 border border-mountain-800 p-3 rounded-full inline-block text-orange-500 shadow-sm">
             <FileText className="w-6 h-6" />
           </div>
-          <h1 className="font-display font-black text-3xl sm:text-4xl text-white uppercase tracking-wide">
+          <h1 className="font-display font-black text-3xl sm:text-4xl text-mountain-100 uppercase tracking-wide">
             Privacy Policy & Terms
           </h1>
           <p className="text-xs text-mountain-500 font-bold uppercase tracking-widest">
@@ -27,10 +27,10 @@ export default function PrivacyPolicy() {
           </p>
         </div>
 
-        <div className="glass-card p-6 sm:p-10 rounded-3xl border border-white/5 space-y-6 text-sm leading-relaxed">
+        <div className="glass-card p-6 sm:p-10 rounded-3xl border border-mountain-800 space-y-6 text-sm leading-relaxed shadow-sm">
           
           <section className="space-y-3">
-            <h3 className="font-display font-black text-lg text-white uppercase tracking-wide flex items-center gap-2">
+            <h3 className="font-display font-black text-lg text-mountain-100 uppercase tracking-wide flex items-center gap-2">
               <Trees className="w-5 h-5 text-forest-500" /> 1. Ecotourism & Environment Pledge
             </h3>
             <p>
@@ -39,7 +39,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section className="space-y-3">
-            <h3 className="font-display font-black text-lg text-white uppercase tracking-wide flex items-center gap-2">
+            <h3 className="font-display font-black text-lg text-mountain-100 uppercase tracking-wide flex items-center gap-2">
               <Compass className="w-5 h-5 text-orange-500" /> 2. Booking Verification & Refunds
             </h3>
             <p>
@@ -48,7 +48,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section className="space-y-3">
-            <h3 className="font-display font-black text-lg text-white uppercase tracking-wide flex items-center gap-2">
+            <h3 className="font-display font-black text-lg text-mountain-100 uppercase tracking-wide flex items-center gap-2">
               <ShieldAlert className="w-5 h-5 text-red-500" /> 3. Medical Indemnity & Safety
             </h3>
             <p>
@@ -57,8 +57,8 @@ export default function PrivacyPolicy() {
           </section>
 
           <section className="space-y-3">
-            <h3 className="font-display font-black text-lg text-white uppercase tracking-wide flex items-center gap-2">
-              <CheckCircle2 className="w-5 h-5 text-forest-400" /> 4. Data Privacy Pledge
+            <h3 className="font-display font-black text-lg text-mountain-100 uppercase tracking-wide flex items-center gap-2">
+              <CheckCircle2 className="w-5 h-5 text-forest-500" /> 4. Data Privacy Pledge
             </h3>
             <p>
               Your contact numbers, emergency details, and government-required identification are solely utilized to procure forest permits, group travel insurance, and direct booking support via WhatsApp. We never share or sell participant data to third-party brokers.

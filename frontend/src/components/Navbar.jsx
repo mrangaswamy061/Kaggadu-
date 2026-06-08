@@ -74,18 +74,14 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-      scrolled 
-        ? 'py-4 bg-mountain-950/80 backdrop-blur-md border-b border-white/5 shadow-2xl' 
-        : 'py-6 bg-transparent'
-    }`}>
+    <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 bg-mountain-900 border-b border-mountain-800/80 shadow-md">
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         
         {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
             <img src="/logo.jpg" alt="Kaggadu Adventures Logo" className="w-8 h-8 object-contain rounded-full" />
             <div>
-              <span className="font-display font-black text-xl tracking-wider text-gradient-mountain block">
+              <span className="font-display font-black text-xl tracking-wider text-mountain-100 block">
                 KAGGADU
               </span>
               <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-forest-500 block -mt-1.5">
@@ -102,14 +98,14 @@ export default function Navbar() {
                 {link.type === 'scroll' ? (
                   <button 
                     onClick={() => handleScrollTo(link.target)}
-                    className="font-sans text-sm font-semibold tracking-wide text-mountain-400 hover:text-orange-500 transition-colors duration-300 cursor-pointer"
+                    className="font-sans text-sm font-semibold tracking-wide text-mountain-100 hover:text-forest-500 transition-colors duration-300 cursor-pointer"
                   >
                     {link.label}
                   </button>
                 ) : (
                   <Link 
                     to={link.path}
-                    className="font-sans text-sm font-semibold tracking-wide text-mountain-400 hover:text-orange-500 transition-colors duration-300"
+                    className="font-sans text-sm font-semibold tracking-wide text-mountain-100 hover:text-forest-500 transition-colors duration-300"
                   >
                     {link.label}
                   </Link>

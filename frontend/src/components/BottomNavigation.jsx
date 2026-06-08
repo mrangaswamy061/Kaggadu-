@@ -74,14 +74,14 @@ export default function BottomNavigation() {
   };
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-45 md:hidden bg-mountain-950/80 backdrop-blur-xl border-t border-white/10 shadow-[0_-8px_30px_rgb(0,0,0,0.6)] pb-safe-bottom">
+    <nav className="fixed bottom-0 left-0 right-0 z-45 md:hidden bg-mountain-900/95 backdrop-blur-xl border-t border-mountain-800 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] pb-safe-bottom">
       <div className="flex items-center justify-around h-16 max-w-lg mx-auto px-4">
         
         {/* Home */}
         <button
           onClick={(e) => handleNavClick('hero', e)}
           className={`flex flex-col items-center justify-center w-12 h-full text-center focus:outline-none transition-colors duration-200 cursor-pointer ${
-            activeSection === 'home' ? 'text-orange-500 scale-105' : 'text-mountain-450 hover:text-mountain-200'
+            activeSection === 'home' ? 'text-forest-500 scale-105' : 'text-mountain-400 hover:text-mountain-100'
           }`}
         >
           <Home className="w-5 h-5 shrink-0" />
@@ -92,7 +92,7 @@ export default function BottomNavigation() {
         <button
           onClick={(e) => handleNavClick('treks', e)}
           className={`flex flex-col items-center justify-center w-12 h-full text-center focus:outline-none transition-colors duration-200 cursor-pointer ${
-            activeSection === 'treks' ? 'text-orange-500 scale-105' : 'text-mountain-450 hover:text-mountain-200'
+            activeSection === 'treks' ? 'text-forest-500 scale-105' : 'text-mountain-400 hover:text-mountain-100'
           }`}
         >
           <Compass className="w-5 h-5 shrink-0" />
@@ -103,7 +103,7 @@ export default function BottomNavigation() {
         <button
           onClick={(e) => handleNavClick('upcoming-events', e)}
           className={`flex flex-col items-center justify-center w-12 h-full text-center focus:outline-none transition-colors duration-200 cursor-pointer ${
-            activeSection === 'events' ? 'text-orange-500 scale-105' : 'text-mountain-450 hover:text-mountain-200'
+            activeSection === 'events' ? 'text-forest-500 scale-105' : 'text-mountain-400 hover:text-mountain-100'
           }`}
         >
           <Calendar className="w-5 h-5 shrink-0" />
@@ -115,7 +115,7 @@ export default function BottomNavigation() {
         <button
           onClick={(e) => handleNavClick('contact', e)}
           className={`flex flex-col items-center justify-center w-12 h-full text-center focus:outline-none transition-colors duration-200 cursor-pointer ${
-            activeSection === 'contact' ? 'text-orange-500 scale-105' : 'text-mountain-450 hover:text-mountain-200'
+            activeSection === 'contact' ? 'text-forest-500 scale-105' : 'text-mountain-400 hover:text-mountain-100'
           }`}
         >
           <Phone className="w-5 h-5 shrink-0" />

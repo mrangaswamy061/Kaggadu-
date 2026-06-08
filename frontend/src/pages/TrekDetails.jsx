@@ -64,7 +64,7 @@ export default function TrekDetails() {
       {/* Immersive Header Banner */}
       <div className="relative h-[65vh] w-full overflow-hidden flex items-end">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-t from-mountain-950 via-mountain-950/60 to-mountain-950/30 z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-[#1a1a1a]/60 to-transparent z-10"></div>
           <img 
             src={image} 
             alt={name} 
@@ -96,16 +96,16 @@ export default function TrekDetails() {
             </div>
 
             {/* Quick Pricing Box */}
-            <div className="glass-card p-6 rounded-2xl border border-white/10 shrink-0 lg:w-80 flex items-center justify-between lg:flex-col lg:items-stretch gap-4">
+            <div className="glass-card p-6 rounded-2xl border border-mountain-800 shrink-0 lg:w-80 flex items-center justify-between lg:flex-col lg:items-stretch gap-4 shadow-sm">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-mountain-500 block">Trek Cost / Person</span>
-                <span className="font-display font-black text-3xl text-white flex items-center gap-0.5 mt-1">
+                <span className="font-display font-black text-3xl text-mountain-100 flex items-center gap-0.5 mt-1">
                   <IndianRupee className="w-6 h-6 text-orange-500" /> {price}
                 </span>
               </div>
               <Link 
                 to={`/booking?trek=${encodeURIComponent(name)}`}
-                className="px-6 py-3 lg:w-full text-center text-xs font-black uppercase tracking-wider text-white bg-forest-700 hover:bg-forest-600 rounded-xl transition duration-300 glow-forest whitespace-nowrap block"
+                className="px-6 py-3 lg:w-full text-center text-xs font-black uppercase tracking-wider text-white bg-orange-500 hover:bg-orange-600 rounded-xl transition duration-300 glow-orange whitespace-nowrap block"
               >
                 Reserve Seat Now
               </Link>
@@ -122,29 +122,29 @@ export default function TrekDetails() {
         <div className="lg:col-span-8 space-y-12">
           
           {/* Quick Metrics Strip */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 glass-card rounded-2xl border border-white/5 font-sans">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 glass-card rounded-2xl border border-mountain-800 font-sans shadow-sm">
             <div className="text-center sm:text-left">
               <span className="text-[10px] uppercase font-bold tracking-widest text-mountain-500 block">Duration</span>
-              <span className="text-sm font-black text-white mt-1 block">{duration}</span>
+              <span className="text-sm font-black text-mountain-100 mt-1 block">{duration}</span>
             </div>
-            <div className="text-center sm:text-left border-l border-white/5 pl-4 sm:pl-4">
+            <div className="text-center sm:text-left border-l border-mountain-800 pl-4 sm:pl-4">
               <span className="text-[10px] uppercase font-bold tracking-widest text-mountain-500 block">Departure</span>
-              <span className="text-sm font-black text-white mt-1 block">{date}</span>
+              <span className="text-sm font-black text-mountain-100 mt-1 block">{date}</span>
             </div>
-            <div className="text-center sm:text-left border-t sm:border-t-0 sm:border-l border-white/5 pt-4 sm:pt-0 pl-0 sm:pl-4 col-span-1">
+            <div className="text-center sm:text-left border-t sm:border-t-0 sm:border-l border-mountain-800 pt-4 sm:pt-0 pl-0 sm:pl-4 col-span-1">
               <span className="text-[10px] uppercase font-bold tracking-widest text-mountain-500 block">Start Point</span>
-              <span className="text-sm font-black text-white mt-1 block">Bengaluru</span>
+              <span className="text-sm font-black text-mountain-100 mt-1 block">Bengaluru</span>
             </div>
-            <div className="text-center sm:text-left border-t sm:border-t-0 border-l sm:border-l border-white/5 pt-4 sm:pt-0 pl-4 sm:pl-4 col-span-1">
+            <div className="text-center sm:text-left border-t sm:border-t-0 border-l sm:border-l border-mountain-800 pt-4 sm:pt-0 pl-4 sm:pl-4 col-span-1">
               <span className="text-[10px] uppercase font-bold tracking-widest text-mountain-500 block">Max Altitude</span>
-              <span className="text-sm font-black text-white mt-1 block">1894 Mtr</span>
+              <span className="text-sm font-black text-mountain-100 mt-1 block">1894 Mtr</span>
             </div>
           </div>
 
           {/* Difficulty Gauge Meter */}
-          <div className="glass-card p-6 rounded-2xl border border-white/5 space-y-4">
+          <div className="glass-card p-6 rounded-2xl border border-mountain-800 space-y-4 shadow-sm">
             <div className="flex justify-between items-center">
-              <h3 className="font-display font-bold text-lg text-white uppercase flex items-center gap-2">
+              <h3 className="font-display font-bold text-lg text-mountain-100 uppercase flex items-center gap-2">
                 <Award className="w-5 h-5 text-orange-500" /> Difficulty Gauge
               </h3>
               <span className="text-xs font-black uppercase text-mountain-300">
@@ -169,12 +169,12 @@ export default function TrekDetails() {
 
           {/* Highlights Section */}
           <div className="space-y-6">
-            <h3 className="font-display font-bold text-2xl text-white uppercase flex items-center gap-2">
+            <h3 className="font-display font-bold text-2xl text-mountain-100 uppercase flex items-center gap-2">
               <span className="w-1.5 h-4 bg-orange-500 rounded-full"></span> Expedition Highlights
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {highlights.map((h, i) => (
-                <div key={i} className="p-4 bg-mountain-900/40 rounded-2xl border border-white/5 flex gap-3.5 items-start">
+                <div key={i} className="p-4 bg-mountain-900 rounded-2xl border border-mountain-800 flex gap-3.5 items-start shadow-sm">
                   <span className="flex items-center justify-center w-6 h-6 rounded-full bg-forest-900/50 text-forest-400 font-display font-bold text-xs shrink-0 mt-0.5 border border-forest-500/20">
                     {i + 1}
                   </span>
@@ -188,16 +188,16 @@ export default function TrekDetails() {
 
           {/* Interactive Timeline Itinerary */}
           <div className="space-y-6">
-            <h3 className="font-display font-bold text-2xl text-white uppercase flex items-center gap-2">
+            <h3 className="font-display font-bold text-2xl text-mountain-100 uppercase flex items-center gap-2">
               <span className="w-1.5 h-4 bg-forest-500 rounded-full"></span> Comprehensive Itinerary
             </h3>
             
-            <div className="relative border-l-2 border-forest-900/50 ml-3 pl-8 py-2 space-y-10">
+            <div className="relative border-l-2 border-forest-200 ml-3 pl-8 py-2 space-y-10">
               {itinerary.map((step, idx) => (
                 <div key={idx} className="relative">
                   
                   {/* Timeline bullet node */}
-                  <span className="absolute -left-12 top-0.5 flex items-center justify-center w-7 h-7 rounded-full bg-mountain-950 border-2 border-forest-500 text-xs font-black text-forest-400">
+                  <span className="absolute -left-12 top-0.5 flex items-center justify-center w-7 h-7 rounded-full bg-mountain-900 border-2 border-forest-500 text-xs font-black text-forest-500">
                     {idx + 1}
                   </span>
 
@@ -205,7 +205,7 @@ export default function TrekDetails() {
                     <span className="text-xs uppercase font-black tracking-widest text-orange-500 block mb-1">
                       {step.day}
                     </span>
-                    <h4 className="font-display font-bold text-lg text-white mb-2">
+                    <h4 className="font-display font-bold text-lg text-mountain-100 mb-2">
                       {step.title}
                     </h4>
                     <p className="font-sans text-sm text-mountain-400 leading-relaxed max-w-3xl">
@@ -220,7 +220,7 @@ export default function TrekDetails() {
 
           {/* Gallery Section */}
           <div className="space-y-6">
-            <h3 className="font-display font-bold text-2xl text-white uppercase flex items-center gap-2">
+            <h3 className="font-display font-bold text-2xl text-mountain-100 uppercase flex items-center gap-2">
               <span className="w-1.5 h-4 bg-orange-500 rounded-full"></span> Trail Memories
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
@@ -246,8 +246,8 @@ export default function TrekDetails() {
         <div className="lg:col-span-4 space-y-8">
           
           {/* Pickup points */}
-          <div className="glass-card p-6 rounded-2xl border border-white/5 space-y-4">
-            <h4 className="font-display font-bold text-sm text-white uppercase tracking-wider flex items-center gap-2 border-b border-white/5 pb-3">
+          <div className="glass-card p-6 rounded-2xl border border-mountain-800 space-y-4 shadow-sm">
+            <h4 className="font-display font-bold text-sm text-mountain-100 uppercase tracking-wider flex items-center gap-2 border-b border-mountain-800 pb-3">
               <MapPin className="w-4 h-4 text-orange-500" /> Pickup Timeline
             </h4>
             <ul className="space-y-3 font-sans text-xs text-mountain-400">
@@ -264,8 +264,8 @@ export default function TrekDetails() {
           </div>
 
           {/* Inclusions */}
-          <div className="glass-card p-6 rounded-2xl border border-white/5 space-y-4">
-            <h4 className="font-display font-bold text-sm text-white uppercase tracking-wider flex items-center gap-2 border-b border-white/5 pb-3">
+          <div className="glass-card p-6 rounded-2xl border border-mountain-800 space-y-4 shadow-sm">
+            <h4 className="font-display font-bold text-sm text-mountain-100 uppercase tracking-wider flex items-center gap-2 border-b border-mountain-800 pb-3">
               <CheckCircle className="w-4 h-4 text-forest-500" /> What's Included
             </h4>
             <ul className="space-y-3 font-sans text-xs text-mountain-400">
@@ -279,8 +279,8 @@ export default function TrekDetails() {
           </div>
 
           {/* Exclusions */}
-          <div className="glass-card p-6 rounded-2xl border border-white/5 space-y-4">
-            <h4 className="font-display font-bold text-sm text-white uppercase tracking-wider flex items-center gap-2 border-b border-white/5 pb-3">
+          <div className="glass-card p-6 rounded-2xl border border-mountain-800 space-y-4 shadow-sm">
+            <h4 className="font-display font-bold text-sm text-mountain-100 uppercase tracking-wider flex items-center gap-2 border-b border-mountain-800 pb-3">
               <XCircle className="w-4 h-4 text-red-500" /> What's Excluded
             </h4>
             <ul className="space-y-3 font-sans text-xs text-mountain-400">
@@ -294,8 +294,8 @@ export default function TrekDetails() {
           </div>
 
           {/* Sticky Reservation CTA (on mobile/bottom) */}
-          <div className="p-6 bg-gradient-to-br from-forest-950/30 to-mountain-900 rounded-2xl border border-forest-500/20 text-center space-y-4">
-            <h4 className="font-display font-black text-lg text-white uppercase tracking-wide">
+          <div className="p-6 bg-mountain-900 rounded-2xl border border-mountain-800 text-center space-y-4 shadow-sm">
+            <h4 className="font-display font-black text-lg text-mountain-100 uppercase tracking-wide">
               Secure Your Vibe
             </h4>
             <p className="font-sans text-xs text-mountain-400">
@@ -303,7 +303,7 @@ export default function TrekDetails() {
             </p>
             <Link 
               to={`/booking?trek=${encodeURIComponent(name)}`}
-              className="w-full py-3 bg-orange-600 hover:bg-orange-500 text-white font-black text-xs uppercase tracking-wider rounded-xl transition duration-300 block shadow-lg glow-orange"
+              className="w-full py-3 bg-orange-500 hover:bg-orange-600 text-white font-black text-xs uppercase tracking-wider rounded-xl transition duration-300 block shadow-lg glow-orange"
             >
               Book Seat Now
             </Link>

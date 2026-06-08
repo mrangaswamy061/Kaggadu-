@@ -216,12 +216,12 @@ export default function Booking() {
         
         {/* Header */}
         <div className="text-center mb-6">
-          <span className="text-[10px] uppercase font-black tracking-widest text-forest-500 block mb-1">Fast Reservation</span>
-          <h1 className="font-display font-black text-3xl text-white uppercase leading-none">SECURE YOUR <span className="text-gradient-orange">SEAT</span></h1>
+          <span className="text-[10px] uppercase font-black tracking-widest text-forest-600 block mb-1">Fast Reservation</span>
+          <h1 className="font-display font-black text-3xl text-mountain-100 uppercase leading-none">SECURE YOUR <span className="text-orange-500">SEAT</span></h1>
         </div>
 
         {/* 3-STEP PROGRESS INDICATOR BAR */}
-        <div className="flex items-center justify-between mb-8 max-w-sm mx-auto bg-mountain-900/30 p-2.5 rounded-2xl border border-white/5">
+        <div className="flex items-center justify-between mb-8 max-w-sm mx-auto bg-mountain-900 p-2.5 rounded-2xl border border-mountain-800 shadow-sm">
           {[
             { num: 1, label: 'Select' },
             { num: 2, label: 'Details' },
@@ -231,16 +231,16 @@ export default function Booking() {
               <div 
                 className={`w-6 h-6 rounded-full flex items-center justify-center font-display font-black text-xs transition-colors duration-300 border ${
                   step === s.num 
-                    ? 'bg-orange-600 border-orange-500 text-white' 
+                    ? 'bg-orange-500 border-orange-500 text-white' 
                     : step > s.num
-                    ? 'bg-forest-750 border-forest-550 text-white'
-                    : 'bg-mountain-900 border-white/10 text-mountain-450'
+                    ? 'bg-forest-500 border-forest-500 text-white'
+                    : 'bg-mountain-950 border-mountain-800 text-mountain-500'
                 }`}
               >
                 {step > s.num ? <Check className="w-3 h-3 text-white" /> : s.num}
               </div>
               <span className={`text-[10px] font-sans font-black uppercase tracking-wider ${
-                step === s.num ? 'text-white' : 'text-mountain-450'
+                step === s.num ? 'text-mountain-100' : 'text-mountain-500'
               }`}>
                 {s.label}
               </span>
@@ -255,12 +255,12 @@ export default function Booking() {
         )}
 
         {/* FORM CONTAINER */}
-        <div className="glass-card p-6 rounded-3xl border border-white/5 bg-mountain-900/40 shadow-2xl relative">
+        <div className="glass-card p-6 rounded-3xl border border-mountain-800 bg-mountain-900 shadow-xl relative">
           
           {/* STEP 1: CHOOSE EXPEDITION */}
           {step === 1 && (
             <div className="space-y-6">
-              <h3 className="font-display font-black text-sm text-white uppercase tracking-wider border-b border-white/5 pb-2 flex items-center gap-1.5">
+              <h3 className="font-display font-black text-sm text-mountain-100 uppercase tracking-wider border-b border-mountain-800 pb-2 flex items-center gap-1.5">
                 <Compass className="w-4 h-4 text-orange-500" /> Choose Expedition
               </h3>
 
@@ -270,7 +270,7 @@ export default function Booking() {
                   name="selectedTrek"
                   value={formData.selectedTrek}
                   onChange={handleChange}
-                  className="w-full bg-mountain-900 border border-white/10 rounded-xl px-4 py-3.5 text-xs text-white font-black focus:outline-none focus:border-forest-500 transition cursor-pointer"
+                  className="w-full bg-mountain-950 border border-mountain-800 rounded-xl px-4 py-3.5 text-xs text-mountain-100 font-bold focus:outline-none focus:border-forest-500 transition cursor-pointer"
                 >
                   {treks.map((t) => (
                     <option key={t.id || t._id} value={t.name}>
@@ -281,26 +281,26 @@ export default function Booking() {
               </div>
 
               {selectedTrekData && (
-                <div className="p-4 bg-mountain-900/60 rounded-2xl border border-white/5 space-y-3 font-sans text-xs">
+                <div className="p-4 bg-mountain-950 rounded-2xl border border-mountain-800 space-y-3 font-sans text-xs">
                   <div className="flex justify-between text-mountain-400">
                     <span>Batch Date:</span>
-                    <span className="text-white font-black uppercase tracking-wider">{trekDateStr}</span>
+                    <span className="text-mountain-100 font-black uppercase tracking-wider">{trekDateStr}</span>
                   </div>
                    <div className="flex justify-between text-mountain-400">
                     <span>{selectedTrekData.isEvent ? 'Location:' : 'Trail Length:'}</span>
-                    <span className="text-white font-black">{trekDistanceStr}</span>
+                    <span className="text-mountain-100 font-black">{trekDistanceStr}</span>
                   </div>
                   <div className="flex justify-between text-mountain-400">
                     <span>{selectedTrekData.isEvent ? 'Trip Type:' : 'Duration:'}</span>
-                    <span className="text-white font-black">{selectedTrekData.duration}</span>
+                    <span className="text-mountain-100 font-black">{selectedTrekData.duration}</span>
                   </div>
-                  <div className="flex justify-between text-mountain-400 border-b border-white/5 pb-2">
+                  <div className="flex justify-between text-mountain-400 border-b border-mountain-800 pb-2">
                     <span>Forest Permits & Taxes:</span>
-                    <span className="text-forest-400 font-bold">Included</span>
+                    <span className="text-forest-500 font-bold">Included</span>
                   </div>
                   <div className="flex justify-between items-end pt-1">
-                    <span className="text-[10px] uppercase font-black text-mountain-450">Trek Cost / seat:</span>
-                    <span className="font-display font-black text-xl text-orange-500 flex items-center gap-0.5 glow-orange">
+                    <span className="text-[10px] uppercase font-black text-mountain-500">Trek Cost / seat:</span>
+                    <span className="font-display font-black text-xl text-forest-500 flex items-center gap-0.5 glow-forest">
                       <IndianRupee className="w-4.5 h-4.5" /> {cost}
                     </span>
                   </div>
@@ -310,7 +310,7 @@ export default function Booking() {
               <button
                 type="button"
                 onClick={handleNextStep}
-                className="w-full py-3.5 bg-orange-600 hover:bg-orange-500 text-white font-black text-xs uppercase tracking-widest rounded-2xl shadow-lg glow-orange flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition min-h-[44px]"
+                className="w-full py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-black text-xs uppercase tracking-widest rounded-2xl shadow-lg glow-orange flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition min-h-[44px]"
               >
                 Proceed to details <ArrowRight className="w-4 h-4" />
               </button>
@@ -320,7 +320,7 @@ export default function Booking() {
           {/* STEP 2: FILL PARTICIPANT DETAILS */}
           {step === 2 && (
             <div className="space-y-5">
-              <h3 className="font-display font-black text-sm text-white uppercase tracking-wider border-b border-white/5 pb-2 flex items-center gap-1.5">
+              <h3 className="font-display font-black text-sm text-mountain-100 uppercase tracking-wider border-b border-mountain-800 pb-2 flex items-center gap-1.5">
                 <Users className="w-4 h-4 text-orange-500" /> Participant details
               </h3>
 
@@ -334,7 +334,7 @@ export default function Booking() {
                   onChange={handleChange}
                   placeholder="e.g. Darshan Gowda"
                   autoComplete="name"
-                  className="w-full bg-mountain-900 border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-forest-500 transition font-bold"
+                  className="w-full bg-mountain-950 border border-mountain-800 rounded-xl px-4 py-3 text-xs text-mountain-100 focus:outline-none focus:border-forest-500 transition font-bold"
                   required
                 />
               </div>
@@ -351,7 +351,7 @@ export default function Booking() {
                   inputMode="numeric"
                   pattern="[0-9]*"
                   autoComplete="tel"
-                  className="w-full bg-mountain-900 border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-forest-500 transition font-bold"
+                  className="w-full bg-mountain-950 border border-mountain-800 rounded-xl px-4 py-3 text-xs text-mountain-100 focus:outline-none focus:border-forest-500 transition font-bold"
                   required
                 />
               </div>
@@ -366,7 +366,7 @@ export default function Booking() {
                   onChange={handleChange}
                   placeholder="e.g. arjun@gmail.com"
                   autoComplete="email"
-                  className="w-full bg-mountain-900 border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-forest-500 transition font-bold"
+                  className="w-full bg-mountain-950 border border-mountain-800 rounded-xl px-4 py-3 text-xs text-mountain-100 focus:outline-none focus:border-forest-500 transition font-bold"
                   required
                 />
               </div>
@@ -384,7 +384,7 @@ export default function Booking() {
                     min="12"
                     max="65"
                     inputMode="numeric"
-                    className="w-full bg-mountain-900 border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-forest-500 transition font-bold"
+                    className="w-full bg-mountain-950 border border-mountain-800 rounded-xl px-4 py-3 text-xs text-mountain-100 focus:outline-none focus:border-forest-500 transition font-bold"
                     required
                   />
                 </div>
@@ -399,8 +399,8 @@ export default function Booking() {
                         onClick={() => handleGenderSelect(g)}
                         className={`flex-1 py-3 text-[10px] font-black uppercase tracking-wider rounded-xl border transition cursor-pointer ${
                           formData.gender === g 
-                            ? 'bg-forest-750/30 border-forest-550 text-forest-400' 
-                            : 'border-white/10 bg-mountain-900 text-mountain-450'
+                            ? 'bg-forest-100 border-forest-500 text-forest-600 font-bold' 
+                            : 'border-mountain-800 bg-mountain-950 text-mountain-500'
                         }`}
                       >
                         {g}
@@ -419,7 +419,7 @@ export default function Booking() {
                   value={formData.emergencyContact}
                   onChange={handleChange}
                   placeholder="e.g. Mother: 9988776600"
-                  className="w-full bg-mountain-900 border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-forest-500 transition font-bold"
+                  className="w-full bg-mountain-950 border border-mountain-800 rounded-xl px-4 py-3 text-xs text-mountain-100 focus:outline-none focus:border-forest-500 transition font-bold"
                   required
                 />
               </div>
@@ -429,14 +429,14 @@ export default function Booking() {
                 <button
                   type="button"
                   onClick={handlePrevStep}
-                  className="w-1/3 py-3.5 border border-white/10 text-white font-bold text-xs uppercase tracking-wider rounded-xl active:scale-95 transition flex items-center justify-center gap-1 cursor-pointer min-h-[44px]"
+                  className="w-1/3 py-3.5 border border-mountain-800 text-mountain-100 font-bold text-xs uppercase tracking-wider rounded-xl active:scale-95 transition flex items-center justify-center gap-1 cursor-pointer min-h-[44px]"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" /> Back
                 </button>
                 <button
                   type="button"
                   onClick={handleNextStep}
-                  className="w-2/3 py-3.5 bg-orange-650 hover:bg-orange-550 text-white font-black text-xs uppercase tracking-wider rounded-xl shadow-lg glow-orange flex items-center justify-center gap-1 cursor-pointer active:scale-95 transition min-h-[44px]"
+                  className="w-2/3 py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-black text-xs uppercase tracking-wider rounded-xl shadow-lg glow-orange flex items-center justify-center gap-1 cursor-pointer active:scale-95 transition min-h-[44px]"
                 >
                   Pay & Confirm <ArrowRight className="w-3.5 h-3.5" />
                 </button>
@@ -447,32 +447,32 @@ export default function Booking() {
           {/* STEP 3: PAY & CONFIRM */}
           {step === 3 && (
             <form onSubmit={handleSubmit} className="space-y-5">
-              <h3 className="font-display font-black text-sm text-white uppercase tracking-wider border-b border-white/5 pb-2 flex items-center gap-1.5">
+              <h3 className="font-display font-black text-sm text-mountain-100 uppercase tracking-wider border-b border-mountain-800 pb-2 flex items-center gap-1.5">
                 <QrCode className="w-4 h-4 text-orange-500" /> Complete Payment (UPI)
               </h3>
 
               {/* Booking Recap */}
-              <div className="p-4 bg-mountain-900/60 rounded-2xl border border-white/5 text-xs space-y-2">
-                <div className="flex justify-between text-mountain-450">
+              <div className="p-4 bg-mountain-950 rounded-2xl border border-mountain-800 text-xs space-y-2">
+                <div className="flex justify-between text-mountain-500">
                   <span>Selected expedition:</span>
-                  <span className="text-white font-bold truncate max-w-[180px]">{formData.selectedTrek}</span>
+                  <span className="text-mountain-100 font-bold truncate max-w-[180px]">{formData.selectedTrek}</span>
                 </div>
-                <div className="flex justify-between text-mountain-450 border-b border-white/5 pb-2">
+                <div className="flex justify-between text-mountain-500 border-b border-mountain-800 pb-2">
                   <span>Date schedule:</span>
-                  <span className="text-white font-bold">{trekDateStr}</span>
+                  <span className="text-mountain-100 font-bold">{trekDateStr}</span>
                 </div>
                 <div className="flex justify-between items-end pt-1">
-                  <span className="text-[10px] uppercase font-black text-mountain-450">Payable amount:</span>
-                  <span className="font-display font-black text-lg text-orange-500 flex items-center gap-0.5">
+                  <span className="text-[10px] uppercase font-black text-mountain-500">Payable amount:</span>
+                  <span className="font-display font-black text-lg text-forest-500 flex items-center gap-0.5">
                     <IndianRupee className="w-4 h-4" /> {cost}
                   </span>
                 </div>
               </div>
 
               {/* UPI scanning & Deep linking */}
-              <div className="bg-mountain-900/80 p-4 rounded-2xl border border-white/5 text-center space-y-3">
+              <div className="bg-mountain-950 p-4 rounded-2xl border border-mountain-800 text-center space-y-3">
                 <span className="text-[9px] uppercase font-black text-mountain-500 block">Trek Coordinator UPI ID</span>
-                <span className="font-display font-black text-sm text-white tracking-widest block bg-mountain-950 p-2 rounded-lg border border-white/5 selection:bg-orange-500">8310668859@axl</span>
+                <span className="font-display font-black text-sm text-mountain-100 tracking-widest block bg-mountain-900 p-2 rounded-lg border border-mountain-800 selection:bg-orange-500">8310668859@axl</span>
                 
                 {/* Instant Mobile Deep link */}
                 <a 
@@ -491,7 +491,7 @@ export default function Booking() {
               <div className="space-y-1.5">
                 <label className="text-[9px] font-black uppercase tracking-wider text-mountain-400 block">Upload Transfer Screenshot</label>
                 
-                <label className="w-full h-32 bg-mountain-900 hover:bg-mountain-850 border-2 border-dashed border-white/10 hover:border-forest-550/40 rounded-2xl cursor-pointer transition flex flex-col items-center justify-center p-3 relative overflow-hidden">
+                <label className="w-full h-32 bg-mountain-950 hover:bg-mountain-900 border-2 border-dashed border-mountain-850 hover:border-forest-500 rounded-2xl cursor-pointer transition flex flex-col items-center justify-center p-3 relative overflow-hidden">
                   <input 
                     type="file" 
                     accept="image/*"
@@ -509,8 +509,8 @@ export default function Booking() {
                   ) : (
                     <div className="text-center space-y-1.5">
                       <Upload className="w-6 h-6 text-orange-500 mx-auto" />
-                      <span className="text-[11px] text-mountain-300 font-bold block">Capture or select Screenshot</span>
-                      <span className="text-[9px] text-mountain-500 block">JPG, PNG up to 2MB</span>
+                      <span className="text-[11px] text-mountain-100 font-bold block">Capture or select Screenshot</span>
+                      <span className="text-[9px] text-mountain-400 block">JPG, PNG up to 2MB</span>
                     </div>
                   )}
                 </label>
@@ -521,7 +521,7 @@ export default function Booking() {
                 <button
                   type="button"
                   onClick={handlePrevStep}
-                  className="w-1/3 py-3.5 border border-white/10 text-white font-bold text-xs uppercase tracking-wider rounded-xl active:scale-95 transition flex items-center justify-center gap-1 cursor-pointer min-h-[44px]"
+                  className="w-1/3 py-3.5 border border-mountain-800 text-mountain-100 font-bold text-xs uppercase tracking-wider rounded-xl active:scale-95 transition flex items-center justify-center gap-1 cursor-pointer min-h-[44px]"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" /> Back
                 </button>
@@ -529,7 +529,7 @@ export default function Booking() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-2/3 py-3.5 bg-forest-700 hover:bg-forest-600 text-white font-black text-xs uppercase tracking-wider rounded-xl shadow-lg glow-forest transition duration-200 active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50 min-h-[44px]"
+                  className="w-2/3 py-3.5 bg-forest-500 hover:bg-forest-600 text-white font-black text-xs uppercase tracking-wider rounded-xl shadow-lg glow-forest transition duration-200 active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50 min-h-[44px]"
                 >
                   {isSubmitting ? (
                     <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
