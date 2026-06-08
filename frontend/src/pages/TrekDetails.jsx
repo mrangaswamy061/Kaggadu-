@@ -90,7 +90,7 @@ export default function TrekDetails() {
               <h1 className="font-display font-black text-4xl sm:text-5xl lg:text-6xl text-white uppercase leading-none">
                 {name}
               </h1>
-              <p className="font-sans text-sm sm:text-base text-mountain-300 mt-3 max-w-2xl font-medium">
+              <p className="font-sans text-sm sm:text-base text-white/80 mt-3 max-w-2xl font-medium">
                 {tagline}
               </p>
             </div>

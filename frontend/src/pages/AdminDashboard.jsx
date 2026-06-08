@@ -329,14 +329,14 @@ export default function AdminDashboard() {
         <div className="max-w-md mx-auto px-4 relative z-10 w-full">
           <form onSubmit={handleLoginSubmit} className="glass-card p-6 sm:p-8 rounded-3xl border border-orange-500/20 shadow-2xl space-y-5">
             <div className="text-center space-y-1.5">
-              <div className="bg-mountain-900 border border-white/10 p-3 rounded-full inline-block text-orange-500">
+              <div className="bg-mountain-950 border border-mountain-800 p-3 rounded-full inline-block text-orange-500">
                 <Lock className="w-5 h-5" />
               </div>
-              <h2 className="font-display font-black text-lg text-white uppercase tracking-wide">
+              <h2 className="font-display font-black text-lg text-mountain-100 uppercase tracking-wide">
                 Admin Control Room
               </h2>
               <p className="text-[11px] text-mountain-450 leading-relaxed">
-                Approve seat receipts and manage trekking batches directly from your smartphone.
+                Monitor registrations and manage trekking batches directly from your smartphone.
               </p>
             </div>
 
@@ -354,7 +354,7 @@ export default function AdminDashboard() {
                   value={username}
                   onChange={e => setUsername(e.target.value)}
                   placeholder="e.g. admin"
-                  className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white"
+                  className="w-full bg-mountain-950 border border-mountain-800 rounded-xl p-3 text-xs text-mountain-100 font-bold"
                   required
                 />
               </div>
@@ -366,7 +366,7 @@ export default function AdminDashboard() {
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   placeholder="e.g. password"
-                  className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white"
+                  className="w-full bg-mountain-950 border border-mountain-800 rounded-xl p-3 text-xs text-mountain-100 font-bold"
                   required
                 />
               </div>
@@ -392,26 +392,26 @@ export default function AdminDashboard() {
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         
         {/* Header command board */}
-        <div className="flex flex-col gap-4 border-b border-white/5 pb-5 mb-6">
+        <div className="flex flex-col gap-4 border-b border-mountain-800 pb-5 mb-6">
           <div>
             <span className="text-[9px] uppercase font-black tracking-widest text-forest-500 block mb-0.5">
               Command Cockpit
             </span>
-            <h1 className="font-display font-black text-2xl text-white uppercase flex items-center gap-1.5 leading-none">
-              <ShieldCheck className="w-6 h-6 text-orange-500 shrink-0" /> Kaggadu Admin Panel
+            <h1 className="font-display font-black text-2xl text-mountain-100 uppercase flex items-center gap-1.5 leading-none">
+              <ShieldCheck className="w-6 h-6 text-orange-550 shrink-0" /> Kaggadu Admin Panel
             </h1>
           </div>
           
           <div className="flex flex-wrap items-center gap-2">
             <button 
               onClick={exportToCSV}
-              className="px-3.5 py-2.5 bg-forest-750 hover:bg-forest-650 text-white text-[10px] font-black uppercase tracking-wider rounded-xl transition flex items-center gap-1.5 cursor-pointer min-h-[40px] flex-grow sm:flex-grow-0 justify-center"
+              className="px-3.5 py-2.5 bg-forest-700 hover:bg-forest-600 text-white text-[10px] font-black uppercase tracking-wider rounded-xl transition flex items-center gap-1.5 cursor-pointer min-h-[40px] flex-grow sm:flex-grow-0 justify-center"
             >
               <FileSpreadsheet className="w-4 h-4" /> Export CSV
             </button>
             <button 
               onClick={handleLogout}
-              className="px-3.5 py-2.5 border border-white/10 text-mountain-400 hover:text-white bg-white/5 rounded-xl text-[10px] font-black uppercase tracking-wider transition min-h-[40px] flex-grow sm:flex-grow-0 justify-center"
+              className="px-3.5 py-2.5 border border-mountain-800 text-mountain-400 hover:text-mountain-100 bg-mountain-950 rounded-xl text-[10px] font-black uppercase tracking-wider transition min-h-[40px] flex-grow sm:flex-grow-0 justify-center cursor-pointer"
             >
               Logout Admin
             </button>
@@ -421,13 +421,13 @@ export default function AdminDashboard() {
         {/* Stats Grid widgets */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5 mb-6">
           {[
-            { label: 'Total Bookings', value: stats.totalBookings, color: 'text-white' },
-            { label: 'Pending Receipts', value: stats.pendingBookings, color: 'text-orange-500 animate-pulse' },
-            { label: 'Approved seats', value: stats.approvedBookings, color: 'text-forest-450' },
-            { label: 'Active Trails', value: stats.activeTreks, color: 'text-orange-500' },
-            { label: 'Scheduled Events', value: stats.activeEvents || 0, color: 'text-orange-500' }
+            { label: 'Total Bookings', value: stats.totalBookings, color: 'text-mountain-100' },
+            { label: 'Pending Receipts', value: stats.pendingBookings, color: 'text-orange-600 animate-pulse' },
+            { label: 'Approved seats', value: stats.approvedBookings, color: 'text-forest-600' },
+            { label: 'Active Trails', value: stats.activeTreks, color: 'text-orange-600' },
+            { label: 'Scheduled Events', value: stats.activeEvents || 0, color: 'text-orange-600' }
           ].map((stat, idx) => (
-            <div key={idx} className="glass-card p-4 rounded-xl border border-white/5 flex flex-col justify-between min-h-[85px] bg-mountain-900/40">
+            <div key={idx} className="glass-card p-4 rounded-xl border border-mountain-800 flex flex-col justify-between min-h-[85px] bg-white shadow-sm">
               <span className="text-[9px] uppercase font-black tracking-wider text-mountain-500">{stat.label}</span>
               <span className={`font-display font-black text-2xl ${stat.color} mt-1.5`}>{stat.value}</span>
             </div>
@@ -435,24 +435,24 @@ export default function AdminDashboard() {
         </div>
 
         {/* Showcase Stats Settings Panel */}
-        <div className="glass-card p-4 rounded-xl border border-white/5 bg-mountain-900/20 mb-6 text-xs font-black uppercase text-mountain-400">
-          <h3 className="font-display font-bold text-sm text-white mb-3 uppercase tracking-wider">Configure Homepage Statistics</h3>
+        <div className="glass-card p-4 rounded-xl border border-mountain-800 bg-white mb-6 text-xs font-black uppercase text-mountain-400 shadow-sm">
+          <h3 className="font-display font-bold text-sm text-mountain-100 mb-3 uppercase tracking-wider">Configure Homepage Statistics</h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div className="space-y-1">
               <label className="text-[8px]">Trekkers Guided</label>
-              <input type="text" value={showcaseStatsForm.trekkersGuided} onChange={e=>setShowcaseStatsForm(prev=>({ ...prev, trekkersGuided: e.target.value }))} className="w-full bg-mountain-900 border border-white/10 rounded-lg p-2 text-xs text-white font-bold" />
+              <input type="text" value={showcaseStatsForm.trekkersGuided} onChange={e=>setShowcaseStatsForm(prev=>({ ...prev, trekkersGuided: e.target.value }))} className="w-full bg-mountain-950 border border-mountain-800 rounded-lg p-2 text-xs text-mountain-100 font-bold" />
             </div>
             <div className="space-y-1">
               <label className="text-[8px]">Completed Treks</label>
-              <input type="text" value={showcaseStatsForm.completedTreks} onChange={e=>setShowcaseStatsForm(prev=>({ ...prev, completedTreks: e.target.value }))} className="w-full bg-mountain-900 border border-white/10 rounded-lg p-2 text-xs text-white font-bold" />
+              <input type="text" value={showcaseStatsForm.completedTreks} onChange={e=>setShowcaseStatsForm(prev=>({ ...prev, completedTreks: e.target.value }))} className="w-full bg-mountain-950 border border-mountain-800 rounded-lg p-2 text-xs text-mountain-100 font-bold" />
             </div>
             <div className="space-y-1">
               <label className="text-[8px]">Trails Explored</label>
-              <input type="text" value={showcaseStatsForm.trailsExplored} onChange={e=>setShowcaseStatsForm(prev=>({ ...prev, trailsExplored: e.target.value }))} className="w-full bg-mountain-900 border border-white/10 rounded-lg p-2 text-xs text-white font-bold" />
+              <input type="text" value={showcaseStatsForm.trailsExplored} onChange={e=>setShowcaseStatsForm(prev=>({ ...prev, trailsExplored: e.target.value }))} className="w-full bg-mountain-950 border border-mountain-800 rounded-lg p-2 text-xs text-mountain-100 font-bold" />
             </div>
             <div className="space-y-1">
               <label className="text-[8px]">Safety Rating</label>
-              <input type="text" value={showcaseStatsForm.safetyRating} onChange={e=>setShowcaseStatsForm(prev=>({ ...prev, safetyRating: e.target.value }))} className="w-full bg-mountain-900 border border-white/10 rounded-lg p-2 text-xs text-white font-bold" />
+              <input type="text" value={showcaseStatsForm.safetyRating} onChange={e=>setShowcaseStatsForm(prev=>({ ...prev, safetyRating: e.target.value }))} className="w-full bg-mountain-950 border border-mountain-800 rounded-lg p-2 text-xs text-mountain-100 font-bold" />
             </div>
           </div>
           <button onClick={async()=>{ try { await apiService.updateShowcaseStats(showcaseStatsForm); setStatsSavedMsg('Showcase stats updated!'); setTimeout(()=>setStatsSavedMsg(''), 2000); } catch(e){ console.error(e); } }} className="mt-3.5 px-4 py-2 bg-forest-700 hover:bg-forest-600 text-white text-[9px] font-black uppercase rounded-lg active:scale-95 transition min-h-[36px] cursor-pointer">
@@ -461,13 +461,13 @@ export default function AdminDashboard() {
         </div>
 
         {/* Tab Selection Switch */}
-        <div className="flex gap-2.5 border-b border-white/5 pb-3 mb-6 bg-mountain-900/10 rounded-xl p-1 max-w-md">
+        <div className="flex gap-2.5 border-b border-mountain-800 pb-3 mb-6 bg-mountain-950 rounded-xl p-1 max-w-md border border-mountain-800">
           <button 
             onClick={() => setActiveTab('bookings')}
             className={`flex-1 py-2 text-[10px] font-black uppercase tracking-wider rounded-lg transition cursor-pointer ${
               activeTab === 'bookings' 
                 ? 'bg-orange-600 text-white shadow-md' 
-                : 'text-mountain-450 hover:text-white'
+                : 'text-mountain-450 hover:text-mountain-100 hover:bg-mountain-900'
             }`}
           >
             Bookings
@@ -477,7 +477,7 @@ export default function AdminDashboard() {
             className={`flex-1 py-2 text-[10px] font-black uppercase tracking-wider rounded-lg transition cursor-pointer ${
               activeTab === 'treks' 
                 ? 'bg-orange-600 text-white shadow-md' 
-                : 'text-mountain-450 hover:text-white'
+                : 'text-mountain-450 hover:text-mountain-100 hover:bg-mountain-900'
             }`}
           >
             Treks
@@ -486,8 +486,8 @@ export default function AdminDashboard() {
             onClick={() => setActiveTab('events')}
             className={`flex-1 py-2 text-[10px] font-black uppercase tracking-wider rounded-lg transition cursor-pointer ${
               activeTab === 'events' 
-                ? 'bg-orange-600 text-white shadow-md' 
-                : 'text-mountain-450 hover:text-white'
+                ? 'bg-orange-650 text-white shadow-md' 
+                : 'text-mountain-450 hover:text-mountain-100 hover:bg-mountain-900'
             }`}
           >
             Events
@@ -503,93 +503,95 @@ export default function AdminDashboard() {
               {bookings.map((booking) => (
                 <div 
                   key={booking.id || booking._id} 
-                  className="p-4 bg-mountain-900/40 rounded-2xl border border-white/5 space-y-3.5 relative overflow-hidden"
+                  className="p-4 bg-white rounded-2xl border border-mountain-800 space-y-3.5 relative overflow-hidden shadow-sm"
                 >
                   {/* Status Badge */}
                   <div className="flex justify-between items-start">
                     <div>
-                      <h4 className="font-display font-black text-sm text-white leading-tight">{booking.name}</h4>
+                      <h4 className="font-display font-black text-sm text-mountain-100 leading-tight">{booking.name}</h4>
                       <p className="text-[9px] text-mountain-450 font-semibold mt-0.5">Age: {booking.age} | {booking.gender}</p>
                     </div>
                     <span className={`px-2.5 py-0.5 rounded-full border text-[8px] font-black uppercase tracking-wider ${
                       booking.status === 'Approved' 
-                        ? 'bg-green-500/10 text-green-400 border-green-500/20' 
+                        ? 'bg-green-500/10 text-green-650 border-green-500/20' 
                         : booking.status === 'Rejected'
-                        ? 'bg-red-500/10 text-red-400 border-red-500/20'
-                        : 'bg-orange-500/10 text-orange-400 border-orange-500/20'
+                        ? 'bg-red-500/10 text-red-600 border-red-500/20'
+                        : 'bg-orange-500/10 text-orange-600 border-orange-500/20'
                     }`}>
                       {booking.status}
                     </span>
                   </div>
 
                   {/* Trek Details */}
-                  <div className="grid grid-cols-2 gap-2 text-[10px] font-sans font-semibold text-mountain-400 bg-mountain-950/40 p-2.5 rounded-xl border border-white/5">
+                  <div className="grid grid-cols-2 gap-2 text-[10px] font-sans font-semibold text-mountain-450 bg-mountain-950 p-2.5 rounded-xl border border-mountain-800">
                     <div>
                       <span className="text-[8px] uppercase font-black text-mountain-500 block">Expedition</span>
-                      <span className="text-white font-bold block truncate mt-0.5">{booking.selectedTrek}</span>
+                      <span className="text-mountain-100 font-bold block truncate mt-0.5">{booking.selectedTrek}</span>
                     </div>
                     <div>
                       <span className="text-[8px] uppercase font-black text-mountain-500 block">Date</span>
-                      <span className="text-white font-bold block mt-0.5">{booking.trekDate || 'Every Sat-Sun'}</span>
+                      <span className="text-mountain-100 font-bold block mt-0.5">{booking.trekDate || 'Every Sat-Sun'}</span>
                     </div>
                   </div>
 
                   {/* Contacts details */}
-                  <div className="text-[10px] font-sans font-semibold text-mountain-400 space-y-1">
+                  <div className="text-[10px] font-sans font-semibold text-mountain-450 space-y-1">
                     <div className="flex justify-between">
                       <span>WhatsApp Phone:</span>
-                      <a href={`tel:${booking.phone}`} className="text-orange-400 font-bold">{booking.phone}</a>
+                      <a href={`tel:${booking.phone}`} className="text-orange-600 font-bold">{booking.phone}</a>
                     </div>
                     <div className="flex justify-between">
                       <span>Emergency Info:</span>
-                      <span className="text-white font-bold">{booking.emergencyContact}</span>
+                      <span className="text-mountain-100 font-bold">{booking.emergencyContact}</span>
                     </div>
                   </div>
 
                   {/* Quick-action buttons */}
-                  <div className="flex gap-2.5 pt-1.5 border-t border-white/5 items-center justify-between">
+                  <div className="flex gap-2.5 pt-1.5 border-t border-mountain-800 items-center justify-between">
                     <button 
                       onClick={() => setSelectedScreenshot(booking.paymentScreenshot)}
-                      className="px-3 py-2 bg-mountain-900 border border-white/10 rounded-xl text-[10px] font-black uppercase text-mountain-300 flex items-center gap-1 transition min-h-[38px] cursor-pointer"
+                      className="px-3 py-2 bg-mountain-950 border border-mountain-800 rounded-xl text-[10px] font-black uppercase text-mountain-100 hover:bg-mountain-800 flex items-center gap-1 transition min-h-[38px] cursor-pointer"
                     >
                       <Eye className="w-3.5 h-3.5 text-orange-500" /> View Receipt
                     </button>
 
-                    {booking.status === 'Pending' && (
-                      <div className="flex gap-2 shrink-0">
+                    <div className="flex gap-2 shrink-0">
+                      {booking.status !== 'Rejected' && (
                         <button 
                           onClick={() => handleReject(booking.id || booking._id)}
-                          className="px-3.5 py-2 bg-red-650/10 hover:bg-red-600 text-red-400 hover:text-white border border-red-500/20 rounded-xl text-[10px] font-black uppercase flex items-center gap-1 transition min-h-[38px] cursor-pointer"
-                          title="Reject Receipt"
+                          className="px-3.5 py-2 bg-red-500/10 hover:bg-red-500 text-red-600 hover:text-white border border-red-500/20 rounded-xl text-[10px] font-black uppercase flex items-center gap-1 transition min-h-[38px] cursor-pointer"
+                          title="Reject booking"
                         >
                           ✕ Reject
                         </button>
+                      )}
+                      {booking.status !== 'Approved' && (
                         <button 
                           onClick={() => handleApprove(booking.id || booking._id)}
-                          className="px-3.5 py-2 bg-green-650/10 hover:bg-green-600 text-green-400 hover:text-white border border-green-500/20 rounded-xl text-[10px] font-black uppercase flex items-center gap-1 transition min-h-[38px] cursor-pointer glow-forest"
-                          title="Approve seat"
+                          className="px-3.5 py-2 bg-green-500/10 hover:bg-green-500 text-green-600 hover:text-white border border-green-500/20 rounded-xl text-[10px] font-black uppercase flex items-center gap-1 transition min-h-[38px] cursor-pointer"
+                          title="Approve booking"
                         >
                           ✓ Approve
                         </button>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}
 
               {bookings.length === 0 && (
-                <div className="text-center py-10 border border-white/5 rounded-2xl glass-card text-mountain-500 font-black text-xs uppercase">
+                <div className="text-center py-10 border border-mountain-800 rounded-2xl glass-card text-mountain-500 font-black text-xs uppercase">
                   No bookings found
                 </div>
               )}
             </div>
 
             {/* DESKTOP TABLE VIEW (Visible on >=768px, traditional spreadsheet layout) */}
-            <div className="hidden md:block glass-card rounded-3xl border border-white/5 overflow-hidden">
+            <div className="hidden md:block glass-card rounded-3xl border border-mountain-800 overflow-hidden shadow-sm">
               <div className="overflow-x-auto w-full">
                 <table className="w-full text-left font-sans border-collapse">
                   <thead>
-                    <tr className="bg-mountain-900 border-b border-white/5 text-[9px] font-black uppercase tracking-wider text-mountain-500">
+                    <tr className="bg-mountain-950 border-b border-mountain-800 text-[9px] font-black uppercase tracking-wider text-mountain-500">
                       <th className="p-4 pl-6">Participant</th>
                       <th className="p-4">Contact</th>
                       <th className="p-4">Trek Expedition</th>
@@ -598,25 +600,25 @@ export default function AdminDashboard() {
                       <th className="p-4 pr-6 text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="text-xs text-mountain-300 font-semibold divide-y divide-white/5">
+                  <tbody className="text-xs text-mountain-450 font-semibold divide-y divide-mountain-800">
                     {bookings.map((booking) => (
-                      <tr key={booking.id || booking._id} className="hover:bg-white/[0.02] transition">
+                      <tr key={booking.id || booking._id} className="hover:bg-mountain-950/40 transition">
                         <td className="p-4 pl-6">
-                          <div className="text-sm font-bold text-white">{booking.name}</div>
+                           <div className="text-sm font-bold text-mountain-100">{booking.name}</div>
                           <div className="text-[10px] text-mountain-500 mt-0.5">Age: {booking.age} | {booking.gender}</div>
                         </td>
-                        <td className="p-4">
+                        <td className="p-4 text-mountain-100">
                           <div>{booking.phone}</div>
                           <div className="text-[10px] text-mountain-500 mt-0.5">{booking.email}</div>
                         </td>
-                        <td className="p-4 font-bold text-white max-w-[200px] truncate">
-                          <div className="text-sm font-bold text-white">{booking.selectedTrek}</div>
+                        <td className="p-4 font-bold text-mountain-100 max-w-[200px] truncate">
+                          <div className="text-sm font-bold text-mountain-100">{booking.selectedTrek}</div>
                           <div className="text-[10px] text-mountain-500 font-semibold mt-0.5">{booking.trekDate || 'Every Sat-Sun'}</div>
                         </td>
                         <td className="p-4">
                           <button 
                             onClick={() => setSelectedScreenshot(booking.paymentScreenshot)}
-                            className="px-3 py-1.5 rounded-lg bg-mountain-900 hover:bg-mountain-850 border border-white/10 text-mountain-300 flex items-center gap-1.5 transition cursor-pointer"
+                            className="px-3 py-1.5 rounded-lg bg-mountain-950 hover:bg-mountain-800 border border-mountain-800 text-mountain-100 flex items-center gap-1.5 transition cursor-pointer"
                           >
                             <Eye className="w-3.5 h-3.5 text-orange-500" /> View Receipt
                           </button>
@@ -624,32 +626,32 @@ export default function AdminDashboard() {
                         <td className="p-4">
                           <span className={`px-2.5 py-0.5 rounded-full border text-[9px] font-black uppercase tracking-wider ${
                             booking.status === 'Approved' 
-                              ? 'bg-green-500/10 text-green-400 border-green-500/20' 
+                              ? 'bg-green-500/10 text-green-650 border-green-500/20' 
                               : booking.status === 'Rejected'
-                              ? 'bg-red-500/10 text-red-400 border-red-500/20'
-                              : 'bg-orange-500/10 text-orange-400 border-orange-500/20'
+                              ? 'bg-red-500/10 text-red-650 border-red-500/20'
+                              : 'bg-orange-500/10 text-orange-650 border-orange-500/20'
                           }`}>
                             {booking.status}
                           </span>
                         </td>
                         <td className="p-4 pr-6 text-right space-x-2 whitespace-nowrap">
-                          {booking.status === 'Pending' && (
-                            <>
-                              <button 
-                                onClick={() => handleApprove(booking.id || booking._id)}
-                                className="p-2 rounded-lg bg-green-500/10 hover:bg-green-500 text-green-400 hover:text-white border border-green-500/20 transition cursor-pointer"
-                                title="Approve"
-                              >
-                                <Check className="w-4 h-4" />
-                              </button>
-                              <button 
-                                onClick={() => handleReject(booking.id || booking._id)}
-                                className="p-2 rounded-lg bg-red-500/10 hover:bg-red-500 text-red-400 hover:text-white border border-red-500/20 transition cursor-pointer"
-                                title="Reject"
-                              >
-                                <X className="w-4 h-4" />
-                              </button>
-                            </>
+                          {booking.status !== 'Approved' && (
+                            <button 
+                              onClick={() => handleApprove(booking.id || booking._id)}
+                              className="p-2 rounded-lg bg-green-500/10 hover:bg-green-500 text-green-600 hover:text-white border border-green-500/20 transition cursor-pointer"
+                              title="Approve"
+                            >
+                              <Check className="w-4 h-4" />
+                            </button>
+                          )}
+                          {booking.status !== 'Rejected' && (
+                            <button 
+                              onClick={() => handleReject(booking.id || booking._id)}
+                              className="p-2 rounded-lg bg-red-500/10 hover:bg-red-500 text-red-600 hover:text-white border border-red-500/20 transition cursor-pointer"
+                              title="Reject"
+                            >
+                              <X className="w-4 h-4" />
+                            </button>
                           )}
                         </td>
                       </tr>
@@ -689,8 +691,8 @@ export default function AdminDashboard() {
 
             {/* Trek Creator Form (Optimized for Mobile viewports) */}
             {showTrekForm && (
-              <form onSubmit={handleTrekFormSubmit} className="p-5 glass-card border border-orange-500/20 rounded-2xl space-y-4 text-xs font-black uppercase tracking-wider text-mountain-400">
-                <h4 className="font-display font-bold text-sm text-white uppercase tracking-wider border-b border-white/5 pb-2">
+              <form onSubmit={handleTrekFormSubmit} className="p-5 glass-card border border-mountain-800 rounded-2xl space-y-4 text-xs font-black uppercase tracking-wider text-mountain-400">
+                <h4 className="font-display font-bold text-sm text-mountain-100 uppercase tracking-wider border-b border-mountain-800 pb-2">
                   {editingTrek ? 'Edit Expedition Details' : 'Design Trek Expedition'}
                 </h4>
 
@@ -702,7 +704,7 @@ export default function AdminDashboard() {
                       value={trekFormData.name}
                       onChange={e => setTrekFormData(prev => ({ ...prev, name: e.target.value }))}
                       placeholder="e.g. Skandagiri Sunrise Trek"
-                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white"
+                      className="w-full bg-mountain-950 border border-mountain-800 rounded-xl p-3 text-xs text-mountain-100 font-bold"
                       required
                     />
                   </div>
@@ -713,7 +715,7 @@ export default function AdminDashboard() {
                       value={trekFormData.tagline}
                       onChange={e => setTrekFormData(prev => ({ ...prev, tagline: e.target.value }))}
                       placeholder="e.g. Walk above the clouds at dawn"
-                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white"
+                      className="w-full bg-mountain-950 border border-mountain-800 rounded-xl p-3 text-xs text-mountain-100 font-bold"
                       required
                     />
                   </div>
@@ -725,7 +727,7 @@ export default function AdminDashboard() {
                     <select 
                       value={trekFormData.difficulty}
                       onChange={e => setTrekFormData(prev => ({ ...prev, difficulty: e.target.value }))}
-                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white cursor-pointer font-bold"
+                      className="w-full bg-mountain-950 border border-mountain-800 rounded-xl p-3 text-xs text-mountain-100 cursor-pointer font-bold focus:outline-none"
                     >
                       <option value="Easy">Easy</option>
                       <option value="Moderate">Moderate</option>
@@ -738,7 +740,7 @@ export default function AdminDashboard() {
                       type="number" 
                       value={trekFormData.difficultyLevel}
                       onChange={e => setTrekFormData(prev => ({ ...prev, difficultyLevel: e.target.value }))}
-                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white"
+                      className="w-full bg-mountain-950 border border-mountain-800 rounded-xl p-3 text-xs text-mountain-100 font-bold"
                       required
                     />
                   </div>
@@ -749,7 +751,7 @@ export default function AdminDashboard() {
                       value={trekFormData.price}
                       onChange={e => setTrekFormData(prev => ({ ...prev, price: e.target.value }))}
                       placeholder="e.g. 1499"
-                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white"
+                      className="w-full bg-mountain-950 border border-mountain-800 rounded-xl p-3 text-xs text-mountain-100 font-bold"
                       required
                     />
                   </div>
@@ -760,7 +762,7 @@ export default function AdminDashboard() {
                       value={trekFormData.duration}
                       onChange={e => setTrekFormData(prev => ({ ...prev, duration: e.target.value }))}
                       placeholder="e.g. 2 Days / 1 Night"
-                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white"
+                      className="w-full bg-mountain-950 border border-mountain-800 rounded-xl p-3 text-xs text-mountain-100 font-bold"
                       required
                     />
                   </div>
@@ -774,7 +776,7 @@ export default function AdminDashboard() {
                       value={trekFormData.distance}
                       onChange={e => setTrekFormData(prev => ({ ...prev, distance: e.target.value }))}
                       placeholder="e.g. 8 km or 18 km"
-                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white"
+                      className="w-full bg-mountain-950 border border-mountain-800 rounded-xl p-3 text-xs text-mountain-100 font-bold"
                       required
                     />
                   </div>
@@ -785,7 +787,7 @@ export default function AdminDashboard() {
                       value={trekFormData.date}
                       onChange={e => setTrekFormData(prev => ({ ...prev, date: e.target.value }))}
                       placeholder="e.g. Every Sat-Sun or June 05, 2026"
-                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white"
+                      className="w-full bg-mountain-950 border border-mountain-800 rounded-xl p-3 text-xs text-mountain-100 font-bold"
                       required
                     />
                   </div>
@@ -797,10 +799,10 @@ export default function AdminDashboard() {
                         value={trekFormData.image}
                         onChange={e => setTrekFormData(prev => ({ ...prev, image: e.target.value }))}
                         placeholder="Paste image link..."
-                        className="flex-grow bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white"
+                        className="flex-grow bg-mountain-950 border border-mountain-800 rounded-xl p-3 text-xs text-mountain-100 font-bold focus:outline-none"
                         required
                       />
-                      <label className="px-3 bg-mountain-900 border border-white/10 rounded-xl cursor-pointer text-[10px] text-mountain-400 font-bold flex items-center justify-center gap-1 whitespace-nowrap hover:border-orange-500/30">
+                      <label className="px-3 bg-mountain-950 border border-mountain-800 rounded-xl cursor-pointer text-[10px] text-mountain-400 font-bold flex items-center justify-center gap-1 whitespace-nowrap hover:border-orange-500/30">
                         <Upload className="w-3.5 h-3.5 text-orange-500" />
                         <input 
                           type="file" 
@@ -814,7 +816,7 @@ export default function AdminDashboard() {
                 </div>
 
                 {trekFormData.image && (
-                  <div className="relative h-20 w-40 rounded-xl overflow-hidden border border-white/10 bg-mountain-900">
+                  <div className="relative h-20 w-40 rounded-xl overflow-hidden border border-mountain-800 bg-mountain-950">
                     <img 
                       src={trekFormData.image} 
                       alt="Banner Preview" 
@@ -838,7 +840,7 @@ export default function AdminDashboard() {
                       onChange={e => setTrekFormData(prev => ({ ...prev, highlights: e.target.value }))}
                       placeholder="High cloud sunrise&#10;Night trekking"
                       rows="3"
-                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white font-sans font-bold"
+                      className="w-full bg-mountain-950 border border-mountain-800 rounded-xl p-3 text-xs text-mountain-100 font-sans font-bold"
                     ></textarea>
                   </div>
 
@@ -849,7 +851,7 @@ export default function AdminDashboard() {
                       onChange={e => setTrekFormData(prev => ({ ...prev, pickupPoints: e.target.value }))}
                       placeholder="MG Road Metro - 9:30 PM&#10;Hebbal Flyover - 10:00 PM"
                       rows="3"
-                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white font-sans font-bold"
+                      className="w-full bg-mountain-950 border border-mountain-800 rounded-xl p-3 text-xs text-mountain-100 font-sans font-bold"
                     ></textarea>
                   </div>
                 </div>
@@ -862,7 +864,7 @@ export default function AdminDashboard() {
                       onChange={e => setTrekFormData(prev => ({ ...prev, inclusions: e.target.value }))}
                       placeholder="Transportation&#10;Forest permits"
                       rows="3"
-                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white font-sans font-bold"
+                      className="w-full bg-mountain-950 border border-mountain-800 rounded-xl p-3 text-xs text-mountain-100 font-sans font-bold"
                     ></textarea>
                   </div>
 
@@ -873,7 +875,7 @@ export default function AdminDashboard() {
                       onChange={e => setTrekFormData(prev => ({ ...prev, exclusions: e.target.value }))}
                       placeholder="Personal Expenses&#10;Extra meals"
                       rows="3"
-                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white font-sans font-bold"
+                      className="w-full bg-mountain-950 border border-mountain-800 rounded-xl p-3 text-xs text-mountain-100 font-sans font-bold"
                     ></textarea>
                   </div>
                 </div>
@@ -882,7 +884,7 @@ export default function AdminDashboard() {
                   <button 
                     type="button" 
                     onClick={() => { setShowTrekForm(false); setEditingTrek(null); }}
-                    className="flex-1 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-mountain-450 hover:text-white text-xs font-black rounded-xl cursor-pointer"
+                    className="flex-1 py-3 bg-mountain-950 hover:bg-mountain-800 border border-mountain-800 text-mountain-450 hover:text-mountain-100 text-xs font-black rounded-xl cursor-pointer"
                   >
                     Cancel
                   </button>
@@ -936,7 +938,7 @@ export default function AdminDashboard() {
             
             {/* Header and Creator trigger */}
             <div className="flex justify-between items-center">
-              <h3 className="font-display font-black text-base text-white uppercase tracking-wide">
+              <h3 className="font-display font-black text-base text-mountain-100 uppercase tracking-wide">
                 Upcoming Scheduled Events
               </h3>
               <button 
@@ -949,8 +951,8 @@ export default function AdminDashboard() {
 
             {/* Event Creator Form (Optimized for Mobile viewports) */}
             {showEventForm && (
-              <form onSubmit={handleEventFormSubmit} className="p-5 glass-card border border-orange-500/20 rounded-2xl space-y-4 text-xs font-black uppercase tracking-wider text-mountain-400">
-                <h4 className="font-display font-bold text-sm text-white uppercase tracking-wider border-b border-white/5 pb-2">
+              <form onSubmit={handleEventFormSubmit} className="p-5 glass-card border border-mountain-800 rounded-2xl space-y-4 text-xs font-black uppercase tracking-wider text-mountain-400">
+                <h4 className="font-display font-bold text-sm text-mountain-100 uppercase tracking-wider border-b border-mountain-800 pb-2">
                   {editingEvent ? 'Edit Event Details' : 'Schedule New Event'}
                 </h4>
 
@@ -962,7 +964,7 @@ export default function AdminDashboard() {
                       value={eventFormData.title}
                       onChange={e => setEventFormData(prev => ({ ...prev, title: e.target.value }))}
                       placeholder="e.g. Skandagiri Sunrise Trek"
-                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white"
+                      className="w-full bg-mountain-950 border border-mountain-800 rounded-xl p-3 text-xs text-mountain-100 font-bold"
                       required
                     />
                   </div>
@@ -972,7 +974,7 @@ export default function AdminDashboard() {
                       type="date" 
                       value={eventFormData.date}
                       onChange={e => setEventFormData(prev => ({ ...prev, date: e.target.value }))}
-                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white font-bold"
+                      className="w-full bg-mountain-950 border border-mountain-800 rounded-xl p-3 text-xs text-mountain-100 font-bold"
                       required
                     />
                   </div>
@@ -986,7 +988,7 @@ export default function AdminDashboard() {
                       value={eventFormData.location}
                       onChange={e => setEventFormData(prev => ({ ...prev, location: e.target.value }))}
                       placeholder="e.g. Chikkaballapur, Karnataka"
-                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white"
+                      className="w-full bg-mountain-950 border border-mountain-800 rounded-xl p-3 text-xs text-mountain-100 font-bold"
                       required
                     />
                   </div>
@@ -995,7 +997,7 @@ export default function AdminDashboard() {
                     <select 
                       value={eventFormData.difficulty}
                       onChange={e => setEventFormData(prev => ({ ...prev, difficulty: e.target.value }))}
-                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white cursor-pointer font-bold"
+                      className="w-full bg-mountain-950 border border-mountain-800 rounded-xl p-3 text-xs text-mountain-100 cursor-pointer font-bold focus:outline-none"
                     >
                       <option value="Easy">Easy</option>
                       <option value="Moderate">Moderate</option>
@@ -1009,7 +1011,7 @@ export default function AdminDashboard() {
                       value={eventFormData.price}
                       onChange={e => setEventFormData(prev => ({ ...prev, price: e.target.value }))}
                       placeholder="e.g. 1499"
-                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white"
+                      className="w-full bg-mountain-950 border border-mountain-800 rounded-xl p-3 text-xs text-mountain-100 font-bold"
                       required
                     />
                   </div>
@@ -1023,7 +1025,7 @@ export default function AdminDashboard() {
                       value={eventFormData.slots}
                       onChange={e => setEventFormData(prev => ({ ...prev, slots: e.target.value }))}
                       placeholder="e.g. 30"
-                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white"
+                      className="w-full bg-mountain-950 border border-mountain-800 rounded-xl p-3 text-xs text-mountain-100 font-bold"
                       required
                     />
                   </div>
@@ -1032,7 +1034,7 @@ export default function AdminDashboard() {
                     <select 
                       value={eventFormData.status}
                       onChange={e => setEventFormData(prev => ({ ...prev, status: e.target.value }))}
-                      className="w-full bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white cursor-pointer font-bold"
+                      className="w-full bg-mountain-950 border border-mountain-800 rounded-xl p-3 text-xs text-mountain-100 cursor-pointer font-bold focus:outline-none"
                     >
                       <option value="draft">Draft (Hidden from users)</option>
                       <option value="published">Published (Visible to users)</option>
@@ -1046,10 +1048,10 @@ export default function AdminDashboard() {
                         value={eventFormData.image}
                         onChange={e => setEventFormData(prev => ({ ...prev, image: e.target.value }))}
                         placeholder="Paste image link..."
-                        className="flex-grow bg-mountain-900 border border-white/10 rounded-xl p-3 text-xs text-white"
+                        className="flex-grow bg-mountain-950 border border-mountain-800 rounded-xl p-3 text-xs text-mountain-100 font-bold focus:outline-none"
                         required
                       />
-                      <label className="px-3 bg-mountain-900 border border-white/10 rounded-xl cursor-pointer text-[10px] text-mountain-400 font-bold flex items-center justify-center gap-1 whitespace-nowrap hover:border-orange-500/30">
+                      <label className="px-3 bg-mountain-950 border border-mountain-800 rounded-xl cursor-pointer text-[10px] text-mountain-400 font-bold flex items-center justify-center gap-1 whitespace-nowrap hover:border-orange-500/30">
                         <Upload className="w-3.5 h-3.5 text-orange-500" />
                         <input 
                           type="file" 
@@ -1063,7 +1065,7 @@ export default function AdminDashboard() {
                 </div>
 
                 {eventFormData.image && (
-                  <div className="relative h-20 w-40 rounded-xl overflow-hidden border border-white/10 bg-mountain-900">
+                  <div className="relative h-20 w-40 rounded-xl overflow-hidden border border-mountain-800 bg-mountain-950">
                     <img 
                       src={eventFormData.image} 
                       alt="Banner Preview" 
@@ -1079,23 +1081,23 @@ export default function AdminDashboard() {
                   </div>
                 )}
 
-                <div className="grid grid-cols-2 gap-4 border-t border-white/5 pt-3">
-                  <label className="flex items-center gap-2 text-white font-bold cursor-pointer">
+                <div className="grid grid-cols-2 gap-4 border-t border-mountain-800 pt-3">
+                  <label className="flex items-center gap-2 text-mountain-100 font-bold cursor-pointer">
                     <input 
                       type="checkbox" 
                       checked={eventFormData.isFeatured}
-                      onChange={e => setEventFormData(prev => ({ ...prev, isFeatured: e.target.checked }))}
-                      className="w-4 h-4 rounded border-white/10 bg-mountain-900 text-orange-500 focus:ring-0 focus:outline-none cursor-pointer"
+                      onChange={e => setEventFormData(prev => ({ ...prev, isFeatured: e.checked }))}
+                      className="w-4 h-4 rounded border-mountain-800 bg-mountain-950 text-orange-500 focus:ring-0 focus:outline-none cursor-pointer"
                     />
                     Mark as Featured Event
                   </label>
                   
-                  <label className="flex items-center gap-2 text-white font-bold cursor-pointer">
+                  <label className="flex items-center gap-2 text-mountain-100 font-bold cursor-pointer">
                     <input 
                       type="checkbox" 
                       checked={eventFormData.registrationsEnabled}
-                      onChange={e => setEventFormData(prev => ({ ...prev, registrationsEnabled: e.target.checked }))}
-                      className="w-4 h-4 rounded border-white/10 bg-mountain-900 text-orange-500 focus:ring-0 focus:outline-none cursor-pointer"
+                      onChange={e => setEventFormData(prev => ({ ...prev, registrationsEnabled: e.checked }))}
+                      className="w-4 h-4 rounded border-mountain-800 bg-mountain-950 text-orange-500 focus:ring-0 focus:outline-none cursor-pointer"
                     />
                     Enable Booking registrations
                   </label>
@@ -1105,7 +1107,7 @@ export default function AdminDashboard() {
                   <button 
                     type="button" 
                     onClick={() => { setShowEventForm(false); setEditingEvent(null); }}
-                    className="flex-1 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-mountain-450 hover:text-white text-xs font-black rounded-xl cursor-pointer"
+                    className="flex-1 py-3 bg-mountain-950 hover:bg-mountain-800 border border-mountain-800 text-mountain-450 hover:text-mountain-100 text-xs font-black rounded-xl cursor-pointer"
                   >
                     Cancel
                   </button>
@@ -1122,45 +1124,45 @@ export default function AdminDashboard() {
             {/* Event Listing layout */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {events.map((event) => (
-                <div key={event.eventId || event._id} className="glass-card p-4 rounded-2xl border border-white/5 flex flex-col justify-between min-h-[160px] group bg-mountain-900/30">
+                <div key={event.eventId || event._id} className="glass-card p-4 rounded-2xl border border-mountain-800 flex flex-col justify-between min-h-[160px] group bg-white shadow-sm">
                   <div>
                     <div className="flex justify-between items-start">
-                      <span className="text-[8px] uppercase font-black text-orange-500 tracking-widest">{event.difficulty}</span>
+                      <span className="text-[8px] uppercase font-black text-orange-650 tracking-widest">{event.difficulty}</span>
                       <span className={`px-2 py-0.5 rounded text-[7px] font-black uppercase tracking-wider border ${
                         event.status === 'published' 
-                          ? 'bg-green-500/10 text-green-400 border-green-500/20' 
-                          : 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20'
+                          ? 'bg-green-500/10 text-green-650 border-green-550/20' 
+                          : 'bg-orange-500/10 text-orange-600 border-orange-550/20'
                       }`}>
                         {event.status}
                       </span>
                     </div>
-                    <h4 className="font-display font-bold text-sm text-white group-hover:text-orange-500 transition line-clamp-1 mt-1">{event.title}</h4>
-                    <p className="text-[10px] text-mountain-500 font-sans mt-0.5">
+                    <h4 className="font-display font-bold text-sm text-mountain-100 group-hover:text-orange-600 transition line-clamp-1 mt-1">{event.title}</h4>
+                    <p className="text-[10px] text-mountain-450 font-sans mt-0.5">
                       ₹{event.price} | {new Date(event.date).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}
                     </p>
-                    <p className="text-[10px] text-mountain-400 font-semibold mt-1">
+                    <p className="text-[10px] text-mountain-450 font-semibold mt-1">
                       Slots: {event.bookedSlots} / {event.slots} ({event.slots - event.bookedSlots} left)
                     </p>
                     <div className="flex gap-1.5 mt-2 flex-wrap">
                       {event.isFeatured && (
-                        <span className="bg-orange-500/10 text-orange-400 border border-orange-500/20 px-2 py-0.5 rounded text-[8px] font-black uppercase">Featured</span>
+                        <span className="bg-orange-550/10 text-orange-650 border border-orange-500/20 px-2 py-0.5 rounded text-[8px] font-black uppercase">Featured</span>
                       )}
                       {!event.registrationsEnabled && (
-                        <span className="bg-red-500/10 text-red-400 border border-red-500/20 px-2 py-0.5 rounded text-[8px] font-black uppercase">Bookings Closed</span>
+                        <span className="bg-red-500/10 text-red-650 border border-red-550/20 px-2 py-0.5 rounded text-[8px] font-black uppercase">Bookings Closed</span>
                       )}
                     </div>
                   </div>
 
-                  <div className="flex justify-end gap-2 border-t border-white/5 pt-3 mt-4">
+                  <div className="flex justify-end gap-2 border-t border-mountain-800 pt-3 mt-4">
                     <button 
                       onClick={() => handleEditEvent(event)}
-                      className="px-3 py-1.5 bg-mountain-900 hover:bg-mountain-850 border border-white/10 rounded-lg text-[10px] font-black text-mountain-300 cursor-pointer"
+                      className="px-3 py-1.5 bg-mountain-950 hover:bg-mountain-800 border border-mountain-800 rounded-lg text-[10px] font-black text-mountain-100 cursor-pointer"
                     >
                       Edit Info
                     </button>
                     <button 
                       onClick={() => handleDeleteEvent(event.eventId || event._id)}
-                      className="p-1.5 bg-red-500/10 hover:bg-red-500 border border-red-550/20 text-red-500 hover:text-white rounded-lg cursor-pointer transition"
+                      className="p-1.5 bg-red-550/10 hover:bg-red-500 border border-red-550/20 text-red-500 hover:text-white rounded-lg cursor-pointer transition"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -1170,7 +1172,7 @@ export default function AdminDashboard() {
             </div>
 
             {events.length === 0 && (
-              <div className="text-center py-10 border border-white/5 rounded-2xl glass-card text-mountain-500 font-black text-xs uppercase">
+              <div className="text-center py-10 border border-mountain-800 rounded-2xl glass-card text-mountain-500 font-black text-xs uppercase">
                 No events listed. Click "Create Event" to get started.
               </div>
             )}
@@ -1183,18 +1185,18 @@ export default function AdminDashboard() {
       {/* LIGHTBOX SCREENSHOT VIEWER */}
       {selectedScreenshot && (
         <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4" onClick={() => setSelectedScreenshot(null)}>
-          <div className="max-w-md w-full glass-card p-4 rounded-2xl border border-white/10 relative overflow-hidden" onClick={e => e.stopPropagation()}>
+          <div className="max-w-md w-full bg-[#0f172a]/95 p-4 rounded-2xl border border-white/10 relative overflow-hidden" onClick={e => e.stopPropagation()}>
             <div className="flex justify-between items-center mb-3">
               <span className="text-[10px] uppercase font-black tracking-widest text-orange-500">Transaction Receipt</span>
               <button 
                 onClick={() => setSelectedScreenshot(null)}
-                className="p-1 bg-mountain-900 border border-white/10 rounded-full text-white font-bold cursor-pointer text-xs"
+                className="p-1.5 bg-[#1e293b] border border-white/10 rounded-full text-white font-bold cursor-pointer text-xs"
               >
                 ✕
               </button>
             </div>
             
-            <div className="rounded-xl overflow-hidden aspect-[3/4] bg-mountain-950 border border-white/5">
+            <div className="rounded-xl overflow-hidden aspect-[3/4] bg-[#020617] border border-white/10">
               <img 
                 src={selectedScreenshot} 
                 alt="Payment Receipt Screenshot" 

@@ -23,7 +23,7 @@ import Review from './models/Review.js';
 import Event from './models/Event.js';
 
 // Mail Service
-import { sendBookingStatusEmail } from './utils/mailService.js';
+import { sendBookingStatusEmail, sendLeadNotificationEmail } from './utils/mailService.js';
 
 dotenv.config();
 
@@ -158,9 +158,18 @@ app.post('/api/bookings', async (req, res) => {
     const newBooking = new Booking({
       ...req.body,
       id: `BK-${Math.floor(1000 + Math.random() * 9000)}`,
-      status: 'Pending'
+      status: 'Approved'
     });
     await newBooking.save();
+
+    // Trigger confirmation email and lead notification email in the background
+    sendBookingStatusEmail(newBooking, newBooking.selectedTrek).catch(err => {
+      console.error('Failed to trigger background booking confirmation email:', err);
+    });
+    sendLeadNotificationEmail(newBooking, newBooking.selectedTrek).catch(err => {
+      console.error('Failed to trigger background lead notification email:', err);
+    });
+
     res.status(201).json(newBooking);
   } catch (err) {
     res.status(500).json({ error: err.message });

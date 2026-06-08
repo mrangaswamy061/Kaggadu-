@@ -21,12 +21,14 @@
 
   --color-mountain-50: #0f172a;
   --color-mountain-100: #333333;
-  --color-mountain-400: #475569;
+  --color-mountain-300: #4b5563;
   --color-mountain-450: #4b5563;
+  --color-mountain-400: #475569;
   --color-mountain-500: #64748b;
   --color-mountain-600: #94a3b8;
   --color-mountain-700: #cbd5e1;
   --color-mountain-800: #e2e8f0;
+  --color-mountain-850: #cbd5e1;
   --color-mountain-900: #ffffff;
   --color-mountain-950: #f4f4f4;
 }

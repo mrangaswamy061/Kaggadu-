@@ -28,14 +28,14 @@ export default function BookingConfirmation() {
           </div>
 
           <div className="space-y-2">
-            <span className="text-[10px] uppercase font-black tracking-[0.2em] text-forest-600">
-              Registration Successful
+            <span className="text-[10px] uppercase font-black tracking-[0.2em] text-forest-500">
+              Booking Confirmed
             </span>
             <h1 className="font-display font-black text-3xl text-mountain-100 uppercase tracking-wide">
-              TRAIL REQUEST RECEIVED!
+              TRAIL BOOKING CONFIRMED!
             </h1>
             <p className="text-xs text-mountain-400 leading-relaxed max-w-sm mx-auto">
-              Awesome! Your booking application has been recorded. Our community leads will review your uploaded transfer receipt within 2 to 4 hours.
+              Awesome! Your booking has been confirmed. A receipt and confirmation email have been sent to your registered email address.
             </p>
           </div>
 
@@ -59,26 +59,26 @@ export default function BookingConfirmation() {
                 <span className="text-mountain-100 font-bold">{booking.phone}</span>
               </div>
               <div className="flex justify-between text-mountain-500 items-center">
-                <span>Verification Status:</span>
-                <span className="px-2.5 py-0.5 rounded-full bg-orange-500/10 text-orange-600 border border-orange-500/20 font-black uppercase text-[9px] tracking-wide">
-                  Pending Verification
+                <span>Booking Status:</span>
+                <span className="px-2.5 py-0.5 rounded-full bg-green-500/10 text-green-650 border border-green-500/20 font-black uppercase text-[9px] tracking-wide">
+                  Approved & Confirmed
                 </span>
               </div>
             </div>
           )}
 
           {/* WhatsApp Helper CTA */}
-          <div className="p-4 bg-emerald-500/10 rounded-2xl border border-emerald-550/20 text-center space-y-2.5">
+          <div className="p-4 bg-emerald-500/10 rounded-2xl border border-emerald-500/20 text-center space-y-2.5">
             <p className="text-[11px] text-emerald-600 font-semibold leading-relaxed">
-              Want instant verification? WhatsApp your booking details directly to our leads for priority approval.
+              Have questions or want to join the WhatsApp group? Connect directly with our coordinators.
             </p>
             <a 
               href={whatsappUrl}
               target="_blank" 
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-550 text-white text-xs font-black uppercase tracking-wider rounded-xl transition duration-300 shadow-md"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-550 text-white text-xs font-black uppercase tracking-wider rounded-xl transition duration-300 shadow-md cursor-pointer"
             >
-              <MessageSquare className="w-4 h-4" /> Send Instant Ping
+              <MessageSquare className="w-4 h-4" /> Chat with Leads
             </a>
           </div>
 

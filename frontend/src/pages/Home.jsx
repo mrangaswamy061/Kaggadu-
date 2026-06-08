@@ -234,10 +234,10 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
             isSelected 
               ? 'bg-orange-650 text-white scale-110 shadow-lg shadow-orange-500/20' 
               : hasEvents
-              ? 'bg-forest-950/40 border border-forest-500/35 text-forest-400 hover:bg-forest-900/60'
+              ? 'bg-forest-100/50 border border-forest-500/30 text-forest-700 hover:bg-forest-500 hover:text-white'
               : isToday
-              ? 'border border-white/20 text-white font-bold'
-              : 'text-mountain-450 hover:text-white hover:bg-white/5'
+              ? 'border border-forest-500 text-forest-600 font-bold'
+              : 'text-mountain-450 hover:bg-mountain-950 hover:text-forest-500'
           }`}
         >
           <span>{day}</span>
@@ -250,7 +250,7 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
 
     return (
       <div className="space-y-4">
-        <div className="flex items-center justify-between border-b border-white/5 pb-3">
+        <div className="flex items-center justify-between border-b border-mountain-800 pb-3">
           <button 
             type="button"
             onClick={() => {
@@ -261,11 +261,11 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
                 setCurrentMonth(prev => prev - 1);
               }
             }}
-            className="p-1 px-2.5 rounded-lg border border-white/10 hover:bg-white/5 text-xs font-black uppercase text-mountain-300"
+            className="p-1 px-2.5 rounded-lg border border-mountain-800 hover:bg-mountain-950 text-xs font-black uppercase text-mountain-100"
           >
             ◀
           </button>
-          <span className="font-display font-black text-sm uppercase text-white tracking-wider">
+          <span className="font-display font-black text-sm uppercase text-mountain-100 tracking-wider">
             {monthNames[currentMonth]} {currentYear}
           </span>
           <button 
@@ -278,7 +278,7 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
                 setCurrentMonth(prev => prev + 1);
               }
             }}
-            className="p-1 px-2.5 rounded-lg border border-white/10 hover:bg-white/5 text-xs font-black uppercase text-mountain-300"
+            className="p-1 px-2.5 rounded-lg border border-mountain-800 hover:bg-mountain-950 text-xs font-black uppercase text-mountain-100"
           >
             ▶
           </button>
@@ -451,7 +451,7 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
           </h1>
 
           <p 
-            className="font-sans text-xs sm:text-sm md:text-base text-mountain-300 max-w-xl mx-auto mb-8 font-medium leading-relaxed"
+            className="font-sans text-xs sm:text-sm md:text-base text-white/85 max-w-xl mx-auto mb-8 font-medium leading-relaxed"
           >
             Conquer misty peaks, sleep under starry skies, and vibe with a crazy community of student explorers. 90%+ youth recommend us for Western Ghats adventures.
           </p>
@@ -1054,18 +1054,17 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
         </button>
       </div>
 
-      {/* 8. REVIEW SUBMISSION MODAL */}
-      {showReviewModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-mountain-950/80 backdrop-blur-md">
-          <div className="relative w-full max-w-md overflow-hidden border border-white/10 rounded-2xl bg-[#020617] p-6 shadow-2xl animate-[zoomIn_0.25s_ease-out]">
+          {showReviewModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-mountain-900/60 backdrop-blur-md">
+          <div className="relative w-full max-w-md overflow-hidden border border-mountain-800 rounded-2xl bg-white p-6 shadow-2xl animate-[zoomIn_0.25s_ease-out]">
             <button
               onClick={() => setShowReviewModal(false)}
-              className="absolute top-5 right-5 p-1.5 rounded-full border border-white/5 bg-mountain-900/60 text-mountain-400 hover:text-white transition focus:outline-none"
+              className="absolute top-5 right-5 p-1.5 rounded-full border border-mountain-800 bg-mountain-950 text-mountain-450 hover:text-mountain-100 hover:bg-mountain-800 transition focus:outline-none cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
 
-            <h3 className="font-display font-black text-xl text-white uppercase mb-1">
+            <h3 className="font-display font-black text-xl text-mountain-100 uppercase mb-1">
               Share Your <span className="text-gradient-orange">Trail Vibe</span>
             </h3>
             <p className="font-sans text-[10px] text-mountain-450 mb-4">
@@ -1081,7 +1080,7 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
                   placeholder="e.g. Darshan Gowda"
                   value={reviewForm.name}
                   onChange={(e) => setReviewForm({ ...reviewForm, name: e.target.value })}
-                  className="w-full px-3 py-2.5 bg-mountain-900 border border-white/10 rounded-xl focus:border-orange-500 focus:outline-none text-white text-xs font-semibold"
+                  className="w-full px-3 py-2.5 bg-mountain-950 border border-mountain-800 rounded-xl focus:border-orange-500 focus:outline-none text-mountain-100 text-xs font-semibold"
                 />
               </div>
 
@@ -1093,7 +1092,7 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
                   placeholder="e.g. Student / Nature Enthusiast"
                   value={reviewForm.role}
                   onChange={(e) => setReviewForm({ ...reviewForm, role: e.target.value })}
-                  className="w-full px-3 py-2.5 bg-mountain-900 border border-white/10 rounded-xl focus:border-orange-500 focus:outline-none text-white text-xs font-semibold"
+                  className="w-full px-3 py-2.5 bg-mountain-950 border border-mountain-800 rounded-xl focus:border-orange-500 focus:outline-none text-mountain-100 text-xs font-semibold"
                 />
               </div>
 
@@ -1105,7 +1104,7 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
                   placeholder="e.g. name@example.com"
                   value={reviewForm.email}
                   onChange={(e) => setReviewForm({ ...reviewForm, email: e.target.value })}
-                  className="w-full px-3 py-2.5 bg-mountain-900 border border-white/10 rounded-xl focus:border-orange-500 focus:outline-none text-white text-xs font-semibold"
+                  className="w-full px-3 py-2.5 bg-mountain-950 border border-mountain-800 rounded-xl focus:border-orange-500 focus:outline-none text-mountain-100 text-xs font-semibold"
                 />
               </div>
 
@@ -1117,7 +1116,7 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
                       key={star}
                       type="button"
                       onClick={() => setReviewForm({ ...reviewForm, rating: star })}
-                      className="p-0.5 hover:scale-120 transition"
+                      className="p-0.5 hover:scale-120 transition cursor-pointer"
                     >
                       <Star
                         className={`w-6 h-6 ${
@@ -1139,7 +1138,7 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
                   placeholder="How was the trail, homestay, food, and coordinator vibe?"
                   value={reviewForm.text}
                   onChange={(e) => setReviewForm({ ...reviewForm, text: e.target.value })}
-                  className="w-full px-3 py-2.5 bg-mountain-900 border border-white/10 rounded-xl focus:border-orange-500 focus:outline-none text-white text-xs font-semibold resize-none"
+                  className="w-full px-3 py-2.5 bg-mountain-950 border border-mountain-800 rounded-xl focus:border-orange-500 focus:outline-none text-mountain-100 text-xs font-semibold resize-none"
                 ></textarea>
               </div>
 
@@ -1147,7 +1146,7 @@ Please share itinerary, cost, pickup points, and availability. Thank you!`;
                 <button
                   type="button"
                   onClick={() => setShowReviewModal(false)}
-                  className="w-1/2 py-3 border border-white/10 text-white font-bold rounded-xl active:scale-95 transition"
+                  className="w-1/2 py-3 border border-mountain-800 text-mountain-100 hover:bg-mountain-950 font-bold rounded-xl active:scale-95 transition cursor-pointer"
                 >
                   Cancel
                 </button>

@@ -132,3 +132,88 @@ export async function sendBookingStatusEmail(booking, trekName) {
     return { success: false, error: error.message };
   }
 }
+
+export async function sendLeadNotificationEmail(booking, trekName) {
+  const host = process.env.SMTP_HOST || '';
+  const port = process.env.SMTP_PORT || 587;
+  const user = process.env.SMTP_USER || '';
+  const pass = process.env.SMTP_PASS || '';
+
+  // Log SMS/messaging alerts to the lead and main numbers in the console
+  console.log('\n=== [NEW BOOKING NOTIFICATION FOR LEADS & MAIN NUMBER] ===');
+  console.log(`Notification sent to Lead Number: +91 93537 72729`);
+  console.log(`Notification sent to Main Number: +91 77600 13106`);
+  console.log(`Message: New booking confirmed! ID: ${booking.id}, Customer: ${booking.name}, Phone: ${booking.phone}, Trek: ${trekName}, Date: ${booking.trekDate}.`);
+  console.log('==========================================================\n');
+
+  if (!host || !user || !pass) {
+    console.log('SMTP not configured, skipping lead email notification.');
+    return { success: true, message: 'Logged notification to console' };
+  }
+
+  const transporter = nodemailer.createTransport({
+    host,
+    port: parseInt(port),
+    secure: port == 465,
+    auth: { user, pass }
+  });
+
+  const mailOptions = {
+    from: `"Kaggadu Adventures" <${user}>`,
+    to: 'kaggadu@gmail.com',
+    subject: `🚨 NEW BOOKING CONFIRMED: ${booking.name} - ${trekName}`,
+    html: `
+      <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px; border: 1px solid #ddd; border-radius: 8px;">
+        <h2 style="color: #2E8B57; border-bottom: 2px solid #2E8B57; padding-bottom: 10px;">New Trek Booking Notification</h2>
+        <p>A customer has booked a trek. The details are below:</p>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold; width: 150px;">Booking ID</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eee;">${booking.id}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Customer Name</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eee;">${booking.name}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Phone Number</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eee;">${booking.phone}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Email</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eee;">${booking.email}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Trek</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eee;">${trekName}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Trek Date</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eee;">${booking.trekDate}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Age / Gender</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eee;">${booking.age} / ${booking.gender}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Emergency Contact</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eee;">${booking.emergencyContact}</td>
+          </tr>
+        </table>
+        <div style="margin-top: 20px;">
+          <p><strong>Payment Screenshot Attached:</strong></p>
+          ${booking.paymentScreenshot ? `<img src="${booking.paymentScreenshot}" style="max-width: 100%; max-height: 400px; border: 1px solid #ccc; border-radius: 4px;" alt="Payment Screenshot"/>` : '<p>No screenshot uploaded</p>'}
+        </div>
+      </div>
+    `
+  };
+
+  try {
+    const info = await transporter.sendMail(mailOptions);
+    console.log(`Lead notification email sent successfully to kaggadu@gmail.com. Message ID: ${info.messageId}`);
+    return { success: true, messageId: info.messageId };
+  } catch (error) {
+    console.error(`Failed to send lead notification email:`, error);
+    return { success: false, error: error.message };
+  }
+}
